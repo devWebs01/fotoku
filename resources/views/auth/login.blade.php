@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="{{ asset('template/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ asset('template/admin/dist/css/adminlte.min.css') }}">
-        {!! htmlScriptTagJsApi() !!}
+        
     </head>
     <body class="hold-transition login-page">
         @php
@@ -35,7 +35,7 @@
                 <div class="card-body">
                     <form method="POST" id="#recaptcha-form" action="{{ route('login') }}">
                         @csrf
-                       
+
                         <div class="input-group mb-3">
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
                             @error('email')

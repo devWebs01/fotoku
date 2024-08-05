@@ -54,6 +54,7 @@ class GeneratorCommand extends Command
     /**
      * Generate class properties for model names in different usage.
      *
+     * @param  string|null  $modelName
      * @return array
      */
     public function getModelName($modelName = null)
@@ -101,16 +102,16 @@ class GeneratorCommand extends Command
     protected function getModelNamespace($modelPath)
     {
         $appNamespace = trim($this->getAppNamespace(), '\\');
-        $modelNamespace = str_replace('/', '\\', $appNamespace.'/'.ucfirst($modelPath));
+        $modelNamespace = str_replace('/', '\\', $appNamespace.'/'.$modelPath);
         $modelNamespace = trim($modelNamespace, '\\');
 
         return $modelNamespace == 'App\\' ? 'App' : $modelNamespace;
     }
 
     /**
-     * Check for Model file existance
+     * Check for Model file existence
      *
-     * @return void
+     * @return bool
      */
     public function modelExists()
     {
@@ -120,9 +121,9 @@ class GeneratorCommand extends Command
     }
 
     /**
-     * Check for default layout view file existance
+     * Check for default layout view file existence
      *
-     * @return void
+     * @return bool
      */
     public function defaultLayoutNotExists()
     {
@@ -131,6 +132,11 @@ class GeneratorCommand extends Command
         );
     }
 
+    /**
+     * Get the application namespace
+     *
+     * @return string
+     */
     protected function getAppNamespace()
     {
         return Container::getInstance()->getNamespace();
