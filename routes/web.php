@@ -20,18 +20,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[FrontController::class, 'index'])->name('index');
+Route::get('/', [FrontController::class, 'index'])->name('index');
 
-Route::get('/fotografer',[FrontController::class, 'fotografer'])->name('fotografer_depan');
+Route::get('/fotografer', [FrontController::class, 'fotografer'])->name('fotografer_depan');
 
-Route::get('/fotografer_detail/{id}',[FrontController::class, 'fotograferDetail'])->name('fotografer_detail');
+Route::get('/fotografer_detail/{id}', [FrontController::class, 'fotograferDetail'])->name('fotografer_detail');
 
-Route::post('/daftar',[FrontController::class, 'daftar'])->name('daftar');
+Route::post('/daftar', [FrontController::class, 'daftar'])->name('daftar');
 
 Auth::routes([
-    'register'  => false,
-    'reset'     => false,
-    'confirm'   => false
+    'register' => false,
+    'reset' => false,
+    'confirm' => false,
 ]);
 
 Route::middleware(['auth'])->get('/home', [DashboardController::class, 'index'])->name('home');
@@ -89,7 +89,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
      */
     Route::post('user/get', [App\Http\Controllers\Admin\UserController::class, 'get'])->name('user.get');
     Route::resource('user', App\Http\Controllers\Admin\UserController::class);
-
 
     /*
      * pelanggan Routes

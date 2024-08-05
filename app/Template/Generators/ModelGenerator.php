@@ -36,7 +36,7 @@ class ModelGenerator extends BaseGenerator
 
         $userModel = config('auth.providers.users.model');
 
-        if ('App\User' !== $userModel) {
+        if ($userModel !== 'App\User') {
             $modelFileContent = str_replace('App\User', $userModel, $modelFileContent);
         }
 

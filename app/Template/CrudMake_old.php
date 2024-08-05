@@ -2,6 +2,8 @@
 
 namespace App\Template\CrudGenerator;
 
+use App\Template\GeneratorCommand;
+
 class CrudMake extends GeneratorCommand
 {
     /**
@@ -34,8 +36,9 @@ class CrudMake extends GeneratorCommand
 
         if ($this->modelExists()) {
             $confirm = $this->confirm('Model file exists, are you sure to generate CRUD files?');
-            if (!$confirm) {
+            if (! $confirm) {
                 $this->error("{$this->modelNames['model_name']} model already exists.");
+
                 return;
             }
         }
@@ -50,6 +53,7 @@ class CrudMake extends GeneratorCommand
             $this->generateTestFiles();
 
             $this->info('Test files generated successfully!');
+
             return;
         }
 

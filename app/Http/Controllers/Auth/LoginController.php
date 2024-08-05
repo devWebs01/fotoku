@@ -61,7 +61,8 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        Alert::info('Selamat datang ' . $user->name)->toToast();
+        Alert::info('Selamat datang '.$user->name)->toToast();
+
         return to_route('admin.dashboard');
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -14,8 +13,10 @@ use Spatie\Permission\Models\Role;
 class Fotografer extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
     // use HasRoles;
     public $table = 'users';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -43,38 +44,37 @@ class Fotografer extends Authenticatable
     // ];
 
     protected $appends = [
-       'countData'
+        'countData',
     ];
 
-    public function role ()
+    public function role()
     {
-    	return $this->belongsTo(Role::class);
-    }
-   
-    public function kecamatan ()
-    {
-    	return $this->belongsTo(Kecamatan::class);
+        return $this->belongsTo(Role::class);
     }
 
-    public function produk () 
+    public function kecamatan()
+    {
+        return $this->belongsTo(Kecamatan::class);
+    }
+
+    public function produk()
     {
         return $this->hasMany(Produk::class);
     }
-    
-    public function transaksi () 
-    {
-       $produk = Produk::where('fotografer_id', $this->id)->get();
-       $transaksi=0;
-       foreach ($produk as $item) {
-            $transaksi+= $item->countData;
-       }
 
-       return $transaksi;
+    public function transaksi()
+    {
+        $produk = Produk::where('fotografer_id', $this->id)->get();
+        $transaksi = 0;
+        foreach ($produk as $item) {
+            $transaksi += $item->countData;
+        }
+
+        return $transaksi;
     }
-    
+
     public function getCountDataAttribute()
     {
-       return $this->transaksi();
+        return $this->transaksi();
     }
-
 }

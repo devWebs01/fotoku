@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,16 +15,16 @@ class Galeri extends Model
     //    'countData'
     //];
 
-    public function fotografer ()
+    public function fotografer()
     {
-    	return $this->belongsTo(User::class, 'fotografer_id', 'id');
+        return $this->belongsTo(User::class, 'fotografer_id', 'id');
     }
 
-    public function anggota () 
-    {
-        return $this->hasMany(Anggota::class);
-    }
-    
+    // public function anggota()
+    // {
+    //     return $this->hasMany(Anggota::class);
+    // }
+
     //public function getCountDataAttribute()
     //{
     //    return $this->anggota()->count();

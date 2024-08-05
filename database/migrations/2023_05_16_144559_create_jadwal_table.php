@@ -18,7 +18,7 @@ return new class extends Migration
             //
             $table->date('tgl_acara');
             $table->string('jam');
-            $table->enum('status',['Booking','Cancel','Selesai'])->default('Booking');
+            $table->enum('status', ['Booking', 'Cancel', 'Selesai'])->default('Booking');
             $table->text('link_foto')->nullable();
             $table->timestamps();
         });

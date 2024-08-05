@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,16 +15,16 @@ class Bank extends Model
     //    'countData'
     //];
 
-    public function relasi ()
+    public function relasi()
     {
-    	return $this->belongsTo(Relasi::class);
+        return $this->belongsTo(Relasi::class);
     }
 
-    public function anggota () 
+    public function anggota()
     {
         return $this->hasMany(Anggota::class);
     }
-    
+
     //public function getCountDataAttribute()
     //{
     //    return $this->anggota()->count();

@@ -24,12 +24,12 @@ return new class extends Migration
             $table->text('alamat')->nullable();
             $table->string('email')->unique();
             $table->string('password');
-            $table->enum('status',['Aktif','Non Aktif'])->default('Aktif');
+            $table->enum('status', ['Aktif', 'Non Aktif'])->default('Aktif');
             $table->date('tgl_lahir')->nullable();
             $table->text('foto_profile')->nullable();
             $table->timestamps();
 
-            // foreign key   
+            // foreign key
             $table->foreign('kecamatan_id', 'fk_users_kecamatan_0')->references('id')->on('kecamatan')->onDelete('cascade');
             $table->foreign('role_id', 'fk_users_role_1')->references('id')->on('roles')->onDelete('cascade');
         });

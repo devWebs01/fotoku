@@ -164,7 +164,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
-        Biscolab\ReCaptcha\ReCaptchaServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         /*
          * Package Service Providers...
@@ -194,10 +193,9 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'Alert'         => RealRashid\SweetAlert\Facades\Alert::class,
-        'ReCaptcha'     => Biscolab\ReCaptcha\Facades\ReCaptcha::class,
-        'Setting'       => App\Helpers\SettingHelper::class,
-        'Lang'          => Illuminate\Support\Facades\Lang::class,
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        'Setting' => App\Helpers\SettingHelper::class,
+        'Lang' => Illuminate\Support\Facades\Lang::class,
     ])->toArray(),
 
 ];

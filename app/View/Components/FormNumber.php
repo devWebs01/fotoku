@@ -11,18 +11,35 @@ class FormNumber extends Component
      *
      * @return void
      */
-    public $id, $text, $required, $value, $keterangan, $readonly, $type, $addClass, $step;
-    public function __construct($id, $text, $required="", $readonly="", $value="", $type="number", $addClass="", $keterangan=null, $step="1")
+    public $id;
+
+    public $text;
+
+    public $required;
+
+    public $value;
+
+    public $keterangan;
+
+    public $readonly;
+
+    public $type;
+
+    public $addClass;
+
+    public $step;
+
+    public function __construct($id, $text, $required = '', $readonly = '', $value = '', $type = 'number', $addClass = '', $keterangan = null, $step = '1')
     {
-        $this->id         = $id;
-        $this->text       = $text;
-        $this->required   = $required;
-        $this->value      = $value;
-        $this->type       = $type;
-        $this->addClass   = $addClass;
+        $this->id = $id;
+        $this->text = $text;
+        $this->required = $required;
+        $this->value = $value;
+        $this->type = $type;
+        $this->addClass = $addClass;
         $this->keterangan = $keterangan;
-        $this->readonly   = $readonly;
-        $this->step       = $step;
+        $this->readonly = $readonly;
+        $this->step = $step;
 
     }
 

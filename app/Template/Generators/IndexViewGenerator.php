@@ -43,7 +43,7 @@ class IndexViewGenerator extends BaseGenerator
 
         $controllerFileContent = $this->replaceStubString($stub);
 
-        if (!is_null($this->command->option('load'))) {
+        if (! is_null($this->command->option('load'))) {
             $jsonParser = new JsonParser($this->command->option('load'), $this->command->argument('name'));
             $field = $jsonParser->parse();
 
@@ -53,7 +53,7 @@ class IndexViewGenerator extends BaseGenerator
                 $replacement_table,
                 $controllerFileContent
             );
-            
+
             $replacement_script = $this->getViewScriptParser($field);
             $controllerFileContent = str_replace(
                 '{{ view_script }}',
@@ -67,7 +67,7 @@ class IndexViewGenerator extends BaseGenerator
                 $replacement_table,
                 $controllerFileContent
             );
-           
+
             $replacement_table = $this->getScriptDOMParser($field);
             $controllerFileContent = str_replace(
                 '{{ view_script_dom }}',
@@ -80,49 +80,49 @@ class IndexViewGenerator extends BaseGenerator
         return $controllerFileContent;
     }
 
-    public function  getViewTableParser($field) 
+    public function getViewTableParser($field)
     {
         $requestParse = new ViewTableParser($field);
         $arr_parse = $requestParse->parse();
-        $string_parse = "";
-        foreach($arr_parse as $index => $item) {
-            $string_parse .=$item;
+        $string_parse = '';
+        foreach ($arr_parse as $index => $item) {
+            $string_parse .= $item;
         }
 
         return $string_parse;
     }
-    
-    public function  getViewScriptParser($field) 
+
+    public function getViewScriptParser($field)
     {
         $requestParse = new ViewScriptParser($field);
         $arr_parse = $requestParse->parse();
-        $string_parse = "";
-        foreach($arr_parse as $index => $item) {
-            $string_parse .="\t\t\t".$item."\n";
+        $string_parse = '';
+        foreach ($arr_parse as $index => $item) {
+            $string_parse .= "\t\t\t".$item."\n";
         }
 
         return $string_parse;
     }
-    
-    public function  getViewInputParser($field) 
+
+    public function getViewInputParser($field)
     {
         $requestParse = new ViewInputParser($field);
         $arr_parse = $requestParse->parse();
-        $string_parse = "";
-        foreach($arr_parse as $index => $item) {
-            $string_parse .=$item."\n";
+        $string_parse = '';
+        foreach ($arr_parse as $index => $item) {
+            $string_parse .= $item."\n";
         }
 
         return $string_parse;
     }
 
-    public function  getScriptDOMParser($field) 
+    public function getScriptDOMParser($field)
     {
         $requestParse = new ViewScriptDomParser($field);
         $arr_parse = $requestParse->parse();
-        $string_parse = "";
-        foreach($arr_parse as $index => $item) {
-            $string_parse .=$item."\n";
+        $string_parse = '';
+        foreach ($arr_parse as $index => $item) {
+            $string_parse .= $item."\n";
         }
 
         return $string_parse;

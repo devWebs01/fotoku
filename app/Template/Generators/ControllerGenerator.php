@@ -2,12 +2,10 @@
 
 namespace App\Template\Generators;
 
-use App\Template\Parser\SchemaParser;
-use App\Template\Parser\RequestParser;
-use App\Template\Parser\DBParser;
-use App\Template\Parser\DatatableParser;
 use App\Template\JsonParser;
-
+use App\Template\Parser\DatatableParser;
+use App\Template\Parser\DBParser;
+use App\Template\Parser\RequestParser;
 
 /**
  * Controller Generator Class
@@ -21,7 +19,7 @@ class ControllerGenerator extends BaseGenerator
     {
         $modelName = $this->modelNames['model_name'];
         $parentControllerDirectory = '';
-        if (!is_null($this->command->option('parent'))) {
+        if (! is_null($this->command->option('parent'))) {
             $parentControllerDirectory = '/'.$this->command->option('parent');
         }
 
@@ -62,7 +60,7 @@ class ControllerGenerator extends BaseGenerator
             $controllerFileContent
         );
 
-        if (!is_null($parentName = $this->command->option('parent'))) {
+        if (! is_null($parentName = $this->command->option('parent'))) {
             $searches = [
                 "{$appNamespace}Http\Controllers",
                 "use {$this->modelNames['full_model_name']};",
@@ -80,7 +78,7 @@ class ControllerGenerator extends BaseGenerator
             );
         }
 
-        if (!is_null($this->command->option('load'))) {
+        if (! is_null($this->command->option('load'))) {
             $jsonParser = new JsonParser($this->command->option('load'), $this->command->argument('name'));
             $field = $jsonParser->parse();
 
@@ -110,41 +108,39 @@ class ControllerGenerator extends BaseGenerator
         return $controllerFileContent;
     }
 
-    public function  getRequestParser($field) 
+    public function getRequestParser($field)
     {
         $requestParse = new RequestParser($field);
         $arr_parse = $requestParse->parse();
-        $string_parse = "";
-        foreach($arr_parse as $index => $item) {
-            $string_parse .=$item."\n\t\t\t";
+        $string_parse = '';
+        foreach ($arr_parse as $index => $item) {
+            $string_parse .= $item."\n\t\t\t";
         }
 
         return $string_parse;
     }
 
-    public function getDBParser($field) 
+    public function getDBParser($field)
     {
         $dbParse = new DBParser($field);
         $arr_dbparse = $dbParse->parse();
-        $string_dbparse = "";
-        foreach($arr_dbparse as $index => $item) {
-            $string_dbparse .=$item."\n\t\t\t\t";
+        $string_dbparse = '';
+        foreach ($arr_dbparse as $index => $item) {
+            $string_dbparse .= $item."\n\t\t\t\t";
         }
 
         return $string_dbparse;
     }
 
-    public function getDatatableParser($field) 
+    public function getDatatableParser($field)
     {
         $datatableParse = new DatatableParser($field);
         $arr_datatableparse = $datatableParse->parse();
-        $string_datatableparse = "";
-        foreach($arr_datatableparse as $index => $item) {
-            $string_datatableparse .=$item."\n\t\t\t\t\t";
+        $string_datatableparse = '';
+        foreach ($arr_datatableparse as $index => $item) {
+            $string_datatableparse .= $item."\n\t\t\t\t\t";
         }
+
         return $string_datatableparse;
     }
-    
-
-    
 }

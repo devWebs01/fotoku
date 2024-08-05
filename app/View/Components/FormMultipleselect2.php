@@ -3,7 +3,7 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
-use Illuminate\Support\Collection;
+
 class FormMultipleselect2 extends Component
 {
     /**
@@ -11,16 +11,29 @@ class FormMultipleselect2 extends Component
      *
      * @return void
      */
-    public $id, $text, $required, $collection, $keterangan, $array, $kolom;
-    public function __construct($id, $text, $array=[], $required="", $collection=null, $keterangan=null, $kolom)
+    public $id;
+
+    public $text;
+
+    public $required;
+
+    public $collection;
+
+    public $keterangan;
+
+    public $array;
+
+    public $kolom;
+
+    public function __construct($id, $text, $array, $required, $collection, $keterangan, $kolom)
     {
-        $this->id         = $id;
-        $this->text       = $text;
-        $this->required   = $required;
+        $this->id = $id;
+        $this->text = $text;
+        $this->required = $required;
         $this->collection = $collection === null ? collect([]) : $collection;
         $this->keterangan = $keterangan;
-        $this->array      = $array;
-        $this->kolom      = $kolom;
+        $this->array = $array;
+        $this->kolom = $kolom;
     }
 
     /**
