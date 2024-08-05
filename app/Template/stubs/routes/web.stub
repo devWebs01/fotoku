@@ -1,0 +1,6 @@
+
+/*
+ * Master Routes
+ */
+Route::post('master/get', [App\Http\Controllers\MasterController::class, 'get'])->name('master.get');
+Route::resource('master', App\Http\Controllers\MasterController::class);

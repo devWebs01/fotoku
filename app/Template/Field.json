@@ -1,0 +1,204 @@
+{
+    "nama": "field",
+    "type_available": ["text", "number", "double", "currency", "textarea", "editor", "date", "upload_file", "upload_image", "select2", "select2_option"],
+    "data" : 
+    {
+        "user": {
+            "nama" : 
+            {
+                "type" : "text" ,
+                "required" : "required"
+            },
+            "no_telp" : 
+            {
+                "type" : "number" ,
+                "required" : "required"
+            },
+            "alamat" : 
+            {
+                "type" : "textarea" ,
+                "required" : "required"
+            },
+            "email" : 
+            {
+                "type" : "text" ,
+                "required" : "required"
+            },
+            "password" : 
+            {
+                "type" : "text" ,
+                "required" : "required"
+            },
+            "status" : 
+            {
+                "type" : "select2_option" ,
+                "required" : "required"
+            },
+            "tgl_lahir" : 
+            {
+                "type" : "date" ,
+                "required" : "required"
+            },
+            "komunitas_id" : 
+            {
+                "type" : "select2"
+            },
+            "foto_profile" : 
+            {
+                "type" : "upload_image"
+            },
+            "role" : 
+            {
+                "type" : "text" ,
+                "required" : "required"
+            }
+        },
+        "bank": {
+            "no_rek" : 
+            {
+                "type" : "number" ,
+                "required" : "required"
+            },
+            "atas_nama" : 
+            {
+                "type" : "text" ,
+                "required" : "required"
+            },
+            "fotografer_id" : 
+            {
+                "type" : "select2" ,
+                "required" : "required"
+            }
+        },
+        "komunitas": {
+            "nama_komunitas" : 
+            {
+                "type" : "text" ,
+                "required" : "required"
+            },
+            "alamat" : 
+            {
+                "type" : "textarea" ,
+                "required" : "required"
+            }
+        },
+        "galeri": {
+            "name" : 
+            {
+                "type" : "text" ,
+                "required" : "required"
+            },
+            "caption" : 
+            {
+                "type" : "text" ,
+                "required" : "required"
+            },
+            "fotografer_id" : 
+            {
+                "type" : "select2" ,
+                "required" : "required"
+            }
+        },
+        "produk": {
+            "nama_produk" : 
+            {
+                "type" : "text" ,
+                "required" : "required"
+            },
+            "harga" : 
+            {
+                "type" : "currency" ,
+                "required" : "required"
+            },
+            "info" : 
+            {
+                "type" : "textarea" ,
+                "retgl_acaraquired" : "required"
+            },
+            "gambar_1" : 
+            {
+                "type" : "upload_image" ,
+                "required" : "required"
+            },
+            "gambar_2" : 
+            {
+                "type" : "upload_image" ,
+                "required" : "required"
+            }
+        },
+        "jadwal": {
+            "tgl_acara" : 
+            {
+                "type" : "date" ,
+                "required" : "required"
+            },
+            "jam" : 
+            {
+                "type" : "date" ,
+                "required" : "required"
+            },
+            "status" : 
+            {
+                "type" : "select2_option" ,
+                "required" : "required"
+            },
+            "link_foto" : 
+            {
+                "type" : "text" ,
+                "required" : "required"
+            }
+        },
+        "booking": {
+            "pelanggan_id" : 
+            {
+                "type" : "select2" ,
+                "required" : "required"
+            },
+            "produk_id" : 
+            {
+                "type" : "select2" ,
+                "required" : "required"
+            },
+            "jadwal_id" : 
+            {
+                "type" : "select2" ,
+                "required" : "required"
+            },
+            "total_booking" : 
+            {
+                "type" : "currency" ,
+                "required" : "required"
+            },
+            "total_bayar" : 
+            {
+                "type" : "currency" ,
+                "required" : "required"
+            },
+            "bukti_booking" : 
+            {
+                "type" : "upload_image" ,
+                "required" : "required"
+            },
+            "bukti_bayar" : 
+            {
+                "type" : "upload_image" ,
+                "required" : "required"
+            },
+            "status" : 
+            {
+                "type" : "select2" ,
+                "required" : "required"
+            }
+        },
+    
+        "default": {
+            "name" : 
+            {
+                "type" : "text" ,
+                "required" : "required"
+            }
+        }
+    }
+}
+
+

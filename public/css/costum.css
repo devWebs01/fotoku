@@ -1,0 +1,6 @@
+.navbar-nav>.user-menu>.dropdown-menu {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding: 0;
+    width: 180px!important;
+}

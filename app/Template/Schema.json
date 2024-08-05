@@ -1,0 +1,18 @@
+{
+    "nama": "schema",
+    "data" : {
+        "post": {
+            "name"   : "string:50|index:50",
+            "state"  : "enum:active,inactive|default:active",
+            "text"   : "text",
+            "slug"   : "string:50|unique",
+            "active" : "boolean|default:false",
+            "user_id": "foreign|nullable|constrained|onDelete"
+        },
+        
+        "default": {
+            "name"       : "string",
+            "category_id": "foreign|constrained"
+        }
+    }
+}

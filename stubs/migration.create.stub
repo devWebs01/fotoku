@@ -1,0 +1,42 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('{{ table }}', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('table2_id');
+            //
+            $table->string('variable_string', 100);
+            $table->string('variable_string', 100)->unique();
+            $table->enum('variableEnum',['Ya','Tidak'])->default('Ya');
+            $table->text('variable_text');
+            $table->date('variable_date')->nullable();
+            $table->float('variable_float', 4, 1);
+            $table->timestamps();
+
+            // foreign key   
+            // $table->foreign('table2_id', 'fk_{{ table }}_table2_0')->references('id')->on('table2')->onDelete('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('{{ table }}');
+    }
+};

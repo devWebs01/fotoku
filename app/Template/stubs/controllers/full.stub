@@ -1,0 +1,181 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use fullMstr;
+use Illuminate\Http\Request;
+use App\Exceptions\FailException;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+use RealRashid\SweetAlert\Facades\Alert;
+use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
+
+class MasterController extends Controller
+{
+   
+    public function index(Request $request)
+    {
+        $x['title']     = 'Master';
+        $x['data']      = Master::get();
+
+        if ($request->ajax()) {
+            $query = Master::get();
+
+            $table = Datatables::of($query);
+
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate      = 'show master';
+                $editGate      = 'update master';
+                $deleteGate    = 'delete master';
+                $crudRoutePart = 'masters';
+                $nama          = $row->id;
+
+                return view('partials.datatablesActions', compact(
+                    'viewGate',
+                    'editGate',
+                    'deleteGate',
+                    'crudRoutePart',
+                    'row',
+                    'nama'
+                ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : "";
+            });
+
+            {{ field_datatable }}
+            $table->addIndexColumn();
+            $table->rawColumns(['actions', 'placeholder']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.master.index', $x);
+    }
+
+    public function create()
+    {
+        abort_if(Gate::denies('create master'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        
+        $x['title']     = 'Tambah Master';
+
+        return view('admin.master.create', $x);
+    }
+
+    public function store(Request $request)
+    {
+        abort_if(Gate::denies('store master'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $this->validate($request, [          
+            {{ field_request }}
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $master = Master::create([
+                {{ field_db }}
+            ]);
+
+            DB::commit();
+            Alert::success('Pemberitahuan', 'Data <b>' . $master->id . '</b> berhasil dibuat')->toToast()->toHtml();
+        } catch (\Throwable $th) {
+            DB::rollback();
+            Alert::error('Pemberitahuan', 'Data <b>' . $master->id . '</b> gagal dibuat : ' . $th->getMessage())->toToast()->toHtml();
+        }
+
+        return back();
+    }
+
+    public function show(Master $master)
+    {
+        abort_if(Gate::denies('read master'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $x['title']     = 'Tampil Master';
+        $x['data']      = $master;
+
+        return view('admin.master.show', $x);
+    }
+
+    public function get(Request $request)
+    {
+        abort_if(Gate::denies('read master'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        
+        try {
+            $singleMstr = Master::findOrFail($request->id);
+            return response()->json([
+                'message'   => 'Data ',
+                'data'      => $singleMstr
+            ], 200);
+        } catch (\Throwable $th) {
+            Alert::error('Pemberitahuan', 'Data gagal dibuat : ' . $th->getMessage())->toToast()->toHtml();
+            return response()->json([
+                'message'   => 'Data tidak ditemukan',
+            ],400);
+        }
+    }
+
+    public function getAll($id)
+    {
+        abort_if(Gate::denies('read master'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        
+        return response()->json([
+            'message'   => 'Data Master',
+            'data'      => $id
+        ], 200);
+    }
+
+    public function edit(Master $master)
+    {
+        abort_if(Gate::denies('edit master'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $x['title']    = 'Edit Master';
+        $x['data']      = $master;
+
+        return view('admin.master.edit', $x);
+    }
+
+    public function update(Request $request, Master $master)
+    {
+        abort_if(Gate::denies('update master'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $this->validate($request, [          
+            {{ field_request }}
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $master->update([
+                {{ field_db }}
+            ]);
+
+            DB::commit();
+            Alert::success('Pemberitahuan', 'Data <b>' . $master->id . '</b> berhasil diupdate')->toToast()->toHtml();
+        } catch (\Throwable $th) {
+            DB::rollback();
+            Alert::error('Pemberitahuan', 'Data <b>' . $master->id . '</b> gagal diupdate : ' . $th->getMessage())->toToast()->toHtml();
+        }
+
+        return redirect()->route('admin.master.show', $master);
+    }
+
+    public function destroy(Master $master)
+    {
+        abort_if(Gate::denies('delete master'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // if($jenis_permohonan->lockStatus === 1){
+        //    throw new FailException("Data sudah di lock, tidak bisa dihapus");
+        // }
+        try {
+            $master->delete();
+            Alert::success('Pemberitahuan', 'Data <b>' . $master->id . '</b> berhasil dihapus')->toToast()->toHtml();
+        } catch (\Throwable $th) {
+            Alert::error('Pemberitahuan', 'Data <b>' . $master->id . '</b> gagal dihapus : ' . $th->getMessage())->toToast()->toHtml();
+        }
+
+        return back();
+    }
+}
