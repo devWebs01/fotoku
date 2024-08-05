@@ -12,9 +12,10 @@ class Table extends Component
      * @return void
      */
     public $th;
+
     public $id;
 
-    public function __construct($th=[], $id = null)
+    public function __construct($th = [], $id = null)
     {
         $this->th = $th;
         $this->id = $id;

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,26 +15,26 @@ class Booking extends Model
     //    'countData'
     //];
 
-    public function pelanggan ()
+    public function pelanggan()
     {
-    	return $this->belongsTo(User::class, 'pelanggan_id', 'id');
-    }
-   
-    public function produk ()
-    {
-    	return $this->belongsTo(Produk::class);
-    }
-    
-    public function jadwal ()
-    {
-    	return $this->belongsTo(Jadwal::class);
+        return $this->belongsTo(User::class, 'pelanggan_id', 'id');
     }
 
-    public function anggota () 
+    public function produk()
+    {
+        return $this->belongsTo(Produk::class);
+    }
+
+    public function jadwal()
+    {
+        return $this->belongsTo(Jadwal::class);
+    }
+
+    public function anggota()
     {
         return $this->hasMany(Anggota::class);
     }
-    
+
     //public function getCountDataAttribute()
     //{
     //    return $this->anggota()->count();

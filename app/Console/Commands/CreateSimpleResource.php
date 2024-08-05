@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Template\GeneratorCommand;
-use App\Template\JsonParser;
 
 class CreateSimpleResource extends GeneratorCommand
 {
@@ -38,8 +37,9 @@ class CreateSimpleResource extends GeneratorCommand
 
         if ($this->modelExists()) {
             $confirm = $this->confirm('Model file exists, are you sure to generate CRUD files?');
-            if (!$confirm) {
+            if (! $confirm) {
                 $this->error("{$this->modelNames['model_name']} model already exists.");
+
                 return;
             }
         }

@@ -13,61 +13,66 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
-
-
 class FrontController extends Controller
 {
-    public function index(){
-        $fotografer = Fotografer::where('role_id',2)->with('kecamatan', 'produk')->take('3')->get();
+    public function index()
+    {
+        $fotografer = Fotografer::where('role_id', 2)->with('kecamatan', 'produk')->take('3')->get();
+
         return view('front', compact('fotografer'));
     }
-    
-    public function fotografer(Request $request){
-        if($request->kec && ($request->kec != 'all')){
-            $fotografer = Fotografer::where('role_id',2)->where('kecamatan_id',$request->kec)->with('kecamatan')->get();
-        }else{
-            $fotografer = Fotografer::where('role_id',2)->with('kecamatan')->get();
+
+    public function fotografer(Request $request)
+    {
+        if ($request->kec && ($request->kec != 'all')) {
+            $fotografer = Fotografer::where('role_id', 2)->where('kecamatan_id', $request->kec)->with('kecamatan')->get();
+        } else {
+            $fotografer = Fotografer::where('role_id', 2)->with('kecamatan')->get();
         }
-       
+
         $kecamatan = Kecamatan::get();
         $param = $request->kec ?? '';
+
         return view('front_fotografer', compact('fotografer', 'kecamatan', 'param'));
     }
-    
-    public function fotograferDetail($id){
-        $fotografer = Fotografer::where('id',$id)->with('kecamatan')->first();
-        $bank = Bank::where('fotografer_id',$fotografer->id)->get();
-        $produk = Produk::where('fotografer_id',$fotografer->id)->get();
-        $galeri = Galeri::where('fotografer_id',$fotografer->id)->get();
+
+    public function fotograferDetail($id)
+    {
+        $fotografer = Fotografer::where('id', $id)->with('kecamatan')->first();
+        $bank = Bank::where('fotografer_id', $fotografer->id)->get();
+        $produk = Produk::where('fotografer_id', $fotografer->id)->get();
+        $galeri = Galeri::where('fotografer_id', $fotografer->id)->get();
+
         return view('detail_fotografer', compact('fotografer', 'bank', 'produk', 'galeri'));
     }
-    
-    public function daftar(Request $request){
-        $this->validate($request, [          
-            'name'     => ['required'],
-            'role_id'  => ['required'],
-            'email'    => ['required','unique:users'],
-            'no_telp'  => ['required'],
+
+    public function daftar(Request $request)
+    {
+        $this->validate($request, [
+            'name' => ['required'],
+            'role_id' => ['required'],
+            'email' => ['required', 'unique:users'],
+            'no_telp' => ['required'],
             'password' => ['required'],
-            'alamat'   => ['required'],
+            'alamat' => ['required'],
         ]);
 
         try {
             DB::beginTransaction();
             $user = User::create([
-                'nama'     => $request->name,
-                'role_id'  => $request->role_id,
-                'email'    => $request->email,
-                'no_telp'  => $request->no_telp,
-                'alamat'   => $request->alamat,
+                'nama' => $request->name,
+                'role_id' => $request->role_id,
+                'email' => $request->email,
+                'no_telp' => $request->no_telp,
+                'alamat' => $request->alamat,
                 'password' => bcrypt($request->password),
-                'status'   => 'Aktif',
+                'status' => 'Aktif',
             ]);
             DB::commit();
 
-            $apikey= "77580890196eaf5a13b484449e4c45ec53fbe57f";
-            $tujuan= trim($request->no_telp);
-            $pesan= 'Selamat Datang, '.$request->name.' dengan email : '.$request->email.' di Aplikasi eMarketplace fotografer, Silakan lengkapi data profile anda untuk kenyamanan penggunaan aplikasi. Terima Kasih';
+            $apikey = '77580890196eaf5a13b484449e4c45ec53fbe57f';
+            $tujuan = trim($request->no_telp);
+            $pesan = 'Selamat Datang, '.$request->name.' dengan email : '.$request->email.' di Aplikasi eMarketplace fotografer, Silakan lengkapi data profile anda untuk kenyamanan penggunaan aplikasi. Terima Kasih';
 
             // $curl = curl_init();
 
@@ -87,15 +92,16 @@ class FrontController extends Controller
             // ));
 
             // $response = curl_exec($curl);
-            
-            // curl_close($curl); 
-            
-            Alert::success('Pemberitahuan', 'Data <b>' . $user->nama . '</b> berhasil dibuat')->toToast()->toHtml();
+
+            // curl_close($curl);
+
+            Alert::success('Pemberitahuan', 'Data <b>'.$user->nama.'</b> berhasil dibuat')->toToast()->toHtml();
+
             return redirect(route('login'));
         } catch (\Throwable $th) {
             DB::rollback();
-            Alert::error('Pemberitahuan', 'Data gagal dibuat : ' . $th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal dibuat : '.$th->getMessage())->toToast()->toHtml();
         }
-       
+
     }
 }

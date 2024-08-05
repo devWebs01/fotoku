@@ -11,16 +11,29 @@ class FormSelect2Option extends Component
      *
      * @return void
      */
-    public $id, $text, $required, $value, $keterangan, $array, $kolom;
-    public function __construct($id, $text, $array=[], $required="", $value="", $keterangan=null, $kolom)
+    public $id;
+
+    public $text;
+
+    public $required;
+
+    public $value;
+
+    public $keterangan;
+
+    public $array;
+
+    public $kolom;
+
+    public function __construct($id, $text, $array, $required, $value, $keterangan, $kolom)
     {
-        $this->id         = $id;
-        $this->text       = $text;
-        $this->required   = $required;
-        $this->value      = (string) $value;
+        $this->id = $id;
+        $this->text = $text;
+        $this->required = $required;
+        $this->value = (string) $value;
         $this->keterangan = $keterangan;
-        $this->array      = $array;
-        $this->kolom      = $kolom;
+        $this->array = $array;
+        $this->kolom = $kolom;
     }
 
     /**

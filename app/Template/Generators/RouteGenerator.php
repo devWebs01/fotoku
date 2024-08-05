@@ -28,7 +28,7 @@ class RouteGenerator extends BaseGenerator
 
         $webRouteFileContent = $this->replaceStubString($stub);
 
-        if (!is_null($parentName = $this->command->option('parent'))) {
+        if (! is_null($parentName = $this->command->option('parent'))) {
             $modelName = $this->modelNames['model_name'];
 
             $webRouteFileContent = str_replace(
@@ -44,18 +44,17 @@ class RouteGenerator extends BaseGenerator
     /**
      * Create php route file if not exists
      *
-     * @param  string $routeDirPath Absolute directory path
-     * @param  string $filename     File name to be created
-     *
-     * @return string               Absolute path of create route file
+     * @param  string  $routeDirPath  Absolute directory path
+     * @param  string  $filename  File name to be created
+     * @return string Absolute path of create route file
      */
     protected function makeRouteFile($routeDirPath, $filename)
     {
-        if (!$this->files->isDirectory($routeDirPath)) {
+        if (! $this->files->isDirectory($routeDirPath)) {
             $this->files->makeDirectory($routeDirPath, 0777, true, true);
         }
 
-        if (!$this->files->exists($routeDirPath.'/'.$filename)) {
+        if (! $this->files->exists($routeDirPath.'/'.$filename)) {
             $this->generateFile($routeDirPath.'/'.$filename, "<?php\n");
         }
 

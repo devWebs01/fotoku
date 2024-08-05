@@ -11,13 +11,24 @@ class FormInputRupiah extends Component
      *
      * @return void
      */
-    public $id, $text, $required, $value, $keterangan, $readonly;
-    public function __construct($id, $text, $required="", $readonly="", $value="", $keterangan=null)
+    public $id;
+
+    public $text;
+
+    public $required;
+
+    public $value;
+
+    public $keterangan;
+
+    public $readonly;
+
+    public function __construct($id, $text, $required = '', $readonly = '', $value = '', $keterangan = null)
     {
-        $this->id         = $id;
-        $this->text       = $text;
-        $this->required   = $required;
-        $this->value      = $value;
+        $this->id = $id;
+        $this->text = $text;
+        $this->required = $required;
+        $this->value = $value;
         $this->keterangan = $keterangan;
         $this->readonly = $readonly;
 

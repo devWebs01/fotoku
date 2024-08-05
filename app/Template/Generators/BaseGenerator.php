@@ -2,10 +2,10 @@
 
 namespace App\Template\Generators;
 
-use Illuminate\Container\Container;
-use Illuminate\Filesystem\Filesystem;
 use App\Template\Contracts\Generator as GeneratorContract;
 use App\Template\GeneratorCommand;
+use Illuminate\Container\Container;
+use Illuminate\Filesystem\Filesystem;
 
 /**
  * Base Generator Class
@@ -58,26 +58,26 @@ abstract class BaseGenerator implements GeneratorContract
     protected function getStubModelNames()
     {
         return $this->stubModelNames = [
-            'model_namespace'           => 'mstrNmspc',
-            'full_model_name'           => 'fullMstr',
-            'plural_model_name'         => 'Masters',
-            'model_name'                => 'Master',
-            'table_name'                => 'masters',
-            'lang_name'                 => 'master',
+            'model_namespace' => 'mstrNmspc',
+            'full_model_name' => 'fullMstr',
+            'plural_model_name' => 'Masters',
+            'model_name' => 'Master',
+            'table_name' => 'masters',
+            'lang_name' => 'master',
             'collection_model_var_name' => 'mstrCollections',
-            'single_model_var_name'     => 'singleMstr',
+            'single_model_var_name' => 'singleMstr',
         ];
     }
 
     /**
      * Make directory if the path is not exists
      *
-     * @param  string $path Absolute path of targetted directory
-     * @return string       Absolute path
+     * @param  string  $path  Absolute path of targetted directory
+     * @return string Absolute path
      */
     protected function makeDirectory($path)
     {
-        if (!$this->files->isDirectory($path)) {
+        if (! $this->files->isDirectory($path)) {
             $this->files->makeDirectory($path, 0777, true, true);
         }
 
@@ -86,9 +86,10 @@ abstract class BaseGenerator implements GeneratorContract
 
     /**
      * Generate file on filesystem
-     * @param  string $path    Absoute path of file
-     * @param  string $content Generated file content
-     * @return string          Absolute path of file
+     *
+     * @param  string  $path  Absoute path of file
+     * @param  string  $content  Generated file content
+     * @return string Absolute path of file
      */
     protected function generateFile($path, $content)
     {
@@ -100,8 +101,8 @@ abstract class BaseGenerator implements GeneratorContract
     /**
      * Replace all string of model names
      *
-     * @param  string $stub String of file or class stub with default content
-     * @return string       Replaced content
+     * @param  string  $stub  String of file or class stub with default content
+     * @return string Replaced content
      */
     protected function replaceStubString($stub)
     {
@@ -111,8 +112,8 @@ abstract class BaseGenerator implements GeneratorContract
     /**
      * Get correct stub file content
      *
-     * @param  string $stubName The stub file name
-     * @return string           The stub file content
+     * @param  string  $stubName  The stub file name
+     * @return string The stub file content
      */
     protected function getStubFileContent(string $stubName)
     {

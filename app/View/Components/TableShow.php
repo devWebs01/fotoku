@@ -12,6 +12,7 @@ class TableShow extends Component
      * @return void
      */
     public $id;
+
     public $thtd;
 
     public function __construct($id = null, $thtd = null)

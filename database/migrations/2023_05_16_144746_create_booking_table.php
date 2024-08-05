@@ -23,10 +23,10 @@ return new class extends Migration
             $table->float('total_booking', 11, 1)->nullable();
             $table->text('bukti_booking')->nullable();
             $table->text('bukti_bayar')->nullable();
-            $table->enum('status_booking',['Booking','Cancel','DP','Lunas', 'Selesai'])->default('DP');
+            $table->enum('status_booking', ['Booking', 'Cancel', 'DP', 'Lunas', 'Selesai'])->default('DP');
             $table->timestamps();
 
-            // foreign key   
+            // foreign key
             // $table->foreign('pelanggan_id', 'fk_booking_pelanggan_0')->references('id')->on('pelanggan')->onDelete('cascade');
         });
     }

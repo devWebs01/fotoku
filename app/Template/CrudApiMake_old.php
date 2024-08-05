@@ -2,6 +2,8 @@
 
 namespace App\Template\CrudGenerator;
 
+use App\Template\GeneratorCommand;
+
 class CrudApiMake extends GeneratorCommand
 {
     /**
@@ -45,6 +47,7 @@ class CrudApiMake extends GeneratorCommand
             $this->generateTestFiles();
 
             $this->info('API Test files generated successfully!');
+
             return;
         }
 

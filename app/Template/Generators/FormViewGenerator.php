@@ -45,7 +45,7 @@ class FormViewGenerator extends BaseGenerator
 
         $controllerFileContent = $this->replaceStubString($stub);
 
-        if (!is_null($this->command->option('load'))) {
+        if (! is_null($this->command->option('load'))) {
             $jsonParser = new JsonParser($this->command->option('load'), $this->command->argument('name'));
             $field = $jsonParser->parse();
 
@@ -62,31 +62,31 @@ class FormViewGenerator extends BaseGenerator
                 $replacement_table,
                 $controllerFileContent
             );
-           
+
         }
 
         return $controllerFileContent;
     }
 
-    public function  getViewInputParser($field) 
+    public function getViewInputParser($field)
     {
         $requestParse = new ViewInputParser($field);
         $arr_parse = $requestParse->parse();
-        $string_parse = "";
-        foreach($arr_parse as $index => $item) {
-            $string_parse .=$item."\n";
+        $string_parse = '';
+        foreach ($arr_parse as $index => $item) {
+            $string_parse .= $item."\n";
         }
 
         return $string_parse;
     }
 
-    public function  getViewEditParser($field) 
+    public function getViewEditParser($field)
     {
         $requestParse = new ViewEditParser($field);
         $arr_parse = $requestParse->parse();
-        $string_parse = "";
-        foreach($arr_parse as $index => $item) {
-            $string_parse .=$item."\n";
+        $string_parse = '';
+        foreach ($arr_parse as $index => $item) {
+            $string_parse .= $item."\n";
         }
 
         return $string_parse;

@@ -39,7 +39,7 @@ class ShowViewGenerator extends BaseGenerator
 
         $controllerFileContent = $this->replaceStubString($stub);
 
-        if (!is_null($this->command->option('load'))) {
+        if (! is_null($this->command->option('load'))) {
             $jsonParser = new JsonParser($this->command->option('load'), $this->command->argument('name'));
             $field = $jsonParser->parse();
 
@@ -53,14 +53,14 @@ class ShowViewGenerator extends BaseGenerator
 
         return $controllerFileContent;
     }
-    
-    public function  getViewTableParser($field) 
+
+    public function getViewTableParser($field)
     {
         $requestParse = new ViewTableShowParser($field);
         $arr_parse = $requestParse->parse();
-        $string_parse = "";
-        foreach($arr_parse as $index => $item) {
-            $string_parse .=$item;
+        $string_parse = '';
+        foreach ($arr_parse as $index => $item) {
+            $string_parse .= $item;
         }
 
         return $string_parse;

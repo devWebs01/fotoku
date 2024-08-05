@@ -20,10 +20,11 @@ class FailException extends Exception
      */
     public function render($request)
     {
-        if(\Request::ajax()){
+        if (\Request::ajax()) {
             return response()->json(['success' => false, 'messages' => $this->getMessage()], 403);
         }
         Alert::error('Pemberitahuan', $this->getMessage())->toToast()->toHtml();
+
         return back();
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,22 +12,22 @@ class Produk extends Model
     protected $guarded = [];
 
     protected $appends = [
-       'countData'
+        'countData',
     ];
 
-    public function fotografer ()
+    public function fotografer()
     {
-    	return $this->belongsTo(Fotografer::class, 'fotografer_id', 'id');
+        return $this->belongsTo(Fotografer::class, 'fotografer_id', 'id');
     }
 
-    public function booking () 
+    public function booking()
     {
         return $this->hasMany(Booking::class);
     }
-    
+
     public function getCountDataAttribute()
     {
-       return $this->booking()->count();
+        return $this->booking()->count();
     }
 
     // public function getCreatedAtAttribute($value)
