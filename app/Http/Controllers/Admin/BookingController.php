@@ -19,54 +19,52 @@ use Yajra\DataTables\Facades\DataTables;
 
 class BookingController extends Controller
 {
-   
+
     public function index(Request $request)
     {
         $x['title']     = 'Booking';
         $x['data']      = Booking::get();
-        if($request->param){
-            $x['link'] = url('admin/booking?')."param=".$request->param;
-        } else{
+        if ($request->param) {
+            $x['link'] = url('admin/booking?') . "param=" . $request->param;
+        } else {
             $x['link'] = url('admin/booking');
         }
 
         if ($request->ajax()) {
-           
+
             switch ($request->param) {
                 case !null:
                     $jadwal = Jadwal::where('tgl_acara', Carbon::createFromFormat('d/m/Y', $request->param)->format('Y-m-d'))->first();
-                    
-                    if($jadwal == null){
+
+                    if ($jadwal == null) {
                         $query = Booking::where('jadwal_id', 0)->get();
-                    }else{
-                        if(Auth::user()->role->name == 'pelanggan'){
+                    } else {
+                        if (Auth::user()->role->name == 'pelanggan') {
                             $query = Booking::where([
                                 'pelanggan_id' => Auth::user()->id,
                                 'jadwal_id' => $jadwal->id,
                             ])->get();
-                            
-                        }else if(Auth::user()->role->name == 'fotografer'){
-                            $query = Booking::where('jadwal_id', $jadwal->id)->whereHas('produk', function($q){
+                        } else if (Auth::user()->role->name == 'fotografer') {
+                            $query = Booking::where('jadwal_id', $jadwal->id)->whereHas('produk', function ($q) {
                                 $q->where('fotografer_id', Auth::user()->id);
                             })->get();
-                        }else{
+                        } else {
                             $query = Booking::where('jadwal_id', $jadwal->id)->get();
                         }
                     }
-                    
+
                     break;
-                
+
                 default:
-                    if(Auth::user()->role->name == 'pelanggan'){
+                    if (Auth::user()->role->name == 'pelanggan') {
                         $query = Booking::where([
                             'pelanggan_id' => Auth::user()->id,
                         ])->get();
-                        
-                    }else if(Auth::user()->role->name == 'fotografer'){
-                        $query = Booking::whereHas('produk', function($q){
+                    } else if (Auth::user()->role->name == 'fotografer') {
+                        $query = Booking::whereHas('produk', function ($q) {
                             $q->where('fotografer_id', Auth::user()->id);
                         })->get();
-                    }else{
+                    } else {
                         $query = Booking::get();
                     }
                     break;
@@ -83,8 +81,8 @@ class BookingController extends Controller
                 $lunasGate     = 'update booking';
                 $batalGate     = 'delete booking';
                 $crudRoutePart = 'booking';
-                $nama          = $row->pelanggan->nama.' Pada tanggal, '.Carbon::parse($row->jadwal->tgl_acara)->format('d M Y');
-                if(Auth::user()->role->name == 'pelanggan'){
+                $nama          = $row->pelanggan->nama . ' Pada tanggal, ' . Carbon::parse($row->jadwal->tgl_acara)->format('d M Y');
+                if (Auth::user()->role->name == 'pelanggan') {
                     return view('partials.datatablesActions', compact(
                         'viewGate',
                         'dpGate',
@@ -94,7 +92,7 @@ class BookingController extends Controller
                         'row',
                         'nama'
                     ));
-                }else{
+                } else {
                     return view('partials.datatablesActions', compact(
                         'viewGate',
                         'batalGate',
@@ -102,25 +100,24 @@ class BookingController extends Controller
                         'row',
                         'nama'
                     ));
-
                 }
             });
 
             $table->editColumn('pelanggan_id', function ($row) {
                 return $row->pelanggan_id ? $row->pelanggan->nama : "";
             });
-            
+
             $table->editColumn('produk_id', function ($row) {
                 return $row->produk_id ? $row->produk->nama_produk : "";
             });
-           
+
             $table->editColumn('jadwal', function ($row) {
                 return $row->jadwal_id ? Carbon::parse($row->jadwal->tgl_acara)->format('d M Y') : "";
             });
 
             $table->editColumn('total_booking', function ($row, RupiahService $rupiahService) {
                 return $row->total_booking ? $rupiahService->convertRupiah($row->total_booking)  : "";
-            });                                                                                                                                                               
+            });
             $table->editColumn('total_bayar', function ($row, RupiahService $rupiahService) {
                 return $row->total_bayar ? $rupiahService->convertRupiah($row->total_bayar) : "";
             });
@@ -128,12 +125,12 @@ class BookingController extends Controller
             $table->editColumn('jadwal_id', function ($row) {
                 return $row->jadwal_id ? $row->jadwal->tgl_acara : "";
             });
-           
+
             $table->editColumn('status_booking', function ($row) {
                 return $row->status_booking ? $row->status_booking : "";
             });
 
-					
+
             $table->addIndexColumn();
             $table->rawColumns(['actions', 'placeholder']);
 
@@ -154,7 +151,7 @@ class BookingController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [          
+        $this->validate($request, [
             'fotografer_id'   => ['required'],
             'produk_id'       => ['required'],
             'tgl_acara'       => ['required'],
@@ -198,7 +195,7 @@ class BookingController extends Controller
 
     public function get(Request $request)
     {
-        
+
         try {
             $booking = Booking::findOrFail($request->id);
             return response()->json([
@@ -209,13 +206,13 @@ class BookingController extends Controller
             Alert::error('Pemberitahuan', 'Data gagal dibuat : ' . $th->getMessage())->toToast()->toHtml();
             return response()->json([
                 'message'   => 'Data tidak ditemukan',
-            ],400);
+            ], 400);
         }
     }
 
     public function getAll($id)
     {
-        
+
         return response()->json([
             'message'   => 'Data Booking',
             'data'      => $id
@@ -233,7 +230,7 @@ class BookingController extends Controller
 
     public function updateDP(Request $request, RupiahService $rupiahService)
     {
-        $this->validate($request, [          
+        $this->validate($request, [
             'total_booking' => ['required'],
             'bukti_booking' => ['required'],
         ]);
@@ -241,10 +238,10 @@ class BookingController extends Controller
         DB::beginTransaction();
         try {
             $booking = Booking::find($request->booking_id);
-            
+
             $request_bukti = $request->file('bukti_booking');
-            $name_bukti = time().'_'.$request_bukti->getClientOriginalName();
-            $request_bukti->move(public_path('uploads'),$name_bukti);
+            $name_bukti = time() . '_' . $request_bukti->getClientOriginalName();
+            $request_bukti->move(public_path('uploads'), $name_bukti);
 
             $booking->update([
                 'status_booking' => 'DP',
@@ -261,7 +258,7 @@ class BookingController extends Controller
 
         return redirect()->route('admin.booking.show', $booking);
     }
-    
+
     public function edit(Booking $booking)
     {
         $x['title'] = 'Pelunasan Booking';
@@ -273,7 +270,8 @@ class BookingController extends Controller
 
     public function update(Request $request, Booking $booking)
     {
-        $this->validate($request, [          
+        // dd($request->all());
+        $this->validate($request, [
             'total_bayar' => ['required'],
             'bukti_bayar' => ['required'],
         ]);
@@ -284,8 +282,8 @@ class BookingController extends Controller
         try {
 
             $request_bukti = $request->file('bukti_bayar');
-            $name_bukti = time().'_'.$request_bukti->getClientOriginalName();
-            $request_bukti->move(public_path('uploads'),$name_bukti);
+            $name_bukti = time() . '_' . $request_bukti->getClientOriginalName();
+            $request_bukti->move(public_path('uploads'), $name_bukti);
 
             $booking->update([
                 'status_booking' => 'Lunas',

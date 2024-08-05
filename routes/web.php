@@ -21,8 +21,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[FrontController::class, 'index'])->name('index');
+
 Route::get('/fotografer',[FrontController::class, 'fotografer'])->name('fotografer_depan');
+
 Route::get('/fotografer_detail/{id}',[FrontController::class, 'fotograferDetail'])->name('fotografer_detail');
+
 Route::post('/daftar',[FrontController::class, 'daftar'])->name('daftar');
 
 Auth::routes([
@@ -39,7 +42,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::post('/gantiPassword', [UserController::class, 'gantiPassword'])->name('gantiPassword');
-    
+
     Route::controller(UserController::class)->group(function () {
         Route::get('user', 'index')->middleware(['permission:read user'])->name('user.index');
         Route::post('user', 'store')->middleware(['permission:create user'])->name('user.store');
@@ -72,7 +75,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
         Route::put('setting', 'update')->middleware(['permission:update setting'])->name('setting.update');
         Route::delete('setting', 'destroy')->middleware(['permission:delete setting'])->name('setting.destroy');
     });
-    
+
     Route::controller(RoleController::class)->group(function () {
         Route::get('role', 'index')->middleware(['permission:read role'])->name('role.index');
         Route::post('role', 'store')->middleware(['permission:create role'])->name('role.store');
@@ -80,20 +83,20 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
         Route::put('role', 'update')->middleware(['permission:update role'])->name('role.update');
         Route::delete('role', 'destroy')->middleware(['permission:delete role'])->name('role.destroy');
     });
-   
+
     /*
      * User Routes
      */
     Route::post('user/get', [App\Http\Controllers\Admin\UserController::class, 'get'])->name('user.get');
     Route::resource('user', App\Http\Controllers\Admin\UserController::class);
-    
-   
+
+
     /*
      * pelanggan Routes
      */
     Route::post('pelanggan/get', [App\Http\Controllers\Admin\UserController::class, 'get'])->name('pelanggan.get');
     Route::resource('pelanggan', App\Http\Controllers\Admin\UserController::class);
-    
+
     /*
      * Fotografi Routes
      */
@@ -101,32 +104,32 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::get('fotografer/getFotograferFromKecamatan/{id}', [App\Http\Controllers\Admin\FotograferController::class, 'getFotograferFromKecamatan'])->name('fotografer.getFotograferFromKecamatan');
     Route::post('fotografer/get', [App\Http\Controllers\Admin\FotograferController::class, 'get'])->name('fotografer.get');
     Route::resource('fotografer', App\Http\Controllers\Admin\FotograferController::class);
-    
+
     // /*
     //  * Bank Routes
     //  */
     Route::post('bank/get', [App\Http\Controllers\Admin\BankController::class, 'get'])->name('bank.get');
     Route::resource('bank', App\Http\Controllers\Admin\BankController::class);
-    
+
     /*
      * Komunitas Routes
      */
     Route::post('kecamatan/get', [App\Http\Controllers\Admin\KecamatanController::class, 'get'])->name('kecamatan.get');
     Route::resource('kecamatan', App\Http\Controllers\Admin\KecamatanController::class);
-    
+
     /*
      * Galeri Routes
      */
     Route::post('galeri/get', [App\Http\Controllers\Admin\GaleriController::class, 'get'])->name('galeri.get');
     Route::resource('galeri', App\Http\Controllers\Admin\GaleriController::class);
-    
+
     /*
      * Produk Routes
      */
     Route::get('produk/getProdukFromUser/{id}', [App\Http\Controllers\Admin\ProdukController::class, 'getProdukFromUser'])->name('produk.getProdukFromUser');
     Route::post('produk/get', [App\Http\Controllers\Admin\ProdukController::class, 'get'])->name('produk.get');
     Route::resource('produk', App\Http\Controllers\Admin\ProdukController::class);
-    
+
     /*
      * Jadwal Routes
      */
@@ -134,7 +137,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::get('jadwal/{jadwal}/editStatus', [App\Http\Controllers\Admin\JadwalController::class, 'editStatus'])->name('jadwal.editStatus');
     Route::post('jadwal/get', [App\Http\Controllers\Admin\JadwalController::class, 'get'])->name('jadwal.get');
     Route::resource('jadwal', App\Http\Controllers\Admin\JadwalController::class);
-    
+
     /*
      * Booking Routes
      */
