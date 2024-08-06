@@ -115,8 +115,7 @@ class JadwalController extends Controller
     //     return view('admin.jadwal.index', $x);
     // }
 
-
-    public function index(Request $request)
+   public function index(Request $request)
 {
     $title = 'Jadwal';
 
@@ -140,29 +139,25 @@ class JadwalController extends Controller
         $jadwal->deskripsi_acara = $jadwal->deskripsi_acara;
         $jadwal->status = $jadwal->status;
 
-        if ($booking) {
-            if (Auth::check() && Auth::user()->role->name == 'pelanggan') {
-                $fotograferNama = optional($booking->produk)->fotografer->nama ?? '';
-                $produkNama = optional($booking->produk)->nama_produk ?? '';
-                $statusBooking = optional($booking)->status_booking ?? '';
+        if (Auth::check() && Auth::user()->role->name == 'pelanggan') {
+            $fotograferNama = optional(optional($booking->produk)->fotografer)->nama;
+            $produkNama = optional($booking->produk)->nama_produk;
+            $statusBooking = optional($booking)->status_booking;
 
-                $jadwal->keterangan = "Fotografer: $fotograferNama<br/>Produk/Paket: $produkNama<br/>Status Booking: $statusBooking";
-            } elseif (Auth::check() && Auth::user()->role->name == 'fotografer') {
-                $pelangganNama = optional($booking->pelanggan)->nama ?? '';
-                $produkNama = optional($booking->produk)->nama_produk ?? '';
-                $statusBooking = optional($booking)->status_booking ?? '';
+            $jadwal->keterangan = "Fotografer: $fotograferNama<br/>Produk/Paket: $produkNama<br/>Status Booking: $statusBooking";
+        } elseif (Auth::check() && Auth::user()->role->name == 'fotografer') {
+            $pelangganNama = optional($booking->pelanggan)->nama;
+            $produkNama = optional($booking->produk)->nama_produk;
+            $statusBooking = optional($booking)->status_booking;
 
-                $jadwal->keterangan = "Pelanggan: $pelangganNama<br/>Produk/Paket: $produkNama<br/>Status Booking: $statusBooking";
-            } else {
-                $fotograferNama = optional($booking->produk)->fotografer->nama ?? '';
-                $pelangganNama = optional($booking->pelanggan)->nama ?? '';
-                $produkNama = optional($booking->produk)->nama_produk ?? '';
-                $statusBooking = optional($booking)->status_booking ?? '';
-
-                $jadwal->keterangan = "Fotografer: $fotograferNama<br/>Pelanggan: $pelangganNama<br/>Produk/Paket: $produkNama<br/>Status Booking: $statusBooking";
-            }
+            $jadwal->keterangan = "Pelanggan: $pelangganNama<br/>Produk/Paket: $produkNama<br/>Status Booking: $statusBooking";
         } else {
-            $jadwal->keterangan = '';
+            $fotograferNama = optional(optional($booking->produk)->fotografer)->nama;
+            $pelangganNama = optional($booking->pelanggan)->nama;
+            $produkNama = optional($booking->produk)->nama_produk;
+            $statusBooking = optional($booking)->status_booking;
+
+            $jadwal->keterangan = "Fotografer: $fotograferNama<br/>Pelanggan: $pelangganNama<br/>Produk/Paket: $produkNama<br/>Status Booking: $statusBooking";
         }
 
         return $jadwal;
@@ -170,6 +165,7 @@ class JadwalController extends Controller
 
     return view('admin.jadwal.index', compact('title', 'data'));
 }
+
 
 
     public function create()
