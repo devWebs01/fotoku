@@ -194,8 +194,10 @@ class FotograferController extends Controller
 
             if ($request->file('foto_profile')) {
                 $request_file = $request->file('foto_profile');
-                $name_file = time().'_'.$request_file->getClientOriginalName();
-                $request_file->move(public_path('uploads'), $name_file);
+                $name_file = time() . '_' . $request_file->getClientOriginalName();
+
+                // Simpan file ke storage
+                $request_file->storeAs('uploads', $name_file, 'public');
 
                 $fotografer->update([
                     'foto_profile' => $name_file,

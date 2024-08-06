@@ -91,7 +91,9 @@ class GaleriController extends Controller
         try {
             $request_file = $request->file('file');
             $name_file = time().'_'.$request_file->getClientOriginalName();
-            $request_file->move(public_path('uploads'), $name_file);
+            // $request_file->move(public_path('uploads'), $name_file);
+            $request_file->storeAs('uploads', $name_file, 'public');
+
 
             $galeri = Galeri::create([
                 'name' => $name_file,
@@ -169,7 +171,9 @@ class GaleriController extends Controller
             if ($request->file('file')) {
                 $request_file = $request->file('file');
                 $name_file = time().'_'.$request_file->getClientOriginalName();
-                $request_file->move(public_path('uploads'), $name_file);
+                // $request_file->move(public_path('uploads'), $name_file);
+                $request_file->storeAs('uploads', $name_file, 'public');
+
 
                 $galeri->update([
                     'name' => $name_file,

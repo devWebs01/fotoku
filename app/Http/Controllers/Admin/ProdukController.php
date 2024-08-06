@@ -112,11 +112,15 @@ class ProdukController extends Controller
         try {
             $request_gambar1 = $request->file('gambar_1');
             $name_gambar1 = time().'_'.$request_gambar1->getClientOriginalName();
-            $request_gambar1->move(public_path('uploads'), $name_gambar1);
+            // $request_gambar1->move(public_path('uploads'), $name_gambar1);
+            $request_gambar1->storeAs('uploads', $name_gambar1, 'public');
+
 
             $request_gambar2 = $request->file('gambar_2');
             $name_gambar2 = time().'_'.$request_gambar2->getClientOriginalName();
-            $request_gambar2->move(public_path('uploads'), $name_gambar2);
+            // $request_gambar2->move(public_path('uploads'), $name_gambar2);
+            $request_gambar2->storeAs('uploads', $name_gambar2, 'public');
+
 
             $produk = Produk::create([
                 'nama_produk' => $request->nama_produk,
@@ -198,7 +202,9 @@ class ProdukController extends Controller
             if ($request->file('gambar_1')) {
                 $request_gambar1 = $request->file('gambar_1');
                 $name_gambar1 = time().'_'.$request_gambar1->getClientOriginalName();
-                $request_gambar1->move(public_path('uploads'), $name_gambar1);
+                // $request_gambar1->move(public_path('uploads'), $name_gambar1);
+                $request_gambar1->storeAs('uploads', $name_gambar1, 'public');
+
 
                 $produk->update([
                     'gambar_1' => $name_gambar1,
@@ -208,7 +214,9 @@ class ProdukController extends Controller
             if ($request->file('gambar_2')) {
                 $request_gambar2 = $request->file('gambar_2');
                 $name_gambar2 = time().'_'.$request_gambar2->getClientOriginalName();
-                $request_gambar2->move(public_path('uploads'), $name_gambar2);
+                // $request_gambar2->move(public_path('uploads'), $name_gambar2);
+                $request_gambar2->storeAs('uploads', $name_gambar2, 'public');
+
 
                 $produk->update([
                     'gambar_2' => $name_gambar2,

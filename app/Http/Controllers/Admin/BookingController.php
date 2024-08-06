@@ -241,7 +241,9 @@ class BookingController extends Controller
 
             $request_bukti = $request->file('bukti_booking');
             $name_bukti = time().'_'.$request_bukti->getClientOriginalName();
-            $request_bukti->move(public_path('uploads'), $name_bukti);
+            // $request_bukti->move(public_path('uploads'), $name_bukti);
+            $request_bukti->storeAs('uploads', $name_bukti, 'public');
+
 
             $booking->update([
                 'status_booking' => 'DP',
@@ -283,7 +285,9 @@ class BookingController extends Controller
 
             $request_bukti = $request->file('bukti_bayar');
             $name_bukti = time().'_'.$request_bukti->getClientOriginalName();
-            $request_bukti->move(public_path('uploads'), $name_bukti);
+            // $request_bukti->move(public_path('uploads'), $name_bukti);
+            $request_bukti->storeAs('uploads', $name_bukti, 'public');
+
 
             $booking->update([
                 'status_booking' => 'Lunas',
