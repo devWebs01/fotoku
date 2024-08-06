@@ -242,6 +242,32 @@
             }
         });
 
+        // $('#fotografer_id').on('change', function(e) {
+        //     if ($(this).val() != '') {
+        //         $('#produk_id').empty().append('<option value="">[-- Pilih Select2 --]</option>');
+        //         $('.box-profile').show();
+        //         var id = e.target.value;
+        //         $.get("{{ url('admin/produk/getProdukFromUser') }}/" + id, function(response) {
+        //             $.each(response.data, function(key, data) {
+        //                 $('#produk_id').append('<option value="' + data.id + '">' + data
+        //                     .nama_produk + ' ( Rp.' + data.harga + ') </option>');
+        //             })
+        //         });
+        //         $.get("{{ url('admin/fotografer/getFotograferFromId') }}/" + id, function(response) {
+        //             let profile = response.data.foto_profile;
+        //             if (profile != null) {
+        //                 $('.img-fotografer').attr('src', 'http://localhost:8000/uploads/' + profile); // ini error tidak menampilkan gambar dari penyimpanan
+        //             } else {
+        //                 $('.img-fotografer').attr('src', 'http://localhost:8000/user-default.jpg');
+        //             }
+        //             $('.nama-fotografer').html(response.data.nama);
+        //         });
+        //     } else if ($(this).val() == '') {
+        //         $('#produk_id').val('').trigger('change');
+        //         $('#produk_id').empty().append('<option value="">[-- Pilih Select2 --]</option>');
+        //     }
+        // });
+
         $('#fotografer_id').on('change', function(e) {
             if ($(this).val() != '') {
                 $('#produk_id').empty().append('<option value="">[-- Pilih Select2 --]</option>');
@@ -256,9 +282,11 @@
                 $.get("{{ url('admin/fotografer/getFotograferFromId') }}/" + id, function(response) {
                     let profile = response.data.foto_profile;
                     if (profile != null) {
-                        $('.img-fotografer').attr('src', 'http://localhost:8000/uploads/' + profile);
+                        let profileUrl = "{{ asset('storage') }}/" + profile;
+                        $('.img-fotografer').attr('src',
+                        profileUrl); // ini akan menampilkan gambar dari penyimpanan
                     } else {
-                        $('.img-fotografer').attr('src', 'http://localhost:8000/user-default.jpg');
+                        $('.img-fotografer').attr('src', "{{ asset('user-default.jpg') }}");
                     }
                     $('.nama-fotografer').html(response.data.nama);
                 });
