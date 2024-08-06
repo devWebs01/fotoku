@@ -23,15 +23,14 @@ class BookingController extends Controller
         $x['title'] = 'Booking';
         $x['data'] = Booking::get();
         if ($request->param) {
-            $x['link'] = url('admin/booking?').'param='.$request->param;
+            $x['link'] = url('admin/booking?') . 'param=' . $request->param;
         } else {
             $x['link'] = url('admin/booking');
         }
 
         if ($request->ajax()) {
-
             switch ($request->param) {
-                case ! null:
+                case !null:
                     $jadwal = Jadwal::where('tgl_acara', Carbon::createFromFormat('d/m/Y', $request->param)->format('Y-m-d'))->first();
 
                     if ($jadwal == null) {
@@ -50,7 +49,6 @@ class BookingController extends Controller
                             $query = Booking::where('jadwal_id', $jadwal->id)->get();
                         }
                     }
-
                     break;
 
                 default:
@@ -79,7 +77,7 @@ class BookingController extends Controller
                 $lunasGate = 'update booking';
                 $batalGate = 'delete booking';
                 $crudRoutePart = 'booking';
-                $nama = $row->pelanggan->nama.' Pada tanggal, '.Carbon::parse($row->jadwal->tgl_acara)->format('d M Y');
+                $nama = isset($row->pelanggan->nama) ? $row->pelanggan->nama . ' Pada tanggal, ' . Carbon::parse($row->jadwal->tgl_acara)->format('d M Y') : 'Nama tidak tersedia';
                 if (Auth::user()->role->name == 'pelanggan') {
                     return view('partials.datatablesActions', compact(
                         'viewGate',
@@ -116,6 +114,7 @@ class BookingController extends Controller
             $table->editColumn('total_booking', function ($row, RupiahService $rupiahService) {
                 return $row->total_booking ? $rupiahService->convertRupiah($row->total_booking) : '';
             });
+
             $table->editColumn('total_bayar', function ($row, RupiahService $rupiahService) {
                 return $row->total_bayar ? $rupiahService->convertRupiah($row->total_bayar) : '';
             });
@@ -136,6 +135,7 @@ class BookingController extends Controller
 
         return view('admin.booking.index', $x);
     }
+
 
     public function create(Request $request)
     {
@@ -172,10 +172,10 @@ class BookingController extends Controller
             ]);
 
             DB::commit();
-            Alert::success('Pemberitahuan', 'Data <b>'.$booking->id.'</b> berhasil dibuat')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>' . $booking->id . '</b> berhasil dibuat')->toToast()->toHtml();
         } catch (\Throwable $th) {
             DB::rollback();
-            Alert::error('Pemberitahuan', 'Data gagal dibuat : '.$th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal dibuat : ' . $th->getMessage())->toToast()->toHtml();
 
             return back();
         }
@@ -202,7 +202,7 @@ class BookingController extends Controller
                 'data' => $booking,
             ], 200);
         } catch (\Throwable $th) {
-            Alert::error('Pemberitahuan', 'Data gagal dibuat : '.$th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal dibuat : ' . $th->getMessage())->toToast()->toHtml();
 
             return response()->json([
                 'message' => 'Data tidak ditemukan',
@@ -250,10 +250,10 @@ class BookingController extends Controller
             ]);
 
             DB::commit();
-            Alert::success('Pemberitahuan', 'Data <b>'.$booking->id.'</b> berhasil diupdate')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>' . $booking->id . '</b> berhasil diupdate')->toToast()->toHtml();
         } catch (\Throwable $th) {
             DB::rollback();
-            Alert::error('Pemberitahuan', 'Data gagal diupdate : '.$th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal diupdate : ' . $th->getMessage())->toToast()->toHtml();
         }
 
         return redirect()->route('admin.booking.show', $booking);
@@ -293,10 +293,10 @@ class BookingController extends Controller
             ]);
 
             DB::commit();
-            Alert::success('Pemberitahuan', 'Data <b>'.$booking->id.'</b> berhasil diupdate')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>' . $booking->id . '</b> berhasil diupdate')->toToast()->toHtml();
         } catch (\Throwable $th) {
             DB::rollback();
-            Alert::error('Pemberitahuan', 'Data gagal diupdate : '.$th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal diupdate : ' . $th->getMessage())->toToast()->toHtml();
         }
 
         return redirect()->route('admin.booking.show', $booking);
@@ -314,9 +314,9 @@ class BookingController extends Controller
             Jadwal::where('id', $booking->jadwal_id)->update([
                 'status' => 'Batal',
             ]);
-            Alert::success('Pemberitahuan', 'Data <b>'.$booking->id.'</b> berhasil dibatalkan')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>' . $booking->id . '</b> berhasil dibatalkan')->toToast()->toHtml();
         } catch (\Throwable $th) {
-            Alert::error('Pemberitahuan', 'Data gagal dibatalkan : '.$th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal dibatalkan : ' . $th->getMessage())->toToast()->toHtml();
         }
 
         return back();

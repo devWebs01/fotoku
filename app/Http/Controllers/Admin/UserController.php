@@ -174,7 +174,7 @@ class UserController extends Controller
 
     public function update(Request $request, User $pelanggan)
     {
-        dd($request->all());
+        // dd($request->all());
         $this->validate($request, [
             'nama' => ['string', 'required'],
             'no_telp' => ['numeric', 'required'],

@@ -235,12 +235,12 @@
                 @foreach ($fotografer as $item)
                     <div class="col-sm-6 col-md-4 col-12" style="margin-bottom: 50px;">
                         <div class="card card-primary card-outline">
-                            <div class="card-body box-profile">
+                            <div class="card-body box-profile" style="height: 600px">
                                 <div class="text-center">
                                     @if ($item->foto_profile)
                                         <img class="profile-user-img img-fluid img-circle"
-                                            src="{{ Storage::url( $item->foto_profile) }}"
-                                            alt="User profile picture">
+                                            src="{{ Storage::url($item->foto_profile) }}" alt="User profile picture"
+                                            style="object-fit: cover">
                                     @else
                                         <img class="profile-user-img img-fluid img-circle"
                                             src="{{ asset('./user-default.jpg') }}" alt="User profile picture">
@@ -304,7 +304,7 @@
                                     <div class="images_3"><img src="{{ asset('frontend/images/img-3.png') }}"></div>
                                     <div class="taital_main">
                                         <h2 class="camera_text">Prewedding Studio Indoor</h2>
-                                        <h2 class="dolar_text_2">Rp. <span style="color: #874ce0;">1.000.000</span>
+
                                         </h2>
                                     </div>
                                 </div>
@@ -339,7 +339,7 @@
                                     <div class="images_3"><img src="{{ asset('frontend/images/img-23.png') }}"></div>
                                     <div class="taital_main">
                                         <h2 class="camera_text">Aqiqah dan Birthday Party</h2>
-                                        <h2 class="dolar_text_2">Rp. <span style="color: #874ce0;">1.000.000</span>
+
                                         </h2>
                                     </div>
                                 </div>
@@ -368,10 +368,12 @@
                                         menangkap momen-momen istimewa, tawa, dan kebahagiaan. Kami akan menciptakan
                                         foto-foto yang indah dan autentik yang akan menjadi kenangan berharga sepanjang
                                         hidup.</p>
-                                    <div class="images_3"><img src="{{ asset('frontend/images/img-25.png') }}"></div>
+                                    <div class="images_3">
+                                        <img src="{{ asset('frontend/images/img-25.png') }}">
+                                    </div>
                                     <div class="taital_main">
-                                        <h2 class="camera_text">Pertunangan</h2>
-                                        <h2 class="dolar_text_2">Rp. <span style="color: #874ce0;">1.000.000</span>
+                                        <h2 class="camera_text">Engagement</h2>
+
                                         </h2>
                                     </div>
                                 </div>
