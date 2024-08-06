@@ -115,14 +115,15 @@ class JadwalController extends Controller
     //     return view('admin.jadwal.index', $x);
     // }
 
+
     public function index(Request $request)
     {
         $title = 'Jadwal';
 
-        if (Auth::user()->role->name == 'pelanggan') {
+        if (Auth::check() && Auth::user()->role->name == 'pelanggan') {
             $bookingIds = Booking::where('pelanggan_id', Auth::user()->id)->pluck('jadwal_id');
             $jadwals = Jadwal::whereIn('id', $bookingIds)->get();
-        } elseif (Auth::user()->role->name == 'fotografer') {
+        } elseif (Auth::check() && Auth::user()->role->name == 'fotografer') {
             $bookingIds = Booking::whereHas('produk', function ($query) {
                 $query->where('fotografer_id', Auth::user()->id);
             })->pluck('jadwal_id');
@@ -133,25 +134,26 @@ class JadwalController extends Controller
 
         $data = $jadwals->map(function ($jadwal) {
             $booking = Booking::where('jadwal_id', $jadwal->id)->first();
+
             $jadwal->tanggal_acara = Carbon::parse($jadwal->tgl_acara)->format('d M Y');
             $jadwal->jam = $jadwal->jam;
             $jadwal->deskripsi_acara = $jadwal->deskripsi_acara;
             $jadwal->status = $jadwal->status;
 
-            if (Auth::user()->role->name == 'pelanggan') {
-                $fotograferNama = optional($booking->produk->fotografer)->nama;
+            if (Auth::check() && Auth::user()->role->name == 'pelanggan') {
+                $fotograferNama = optional(optional($booking->produk)->fotografer)->nama;
                 $produkNama = optional($booking->produk)->nama_produk;
                 $statusBooking = optional($booking)->status_booking;
 
                 $jadwal->keterangan = "Fotografer: $fotograferNama<br/>Produk/Paket: $produkNama<br/>Status Booking: $statusBooking";
-            } elseif (Auth::user()->role->name == 'fotografer') {
+            } elseif (Auth::check() && Auth::user()->role->name == 'fotografer') {
                 $pelangganNama = optional($booking->pelanggan)->nama;
                 $produkNama = optional($booking->produk)->nama_produk;
                 $statusBooking = optional($booking)->status_booking;
 
                 $jadwal->keterangan = "Pelanggan: $pelangganNama<br/>Produk/Paket: $produkNama<br/>Status Booking: $statusBooking";
             } else {
-                $fotograferNama = optional($booking->produk->fotografer)->nama;
+                $fotograferNama = optional(optional($booking->produk)->fotografer)->nama;
                 $pelangganNama = optional($booking->pelanggan)->nama;
                 $produkNama = optional($booking->produk)->nama_produk;
                 $statusBooking = optional($booking)->status_booking;
@@ -164,6 +166,7 @@ class JadwalController extends Controller
 
         return view('admin.jadwal.index', compact('title', 'data'));
     }
+
 
 
     public function create()
@@ -194,10 +197,10 @@ class JadwalController extends Controller
             ]);
 
             DB::commit();
-            Alert::success('Pemberitahuan', 'Data <b>'.$jadwal->id.'</b> berhasil dibuat')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>' . $jadwal->id . '</b> berhasil dibuat')->toToast()->toHtml();
         } catch (\Throwable $th) {
             DB::rollback();
-            Alert::error('Pemberitahuan', 'Data <b>'.$jadwal->id.'</b> gagal dibuat : '.$th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data <b>' . $jadwal->id . '</b> gagal dibuat : ' . $th->getMessage())->toToast()->toHtml();
         }
 
         return back();
@@ -221,7 +224,7 @@ class JadwalController extends Controller
                 'data' => $jadwal,
             ], 200);
         } catch (\Throwable $th) {
-            Alert::error('Pemberitahuan', 'Data gagal dibuat : '.$th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal dibuat : ' . $th->getMessage())->toToast()->toHtml();
 
             return response()->json([
                 'message' => 'Data tidak ditemukan',
@@ -261,10 +264,10 @@ class JadwalController extends Controller
             ]);
 
             DB::commit();
-            Alert::success('Pemberitahuan', 'Data <b>'.$jadwal->id.'</b> berhasil diupdate')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>' . $jadwal->id . '</b> berhasil diupdate')->toToast()->toHtml();
         } catch (\Throwable $th) {
             DB::rollback();
-            Alert::error('Pemberitahuan', 'Data gagal diupdate : '.$th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal diupdate : ' . $th->getMessage())->toToast()->toHtml();
         }
 
         return redirect()->route('admin.jadwal.index');
@@ -293,10 +296,10 @@ class JadwalController extends Controller
             ]);
 
             DB::commit();
-            Alert::success('Pemberitahuan', 'Data <b>'.$jadwal->id.'</b> berhasil diupdate')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>' . $jadwal->id . '</b> berhasil diupdate')->toToast()->toHtml();
         } catch (\Throwable $th) {
             DB::rollback();
-            Alert::error('Pemberitahuan', 'Data gagal diupdate : '.$th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal diupdate : ' . $th->getMessage())->toToast()->toHtml();
         }
 
         return redirect()->route('admin.jadwal.index');
@@ -310,9 +313,9 @@ class JadwalController extends Controller
             $jadwal->update([
                 'status' => 'Cancel',
             ]);
-            Alert::success('Pemberitahuan', 'Data <b>'.$jadwal->id.'</b> berhasil dibatalkan')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>' . $jadwal->id . '</b> berhasil dibatalkan')->toToast()->toHtml();
         } catch (\Throwable $th) {
-            Alert::error('Pemberitahuan', 'Data <b>'.$jadwal->id.'</b> gagal dibatalkan : '.$th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data <b>' . $jadwal->id . '</b> gagal dibatalkan : ' . $th->getMessage())->toToast()->toHtml();
         }
 
         return back();
