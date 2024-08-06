@@ -139,7 +139,8 @@
 							<div class="small-box bg-success" style="padding: 10px;">
 								<div class="inner" style="display: flex; gap: 20px;">
 									<div class="content">
-										<h3>Rp. {{ $item->harga }}</h3>
+                                        <h3>Rp. {{ number_format($item->harga, 0, ',', '.') }}</h3>
+
 										<p>Info:</p>
 										<p>{{ $item->info }}</p>
 									</div>
