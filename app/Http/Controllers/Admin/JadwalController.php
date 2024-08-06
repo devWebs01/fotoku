@@ -308,7 +308,7 @@ class JadwalController extends Controller
         // }
         try {
             $jadwal->update([
-                'status' => 'Batal',
+                'status' => 'Cancel',
             ]);
             Alert::success('Pemberitahuan', 'Data <b>'.$jadwal->id.'</b> berhasil dibatalkan')->toToast()->toHtml();
         } catch (\Throwable $th) {
