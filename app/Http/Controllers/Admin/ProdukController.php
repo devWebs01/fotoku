@@ -113,13 +113,12 @@ class ProdukController extends Controller
         try {
 
             $file1 = $request->file('gambar_1');
-            $fileName1 = time() . '_' . $file1->getClientOriginalName();
+            $fileName1 = time().'_'.$file1->getClientOriginalName();
             $filePath1 = $file1->storeAs('product', $fileName1, 'public');
 
             $file2 = $request->file('gambar_2');
-            $fileName2 = time() . '_' . $file2->getClientOriginalName();
+            $fileName2 = time().'_'.$file2->getClientOriginalName();
             $filePath2 = $file2->storeAs('product', $fileName2, 'public');
-
 
             $produk = Produk::create([
                 'nama_produk' => $request->nama_produk,
@@ -198,14 +197,10 @@ class ProdukController extends Controller
         DB::beginTransaction();
         try {
 
-
-
             if ($request->hasFile('gambar_1')) {
                 $file1 = $request->file('gambar_1');
-                $fileName1 = time() . '_' . $file1->getClientOriginalName();
+                $fileName1 = time().'_'.$file1->getClientOriginalName();
                 $filePath1 = $file1->storeAs('product', $fileName1, 'public');
-
-
 
                 $produk->update([
                     'gambar_1' => $filePath1,
@@ -214,9 +209,8 @@ class ProdukController extends Controller
 
             if ($request->hasFile('gambar_2')) {
                 $file2 = $request->file('gambar_2');
-                $fileName2 = time() . '_' . $file2->getClientOriginalName();
+                $fileName2 = time().'_'.$file2->getClientOriginalName();
                 $filePath2 = $file2->storeAs('product', $fileName2, 'public');
-
 
                 $produk->update([
                     'gambar_2' => $filePath2,

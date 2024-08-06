@@ -118,10 +118,10 @@ class UserController extends Controller
             ]);
 
             DB::commit();
-            Alert::success('Pemberitahuan', 'Data <b>' . $user->id . '</b> berhasil dibuat')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>'.$user->id.'</b> berhasil dibuat')->toToast()->toHtml();
         } catch (\Throwable $th) {
             DB::rollback();
-            Alert::error('Pemberitahuan', 'Data <b>' . $user->id . '</b> gagal dibuat : ' . $th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data <b>'.$user->id.'</b> gagal dibuat : '.$th->getMessage())->toToast()->toHtml();
         }
 
         return back();
@@ -147,7 +147,7 @@ class UserController extends Controller
                 'data' => $user,
             ], 200);
         } catch (\Throwable $th) {
-            Alert::error('Pemberitahuan', 'Data gagal dibuat : ' . $th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal dibuat : '.$th->getMessage())->toToast()->toHtml();
 
             return response()->json([
                 'message' => 'Data tidak ditemukan',
@@ -188,7 +188,7 @@ class UserController extends Controller
         try {
             if ($request->hasFile('foto_profile')) {
                 $file = $request->file('foto_profile');
-                $fileName = time() . '_' . $file->getClientOriginalName();
+                $fileName = time().'_'.$file->getClientOriginalName();
                 $filePath = $file->storeAs('profile', $fileName, 'public');
 
                 $pelanggan->update([
@@ -205,10 +205,10 @@ class UserController extends Controller
             ]);
 
             DB::commit();
-            Alert::success('Pemberitahuan', 'Data <b>' . $pelanggan->id . '</b> berhasil diupdate')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>'.$pelanggan->id.'</b> berhasil diupdate')->toToast()->toHtml();
         } catch (\Throwable $th) {
             DB::rollback();
-            Alert::error('Pemberitahuan', 'Data gagal diupdate : ' . $th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal diupdate : '.$th->getMessage())->toToast()->toHtml();
         }
 
         return redirect()->route('home');
@@ -221,9 +221,9 @@ class UserController extends Controller
         // }
         try {
             $pelanggan->delete();
-            Alert::success('Pemberitahuan', 'Data <b>' . $pelanggan->nama . '</b> berhasil dihapus')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>'.$pelanggan->nama.'</b> berhasil dihapus')->toToast()->toHtml();
         } catch (\Throwable $th) {
-            Alert::error('Pemberitahuan', 'Data gagal dihapus : ' . $th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal dihapus : '.$th->getMessage())->toToast()->toHtml();
         }
 
         return back();
@@ -242,7 +242,7 @@ class UserController extends Controller
             $currentPassword = $request->input('oldPassword');
             $newPassword = $request->input('newPassword');
 
-            if (!Hash::check($currentPassword, $user->password)) {
+            if (! Hash::check($currentPassword, $user->password)) {
                 return response()->json([
                     'message' => 'Password Lama Tidak Benar',
                 ], 401);
@@ -259,7 +259,7 @@ class UserController extends Controller
             ], 200);
         } catch (\Throwable $th) {
             DB::rollback();
-            Alert::error('Pemberitahuan', 'Password Gagal Diupdate : ' . $th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Password Gagal Diupdate : '.$th->getMessage())->toToast()->toHtml();
 
             return response()->json([
                 'message' => 'Password Gagal Diupdate',

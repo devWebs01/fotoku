@@ -15,15 +15,15 @@ class Bank extends Model
     //    'countData'
     //];
 
-    public function relasi()
-    {
-        return $this->belongsTo(Relasi::class);
-    }
+    // public function relasi()
+    // {
+    //     return $this->belongsTo(Relasi::class);
+    // }
 
-    public function anggota()
-    {
-        return $this->hasMany(Anggota::class);
-    }
+    // public function anggota()
+    // {
+    //     return $this->hasMany(Anggota::class);
+    // }
 
     //public function getCountDataAttribute()
     //{

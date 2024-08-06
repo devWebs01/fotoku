@@ -1,4 +1,4 @@
-@extends('layouts.admin') 
+@extends('layouts.admin')
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -104,7 +104,7 @@
                 $(inputId).val($url.substring(1));
                 $(inputId+'-image').attr("src", "{{ asset(null) }}"+$url.substring(1));
             }
-            
+
             window.fmSetLink = fmSetLink;
 
             $(document).on("click", '{{ implode(',', $setid) }}', function(event) {

@@ -51,7 +51,7 @@ class GaleriController extends Controller
             });
 
             $table->editColumn('name', function ($row) {
-                return $row->name ? "<img src='" . Storage::url($row->name) . "' width='100px; hight=100px; style='object-fit:cover;''>" : '';
+                return $row->name ? "<img src='".Storage::url($row->name)."' width='100px; hight=100px; style='object-fit:cover;''>" : '';
             });
             $table->editColumn('judul', function ($row) {
                 return $row->judul ? $row->judul : '';
@@ -92,9 +92,8 @@ class GaleriController extends Controller
         try {
 
             $file = $request->file('file');
-            $fileName = time() . '_' . $file->getClientOriginalName();
+            $fileName = time().'_'.$file->getClientOriginalName();
             $filePath = $file->storeAs('gallery', $fileName, 'public');
-
 
             $galeri = Galeri::create([
                 'name' => $filePath,
@@ -104,10 +103,10 @@ class GaleriController extends Controller
             ]);
 
             DB::commit();
-            Alert::success('Pemberitahuan', 'Data <b>' . $galeri->id . '</b> berhasil dibuat')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>'.$galeri->id.'</b> berhasil dibuat')->toToast()->toHtml();
         } catch (\Throwable $th) {
             DB::rollback();
-            Alert::error('Pemberitahuan', 'Data  gagal dibuat : ' . $th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data  gagal dibuat : '.$th->getMessage())->toToast()->toHtml();
         }
 
         return back();
@@ -133,7 +132,7 @@ class GaleriController extends Controller
                 'data' => $galeri,
             ], 200);
         } catch (\Throwable $th) {
-            Alert::error('Pemberitahuan', 'Data gagal dibuat : ' . $th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal dibuat : '.$th->getMessage())->toToast()->toHtml();
 
             return response()->json([
                 'message' => 'Data tidak ditemukan',
@@ -172,9 +171,8 @@ class GaleriController extends Controller
             if ($request->hasFile('file')) {
 
                 $file = $request->file('file');
-                $fileName = time() . '_' . $file->getClientOriginalName();
+                $fileName = time().'_'.$file->getClientOriginalName();
                 $filePath = $file->storeAs('gallery', $fileName, 'public');
-
 
                 $galeri->update([
                     'name' => $filePath,
@@ -187,10 +185,10 @@ class GaleriController extends Controller
             ]);
 
             DB::commit();
-            Alert::success('Pemberitahuan', 'Data <b>' . $galeri->id . '</b> berhasil diupdate')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>'.$galeri->id.'</b> berhasil diupdate')->toToast()->toHtml();
         } catch (\Throwable $th) {
             DB::rollback();
-            Alert::error('Pemberitahuan', 'Data <b>' . $galeri->id . '</b> gagal diupdate : ' . $th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data <b>'.$galeri->id.'</b> gagal diupdate : '.$th->getMessage())->toToast()->toHtml();
         }
 
         return redirect()->route('admin.galeri.show', $galeri);
@@ -203,9 +201,9 @@ class GaleriController extends Controller
         // }
         try {
             $galeri->delete();
-            Alert::success('Pemberitahuan', 'Data <b>' . $galeri->id . '</b> berhasil dihapus')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>'.$galeri->id.'</b> berhasil dihapus')->toToast()->toHtml();
         } catch (\Throwable $th) {
-            Alert::error('Pemberitahuan', 'Data <b>' . $galeri->id . '</b> gagal dihapus : ' . $th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data <b>'.$galeri->id.'</b> gagal dihapus : '.$th->getMessage())->toToast()->toHtml();
         }
 
         return back();

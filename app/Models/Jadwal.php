@@ -4,12 +4,21 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Jadwal extends Model
 {
     public $table = 'jadwal';
 
     protected $guarded = [];
+
+    /**
+     * Get all of the bookings for the Jadwal
+     */
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
 
     //protected $appends = [
     //    'countData'

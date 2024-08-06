@@ -1,8 +1,15 @@
 <?php
 
+use App\Http\Controllers\Admin\BankController;
+use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\FotograferController;
 use App\Http\Controllers\Admin\FrontController;
+use App\Http\Controllers\Admin\GaleriController;
+use App\Http\Controllers\Admin\JadwalController;
+use App\Http\Controllers\Admin\KecamatanController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
@@ -87,61 +94,61 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     /*
      * User Routes
      */
-    Route::post('user/get', [App\Http\Controllers\Admin\UserController::class, 'get'])->name('user.get');
+    Route::post('user/get', [UserController::class, 'get'])->name('user.get');
     Route::resource('user', App\Http\Controllers\Admin\UserController::class);
 
     /*
      * pelanggan Routes
      */
-    Route::post('pelanggan/get', [App\Http\Controllers\Admin\UserController::class, 'get'])->name('pelanggan.get');
+    Route::post('pelanggan/get', [UserController::class, 'get'])->name('pelanggan.get');
     Route::resource('pelanggan', App\Http\Controllers\Admin\UserController::class);
 
     /*
      * Fotografi Routes
      */
-    Route::get('fotografer/getFotograferFromId/{id}', [App\Http\Controllers\Admin\FotograferController::class, 'getFotograferFromId'])->name('fotografer.getFotograferFromId');
-    Route::get('fotografer/getFotograferFromKecamatan/{id}', [App\Http\Controllers\Admin\FotograferController::class, 'getFotograferFromKecamatan'])->name('fotografer.getFotograferFromKecamatan');
-    Route::post('fotografer/get', [App\Http\Controllers\Admin\FotograferController::class, 'get'])->name('fotografer.get');
+    Route::get('fotografer/getFotograferFromId/{id}', [FotograferController::class, 'getFotograferFromId'])->name('fotografer.getFotograferFromId');
+    Route::get('fotografer/getFotograferFromKecamatan/{id}', [FotograferController::class, 'getFotograferFromKecamatan'])->name('fotografer.getFotograferFromKecamatan');
+    Route::post('fotografer/get', [FotograferController::class, 'get'])->name('fotografer.get');
     Route::resource('fotografer', App\Http\Controllers\Admin\FotograferController::class);
 
     // /*
     //  * Bank Routes
     //  */
-    Route::post('bank/get', [App\Http\Controllers\Admin\BankController::class, 'get'])->name('bank.get');
+    Route::post('bank/get', [BankController::class, 'get'])->name('bank.get');
     Route::resource('bank', App\Http\Controllers\Admin\BankController::class);
 
     /*
      * Komunitas Routes
      */
-    Route::post('kecamatan/get', [App\Http\Controllers\Admin\KecamatanController::class, 'get'])->name('kecamatan.get');
+    Route::post('kecamatan/get', [KecamatanController::class, 'get'])->name('kecamatan.get');
     Route::resource('kecamatan', App\Http\Controllers\Admin\KecamatanController::class);
 
     /*
      * Galeri Routes
      */
-    Route::post('galeri/get', [App\Http\Controllers\Admin\GaleriController::class, 'get'])->name('galeri.get');
+    Route::post('galeri/get', [GaleriController::class, 'get'])->name('galeri.get');
     Route::resource('galeri', App\Http\Controllers\Admin\GaleriController::class);
 
     /*
      * Produk Routes
      */
-    Route::get('produk/getProdukFromUser/{id}', [App\Http\Controllers\Admin\ProdukController::class, 'getProdukFromUser'])->name('produk.getProdukFromUser');
-    Route::post('produk/get', [App\Http\Controllers\Admin\ProdukController::class, 'get'])->name('produk.get');
+    Route::get('produk/getProdukFromUser/{id}', [ProdukController::class, 'getProdukFromUser'])->name('produk.getProdukFromUser');
+    Route::post('produk/get', [ProdukController::class, 'get'])->name('produk.get');
     Route::resource('produk', App\Http\Controllers\Admin\ProdukController::class);
 
     /*
      * Jadwal Routes
      */
-    Route::post('jadwal/updateStatus', [App\Http\Controllers\Admin\JadwalController::class, 'updateStatus'])->name('jadwal.updateStatus');
-    Route::get('jadwal/{jadwal}/editStatus', [App\Http\Controllers\Admin\JadwalController::class, 'editStatus'])->name('jadwal.editStatus');
-    Route::post('jadwal/get', [App\Http\Controllers\Admin\JadwalController::class, 'get'])->name('jadwal.get');
+    Route::post('jadwal/updateStatus', [JadwalController::class, 'updateStatus'])->name('jadwal.updateStatus');
+    Route::get('jadwal/{jadwal}/editStatus', [JadwalController::class, 'editStatus'])->name('jadwal.editStatus');
+    Route::post('jadwal/get', [JadwalController::class, 'get'])->name('jadwal.get');
     Route::resource('jadwal', App\Http\Controllers\Admin\JadwalController::class);
 
     /*
      * Booking Routes
      */
-    Route::post('booking/updateDP', [App\Http\Controllers\Admin\BookingController::class, 'updateDP'])->name('booking.updateDP');
-    Route::get('booking/{booking}/editDP', [App\Http\Controllers\Admin\BookingController::class, 'editDP'])->name('booking.editDP');
-    Route::post('booking/get', [App\Http\Controllers\Admin\BookingController::class, 'get'])->name('booking.get');
-    Route::resource('booking', App\Http\Controllers\Admin\BookingController::class);
+    Route::post('booking/updateDP', [BookingController::class, 'updateDP'])->name('booking.updateDP');
+    Route::get('booking/{booking}/editDP', [BookingController::class, 'editDP'])->name('booking.editDP');
+    Route::post('booking/get', [BookingController::class, 'get'])->name('booking.get');
+    Route::resource('booking', BookingController::class);
 });
