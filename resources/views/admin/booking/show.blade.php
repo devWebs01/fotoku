@@ -16,9 +16,9 @@
                 </div>
             </div>
         </div>
-       
+
     </div>
-    
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -43,15 +43,15 @@
                                 <tr>
                                     <td>
                                         @if ($data->bukti_booking)
-                                            <img src="{{ asset('uploads/'.$data->bukti_booking) }}" alt="">
+                                            <img src="{{ Storage::url($data->bukti_booking) }}" alt="">
                                         @else
                                             -
                                         @endif
-                                       
+
                                     </td>
                                     <td>
                                         @if ($data->bukti_bayar)
-                                            <img src="{{ asset('uploads/'.$data->bukti_bayar) }}" alt="">
+                                            <img src="{{ Storage::url($data->bukti_bayar) }}" alt="">
                                         @else
                                            -
                                         @endif

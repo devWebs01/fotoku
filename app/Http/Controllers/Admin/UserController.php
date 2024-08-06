@@ -174,6 +174,7 @@ class UserController extends Controller
 
     public function update(Request $request, User $pelanggan)
     {
+        dd($request->all());
         $this->validate($request, [
             'nama' => ['string', 'required'],
             'no_telp' => ['numeric', 'required'],
@@ -185,15 +186,13 @@ class UserController extends Controller
 
         DB::beginTransaction();
         try {
-            if ($request->file('foto_profile')) {
-                $request_file = $request->file('foto_profile');
-                $name_file = time() . '_' . $request_file->getClientOriginalName();
-                // $request_file->move(public_path('uploads'), $name_file);
-                $request_file->storeAs('uploads', $name_file, 'public');
-
+            if ($request->hasFile('foto_profile')) {
+                $file = $request->file('foto_profile');
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $filePath = $file->storeAs('profile', $fileName, 'public');
 
                 $pelanggan->update([
-                    'foto_profile' => $name_file,
+                    'foto_profile' => $filePath,
                 ]);
             }
 

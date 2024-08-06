@@ -239,16 +239,14 @@ class BookingController extends Controller
         try {
             $booking = Booking::find($request->booking_id);
 
-            $request_bukti = $request->file('bukti_booking');
-            $name_bukti = time().'_'.$request_bukti->getClientOriginalName();
-            // $request_bukti->move(public_path('uploads'), $name_bukti);
-            $request_bukti->storeAs('uploads', $name_bukti, 'public');
-
+            $file = $request->file('bukti_booking');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('bukti_booking', $fileName, 'public');
 
             $booking->update([
                 'status_booking' => 'DP',
                 'total_booking' => $rupiahService->convertInput($request->total_booking),
-                'bukti_booking' => $name_bukti,
+                'bukti_booking' => $filePath,
             ]);
 
             DB::commit();
@@ -283,16 +281,15 @@ class BookingController extends Controller
         DB::beginTransaction();
         try {
 
-            $request_bukti = $request->file('bukti_bayar');
-            $name_bukti = time().'_'.$request_bukti->getClientOriginalName();
-            // $request_bukti->move(public_path('uploads'), $name_bukti);
-            $request_bukti->storeAs('uploads', $name_bukti, 'public');
+            $file = $request->file('bukti_bayar');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('bukti_bayar', $fileName, 'public');
 
 
             $booking->update([
                 'status_booking' => 'Lunas',
                 'total_bayar' => $rupiahService->convertInput($request->total_bayar),
-                'bukti_bayar' => $name_bukti,
+                'bukti_bayar' => $filePath,
             ]);
 
             DB::commit();

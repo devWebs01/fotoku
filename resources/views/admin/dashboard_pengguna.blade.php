@@ -1,4 +1,4 @@
-@extends('layouts.admin') 
+@extends('layouts.admin')
 @section('content')
     <div class="content-wrapper">
         <div class="content-header">
@@ -16,7 +16,7 @@
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
         </div>
-       
+
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -72,7 +72,7 @@
                                     </div>
                                     <div class="col-6">
                                         @if ($user->foto_profile)
-                                            <img class="profile-user-img img-fluid img-circle" style="width: 300px;height: 300px; margin-left: 100px; margin-top: 10px;" src="{{ asset('/uploads/'.$user->foto_profile) }}" alt="User profile picture">
+                                            <img class="profile-user-img img-fluid img-circle" style="width: 300px;height: 300px; margin-left: 100px; margin-top: 10px;" src="{{ Storage::url($user->foto_profile) }}" alt="User profile picture">
                                         @else
                                             <img class="profile-user-img img-fluid img-circle" style="width: 300px;height: 300px; margin-left: 100px; margin-top: 1;" src="{{ asset('user-default.jpg') }}" alt="User profile picture">
                                         @endif

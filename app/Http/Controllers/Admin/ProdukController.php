@@ -9,6 +9,7 @@ use App\Services\RupiahService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -72,10 +73,10 @@ class ProdukController extends Controller
                 return $row->info ? $row->info : '';
             });
             $table->editColumn('gambar_1', function ($row) {
-                return $row->gambar_1 ? "<img src='".asset('uploads/'.$row->gambar_1)."' width='200px;'>" : '';
+                return $row->gambar_1 ? "<img src='".Storage::url($row->gambar_1)."' width='100px; hight=100px; style='object-fit:cover;'>" : '';
             });
             $table->editColumn('gambar_2', function ($row) {
-                return $row->gambar_2 ? "<img src='".asset('uploads/'.$row->gambar_2)."' width='200px;'>" : '';
+                return $row->gambar_2 ? "<img src='".Storage::url($row->gambar_2)."' width='100px; hight=100px; style='object-fit:cover;'>" : '';
             });
             $table->editColumn('fotografer', function ($row) {
                 return $row->fotografer_id ? $row->fotografer->nama : '';
@@ -110,24 +111,22 @@ class ProdukController extends Controller
 
         DB::beginTransaction();
         try {
-            $request_gambar1 = $request->file('gambar_1');
-            $name_gambar1 = time().'_'.$request_gambar1->getClientOriginalName();
-            // $request_gambar1->move(public_path('uploads'), $name_gambar1);
-            $request_gambar1->storeAs('uploads', $name_gambar1, 'public');
 
+            $file1 = $request->file('gambar_1');
+            $fileName1 = time() . '_' . $file1->getClientOriginalName();
+            $filePath1 = $file1->storeAs('product', $fileName1, 'public');
 
-            $request_gambar2 = $request->file('gambar_2');
-            $name_gambar2 = time().'_'.$request_gambar2->getClientOriginalName();
-            // $request_gambar2->move(public_path('uploads'), $name_gambar2);
-            $request_gambar2->storeAs('uploads', $name_gambar2, 'public');
+            $file2 = $request->file('gambar_2');
+            $fileName2 = time() . '_' . $file2->getClientOriginalName();
+            $filePath2 = $file2->storeAs('product', $fileName2, 'public');
 
 
             $produk = Produk::create([
                 'nama_produk' => $request->nama_produk,
                 'harga' => $rupiahService->convertInput($request->harga),
                 'info' => $request->info,
-                'gambar_1' => $name_gambar1,
-                'gambar_2' => $name_gambar2,
+                'gambar_1' => $filePath1,
+                'gambar_2' => $filePath2,
                 'fotografer_id' => Auth::user()->id,
             ]);
 
@@ -199,27 +198,28 @@ class ProdukController extends Controller
         DB::beginTransaction();
         try {
 
-            if ($request->file('gambar_1')) {
-                $request_gambar1 = $request->file('gambar_1');
-                $name_gambar1 = time().'_'.$request_gambar1->getClientOriginalName();
-                // $request_gambar1->move(public_path('uploads'), $name_gambar1);
-                $request_gambar1->storeAs('uploads', $name_gambar1, 'public');
+
+
+            if ($request->hasFile('gambar_1')) {
+                $file1 = $request->file('gambar_1');
+                $fileName1 = time() . '_' . $file1->getClientOriginalName();
+                $filePath1 = $file1->storeAs('product', $fileName1, 'public');
+
 
 
                 $produk->update([
-                    'gambar_1' => $name_gambar1,
+                    'gambar_1' => $filePath1,
                 ]);
             }
 
-            if ($request->file('gambar_2')) {
-                $request_gambar2 = $request->file('gambar_2');
-                $name_gambar2 = time().'_'.$request_gambar2->getClientOriginalName();
-                // $request_gambar2->move(public_path('uploads'), $name_gambar2);
-                $request_gambar2->storeAs('uploads', $name_gambar2, 'public');
+            if ($request->hasFile('gambar_2')) {
+                $file2 = $request->file('gambar_2');
+                $fileName2 = time() . '_' . $file2->getClientOriginalName();
+                $filePath2 = $file2->storeAs('product', $fileName2, 'public');
 
 
                 $produk->update([
-                    'gambar_2' => $name_gambar2,
+                    'gambar_2' => $filePath2,
                 ]);
             }
 

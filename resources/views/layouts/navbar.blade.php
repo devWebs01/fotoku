@@ -26,11 +26,11 @@
         <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                 @if(Auth::user()->foto_profile)
-                    <img src="{{ asset('uploads/'.Auth::user()->foto_profile) }}" class="user-image img-circle" style="background-color: white;" alt="User Image">
+                    <img src="{{ Storage::url(Auth::user()->foto_profile) }}" class="user-image img-circle" style="background-color: white;" alt="User Image">
                 @else
                     <img src="{{ asset('user-default.jpg') }}" class="user-image img-circle elevation-2" alt="User Image">
                 @endif
-                <span class="d-none d-md-inline">{{ Auth::user()->nama }} 
+                <span class="d-none d-md-inline">{{ Auth::user()->nama }}
                 </span>
             </a>
             <ul class="dropdown-menu dropdown-menu-right">

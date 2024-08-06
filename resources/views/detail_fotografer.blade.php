@@ -12,7 +12,7 @@
 <title>eMarketPlace Fotografer</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
-<meta name="author" content="">	
+<meta name="author" content="">
 <!-- bootstrap css -->
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/bootstrap.min.css') }}">
 <!-- style css -->
@@ -27,7 +27,7 @@
 <link rel="stylesheet" href="{{ asset('frontend/css/jquery.mCustomScrollbar.min.css')}}">
 <!-- Tweaks for older IEs-->
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-<!-- owl stylesheets --> 
+<!-- owl stylesheets -->
 <link rel="stylesheet" href="{{ asset('template/admin/plugins/fontawesome-free/css/all.min.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
 <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/ekko-lightbox/ekko-lightbox.css">
@@ -117,7 +117,7 @@
 							</div>
 							<div class="col-6">
 								@if ($fotografer->foto_profile)
-									<img class="profile-user-img img-fluid img-circle" style="width: 300px;height: 300px; margin-left: 100px; margin-top: 50px;" src="{{ asset('/uploads/'.$fotografer->foto_profile) }}" alt="User profile picture">
+									<img class="profile-user-img img-fluid img-circle" style="width: 300px;height: 300px; margin-left: 100px; margin-top: 50px;" src="{{ Storage::url($fotografer->foto_profile) }}" alt="User profile picture">
 								@else
 									<img class="profile-user-img img-fluid img-circle" style="width: 300px;height: 300px; margin-left: 100px; margin-top: 50px;" src="{{ asset('user-default.jpg') }}" alt="User profile picture">
 								@endif
@@ -140,15 +140,15 @@
 								<div class="inner" style="display: flex; gap: 20px;">
 									<div class="content">
 										<h3>Rp. {{ $item->harga }}</h3>
-										<p>Info:</p> 
+										<p>Info:</p>
 										<p>{{ $item->info }}</p>
 									</div>
 									<div class="foto" style="margin-left: 50px;">
-										<a href="{{ asset('uploads/'.$item->gambar_1) }}" data-toggle="lightbox" data-title="{{ $item->nama_produk }}">
-											<img src="{{ asset('uploads/'.$item->gambar_1) }}" class="img-fluid mb-2" alt="white sample" width="200px;">
+										<a href="{{ Storage::url($item->gambar_1) }}" data-toggle="lightbox" data-title="{{ $item->nama_produk }}">
+											<img src="{{ Storage::url($item->gambar_1) }}" class="img-fluid mb-2" alt="white sample" width="200px;">
 										</a>
-										<a href="{{ asset('uploads/'.$item->gambar_2) }}" data-toggle="lightbox" data-title="{{ $item->nama_produk }}">
-											<img src="{{ asset('uploads/'.$item->gambar_2) }}" class="img-fluid mb-2" alt="white sample" width="200px;">
+										<a href="{{ Storage::url($item->gambar_2) }}" data-toggle="lightbox" data-title="{{ $item->nama_produk }}">
+											<img src="{{ Storage::url($item->gambar_2) }}" class="img-fluid mb-2" alt="white sample" width="200px;">
 										</a>
 									</div>
 								</div>
@@ -168,12 +168,12 @@
 						@foreach ($galeri as $item)
 							<div class="filtr-item col-sm-3" data-category="1" data-sort="{{ $item->judul }}" style="opacity: 1; transform: scale(1) translate3d(0px, 0px, 0px); backface-visibility: hidden; perspective: 1000px; transform-style: preserve-3d; position: absolute; width: 270.5px; transition: all 0.5s ease-out 0ms, width 1ms ease 0s;">
 								<span class="badge badge-success" style="position: absolute; display: inline; font-size: 16px;">{{ $item->judul }}</span>
-								<a href="{{ asset('uploads/'.$item->name) }}" data-toggle="lightbox" data-title="{{ $item->judul }}"  data-footer="{{ $item->deskripsi }}">
-									<img src="{{ asset('uploads/'.$item->name) }}" class="img-fluid mb-2" alt="white sample">
+								<a href="{{ Storage::url($item->name) }}" data-toggle="lightbox" data-title="{{ $item->judul }}"  data-footer="{{ $item->deskripsi }}">
+									<img src="{{ Storage::url($item->name) }}" class="img-fluid mb-2" alt="white sample">
 								</a>
 							</div>
 						@endforeach
-						
+
 					</div>
 				</div>
 			</div>
@@ -214,7 +214,7 @@
     </div>
     <!-- footer section end -->
     <!-- copyright section start -->
-    
+
     <!-- copyright section end -->
 
 
@@ -227,7 +227,7 @@
       <!-- sidebar -->
       <script src="{{ asset('frontend/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
       <script src="{{ asset('frontend/js/custom.js') }}"></script>
-      <!-- javascript --> 
+      <!-- javascript -->
       <script src="{{ asset('frontend/js/owl.carousel.js') }}"></script>
       <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
 
@@ -240,12 +240,12 @@
          openEffect: "none",
          closeEffect: "none"
          });
-         
+
          $(".zoom").hover(function(){
-         
+
          $(this).addClass('transition');
          }, function(){
-         
+
          $(this).removeClass('transition');
          });
          });
@@ -282,7 +282,7 @@ $('#myCarousel').carousel({
                   alwaysShowClose: true
                 });
               });
-          
+
               $('.filter-container').filterizr({gutterPixels: 3});
               $('.btn[data-filter]').on('click', function() {
                 $('.btn[data-filter]').removeClass('active');
@@ -293,6 +293,6 @@ $('#myCarousel').carousel({
          </script>
 
 
-     
+
 </body>
 </html>

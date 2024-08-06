@@ -12,7 +12,7 @@
 <title>eMarketPlace Fotografer</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
-<meta name="author" content="">	
+<meta name="author" content="">
 <!-- bootstrap css -->
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/bootstrap.min.css') }}">
 <!-- style css -->
@@ -27,7 +27,7 @@
 <link rel="stylesheet" href="{{ asset('frontend/css/jquery.mCustomScrollbar.min.css')}}">
 <!-- Tweaks for older IEs-->
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-<!-- owl stylesheets --> 
+<!-- owl stylesheets -->
 <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css') }}">
 <link rel="stylesheet" href="{{ asset('frontend/css/owl.theme.default.min.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
@@ -153,7 +153,7 @@
 											<div class="card-body box-profile">
 												<div class="text-center">
 													@if ($item->foto_profile)
-														<img class="profile-user-img img-fluid img-circle" src="{{ asset('/uploads/'.$item->foto_profile) }}" alt="User profile picture">
+														<img class="profile-user-img img-fluid img-circle" src="{{ Storage::url($item->foto_profile) }}" alt="User profile picture">
 													@else
 														<img class="profile-user-img img-fluid img-circle" src="{{ asset('user-default.jpg') }}" alt="User profile picture">
 													@endif
@@ -190,14 +190,14 @@
 									@break
 								@endif
 							@break
-							
+
 							@default
 							<div class="col-sm-6 col-md-4 col-12" style="margin-bottom: 50px;">
 								<div class="card card-primary card-outline">
 									<div class="card-body box-profile">
 										<div class="text-center">
 											@if ($item->foto_profile)
-												<img class="profile-user-img img-fluid img-circle" src="{{ asset('/uploads/'.$item->foto_profile) }}" alt="User profile picture">
+												<img class="profile-user-img img-fluid img-circle" src="{{ Storage::url($item->foto_profile) }}" alt="User profile picture">
 											@else
 												<img class="profile-user-img img-fluid img-circle" src="{{ asset('user-default.jpg') }}" alt="User profile picture">
 											@endif
@@ -222,10 +222,10 @@
 								</div>
 							</div>
 						@endswitch
-						
+
 					@endforeach
 				@endif
-				
+
 			</div>
 		</div>
 	</div>
@@ -266,7 +266,7 @@
     </div>
     <!-- footer section end -->
     <!-- copyright section start -->
-    
+
     <!-- copyright section end -->
 
 
@@ -279,23 +279,23 @@
       <!-- sidebar -->
       <script src="{{ asset('frontend/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
       <script src="{{ asset('frontend/js/custom.js') }}"></script>
-      <!-- javascript --> 
+      <!-- javascript -->
       <script src="{{ asset('frontend/js/owl.carousel.js') }}"></script>
       <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
       <script>
 		function goToPage() {
 			var selectElement = document.getElementById("jumpMenu");
 			var selectedValue = selectElement.options[selectElement.selectedIndex].value;
-			
+
 			if (selectedValue) {
 				window.location.href = selectedValue;
 			}
 		}
-		
+
 		function goToPage2() {
 			var selectElement = document.getElementById("jumpMenu2");
 			var selectedValue = selectElement.options[selectElement.selectedIndex].value;
-			
+
 			if (selectedValue) {
 				window.location.href = selectedValue;
 			}
@@ -311,17 +311,17 @@
 			// Buka URL Scheme WhatsApp di tab atau jendela baru
 			window.open(url, '_blank');
 		});
-		
+
 		$(".fancybox").fancybox({
 			openEffect: "none",
 			closeEffect: "none"
 			});
-         
+
          $(".zoom").hover(function(){
-         
+
          $(this).addClass('transition');
          }, function(){
-         
+
          $(this).removeClass('transition');
          });
          });
@@ -353,6 +353,6 @@ $('#myCarousel').carousel({
          </script>
 
 
-     
+
 </body>
 </html>

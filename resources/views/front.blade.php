@@ -239,7 +239,7 @@
                                 <div class="text-center">
                                     @if ($item->foto_profile)
                                         <img class="profile-user-img img-fluid img-circle"
-                                            src="{{ asset('uploads/' . $item->foto_profile) }}"
+                                            src="{{ Storage::url( $item->foto_profile) }}"
                                             alt="User profile picture">
                                     @else
                                         <img class="profile-user-img img-fluid img-circle"

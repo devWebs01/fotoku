@@ -1,4 +1,4 @@
-@extends('layouts.admin') 
+@extends('layouts.admin')
 @section('content')
     <div class="content-wrapper">
         <div class="content-header">
@@ -16,7 +16,7 @@
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
         </div>
-       
+
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="col-6">
                                         @if ($user->foto_profile)
-                                            <img class="profile-user-img img-fluid img-circle" style="width: 300px;height: 300px; margin-left: 100px; margin-top: 50px;" src="{{ asset('/uploads/'.$user->foto_profile) }}" alt="User profile picture">
+                                            <img class="profile-user-img img-fluid img-circle" style="width: 300px;height: 300px; margin-left: 100px; margin-top: 50px;" src="{{ Storage::url($user->foto_profile) }}" alt="User profile picture">
                                         @else
                                             <img class="profile-user-img img-fluid img-circle" style="width: 300px;height: 300px; margin-left: 100px; margin-top: 50px;" src="{{ asset('user-default.jpg') }}" alt="User profile picture">
                                         @endif
@@ -91,15 +91,15 @@
                                         <div class="inner" style="display: flex; gap: 20px;">
                                             <div class="content">
                                                 <h3>Rp. {{ $item->harga }}</h3>
-                                                <p>Info:</p> 
+                                                <p>Info:</p>
                                                 <p>{{ $item->info }}</p>
                                             </div>
                                             <div class="foto" style="margin-left: 50px;">
-                                                <a href="{{ asset('uploads/'.$item->gambar_1) }}" data-toggle="lightbox" data-title="{{ $item->nama_produk }}">
-                                                    <img src="{{ asset('uploads/'.$item->gambar_1) }}" class="img-fluid mb-2" alt="white sample" width="200px;">
+                                                <a href="{{ Storage::url($item->gambar_1) }}" data-toggle="lightbox" data-title="{{ $item->nama_produk }}">
+                                                    <img src="{{ Storage::url($item->gambar_1) }}" class="img-fluid mb-2" alt="white sample" width="200px;">
                                                 </a>
-                                                <a href="{{ asset('uploads/'.$item->gambar_2) }}" data-toggle="lightbox" data-title="{{ $item->nama_produk }}">
-                                                    <img src="{{ asset('uploads/'.$item->gambar_2) }}" class="img-fluid mb-2" alt="white sample" width="200px;">
+                                                <a href="{{ Storage::url($item->gambar_2) }}" data-toggle="lightbox" data-title="{{ $item->nama_produk }}">
+                                                    <img src="{{ Storage::url($item->gambar_2) }}" class="img-fluid mb-2" alt="white sample" width="200px;">
                                                 </a>
                                             </div>
                                         </div>
@@ -109,7 +109,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div><!-- /.container-fluid -->
             <div class="card ">
                 <div class="card-header">
@@ -119,12 +119,12 @@
                         <div class="filter-container p-0 row" style="padding: 3px; position: relative; width: 100%; display: flex; flex-wrap: wrap; height: 337px;">
                             @foreach ($galeri as $item)
                                 <div class="filtr-item col-sm-3" data-category="1" data-sort="{{ $item->judul }}" style="opacity: 1; transform: scale(1) translate3d(0px, 0px, 0px); backface-visibility: hidden; perspective: 1000px; transform-style: preserve-3d; position: absolute; width: 270.5px; transition: all 0.5s ease-out 0ms, width 1ms ease 0s;">
-                                    <a href="{{ asset('uploads/'.$item->name) }}" data-toggle="lightbox" data-title="{{ $item->judul }}" data-footer="{{ $item->deskripsi }}">
-                                        <img src="{{ asset('uploads/'.$item->name) }}" class="img-fluid mb-2" alt="white sample">
+                                    <a href="{{ Storage::url($item->name) }}" data-toggle="lightbox" data-title="{{ $item->judul }}" data-footer="{{ $item->deskripsi }}">
+                                        <img src="{{ Storage::url($item->name) }}" class="img-fluid mb-2" alt="white sample">
                                     </a>
                                 </div>
                             @endforeach
-                            
+
                         </div>
                     </div>
                 </div>

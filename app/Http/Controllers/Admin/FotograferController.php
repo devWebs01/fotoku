@@ -178,6 +178,8 @@ class FotograferController extends Controller
 
     public function update(Request $request, Fotografer $fotografer)
     {
+        // dd($request->all());
+
         $this->validate($request, [
             'nama' => ['string', 'required'],
             'spesialisasi' => ['string', 'required'],
@@ -192,15 +194,13 @@ class FotograferController extends Controller
         DB::beginTransaction();
         try {
 
-            if ($request->file('foto_profile')) {
-                $request_file = $request->file('foto_profile');
-                $name_file = time() . '_' . $request_file->getClientOriginalName();
-
-                // Simpan file ke storage
-                $request_file->storeAs('uploads', $name_file, 'public');
+            if ($request->hasFile('foto_profile')) {
+                $file = $request->file('foto_profile');
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $filePath = $file->storeAs('profile', $fileName, 'public');
 
                 $fotografer->update([
-                    'foto_profile' => $name_file,
+                    'foto_profile' => $filePath,
                 ]);
             }
             $fotografer->update([

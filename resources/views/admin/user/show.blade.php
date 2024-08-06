@@ -16,9 +16,9 @@
                 </div>
             </div>
         </div>
-       
+
     </div>
-    
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -33,7 +33,7 @@
                         <div class="card-body">
                             <center>
                                 @if ($data->foto_profile)
-                                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('/uploads/'.$item->foto_profile) }}" alt="User profile picture" style="width: 200px!important;">
+                                    <img class="profile-user-img img-fluid img-circle" src="{{ Storage::url($item->foto_profile) }}" alt="User profile picture" style="width: 200px!important;">
                                 @else
                                     <img class="profile-user-img img-fluid img-circle" src="{{ asset('user-default.jpg') }}" style="width: 200px!important;" alt="User profile picture">
                                 @endif
