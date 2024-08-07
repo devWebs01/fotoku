@@ -151,41 +151,42 @@
                     @if (!$produk->isEmpty())
                         <h3>Paket Produk</h3>
 
-                        <p>Belum Tersedia</p>
+                        <ul class="list-unstyled">
+                            @foreach ($produk as $item)
+                                <div class="card border rounded">
+                                    <div class="card-body">
+                                        <li class="media my-2">
+                                            <a href="{{ Storage::url($item->gambar_1) }}" data-toggle="lightbox"
+                                                data-title="{{ $item->nama_produk }}">
+                                                <img src="{{ Storage::url($item->gambar_1) }}"
+                                                    style="object-fit: cover; width: 150px; height: 150px; "
+                                                    class="mr-3 img d-none d-md-block" alt="...">
+                                            </a>
+                                            <a href="{{ Storage::url($item->gambar_2) }}" data-toggle="lightbox"
+                                                data-title="{{ $item->nama_produk }}">
+                                                <img src="{{ Storage::url($item->gambar_2) }}"
+                                                    style="object-fit: cover; width: 150px; height: 150px;"
+                                                    class="mr-3 img d-none d-md-block" alt="...">
+                                            </a>
+                                            <div class="media-body">
+                                                <h5 class="mt-0 mb-1 font-weight-bold">Rp.
+                                                    {{ number_format($item->harga, 0, ',', '.') }}
+                                                </h5>
+                                                <p>{{ $item->info }}</p>
+                                            </div>
+                                        </li>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="{{ route('admin.booking.create', ['produk' => $item->id]) }}"
+                                            class="small-box-footer">Booking Sekarang <i
+                                                class="fas fa-arrow-circle-right"></i></a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p>Tidak ada produk yang tersedia.</p>
                     @endif
-                    <ul class="list-unstyled">
-                        @foreach ($produk as $item)
-                            <div class="card border rounded">
-                                <div class="card-body">
-                                    <li class="media my-2">
-                                        <a href="{{ Storage::url($item->gambar_1) }}" data-toggle="lightbox"
-                                            data-title="{{ $item->nama_produk }}">
-                                            <img src="{{ Storage::url($item->gambar_1) }}"
-                                                style="object-fit: cover; width: 150px; height: 150px; "
-                                                class="mr-3 img d-none d-md-block" alt="...">
-                                        </a>
-                                        <a href="{{ Storage::url($item->gambar_2) }}" data-toggle="lightbox"
-                                            data-title="{{ $item->nama_produk }}">
-                                            <img src="{{ Storage::url($item->gambar_2) }}"
-                                                style="object-fit: cover; width: 150px; height: 150px;"
-                                                class="mr-3 img d-none d-md-block" alt="...">
-                                        </a>
-                                        <div class="media-body">
-                                            <h5 class="mt-0 mb-1 font-weight-bold">Rp.
-                                                {{ number_format($item->harga, 0, ',', '.') }}
-                                            </h5>
-                                            <p>{{ $item->info }}</p>
-                                        </div>
-                                    </li>
-                                </div>
-                                <div class="card-footer">
-                                    <a href="{{ route('admin.booking.create', ['produk' => $item->id]) }}"
-                                        class="small-box-footer">Booking Sekarang <i
-                                            class="fas fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
-                        @endforeach
-                    </ul>
                     {{-- <div class="row" style="display: flex;">
                         @foreach ($produk as $item)
                             <div class="col-4">
