@@ -15,9 +15,9 @@
                 </div>
             </div>
         </div>
-       
+
     </div>
-    
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -35,7 +35,7 @@
                         <div class="card-body table-responsive">
                            <x-table :th="['No', 'Nama','No Telp','Alamat','Email','Status', 'Aksi']" id="User" />
                         </div>
-                        
+
                     </div>
                 </div>
             </div>

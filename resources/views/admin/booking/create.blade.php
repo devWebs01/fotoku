@@ -137,7 +137,7 @@
                     <center>
                         <div class="box-profile">
                             <img class="profile-user-img img-fluid img-circle img-fotografer"
-                                style="width: 300px;height: 300px;" src="{{ asset('user-default.jpg') }}"
+                                style="width: 300px;height: 300px; object-fit: cover;" src="{{ asset('user-default.jpg') }}"
                                 alt="User profile picture">
                             <p class="text-muted text-center nama-fotografer" style="margin-top:20px;"></p>
                         </div>
