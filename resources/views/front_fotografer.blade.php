@@ -64,10 +64,15 @@
                                     <li>|</li>
                                     <li><a class="nav-item nav-link" href="{{ url('fotografer') }}">Fotografer</a></li>
                                     <li>|</li>
-                                    <li><a class="nav-item nav-link" href="{{ url('/') }}#register">Register
-                                            Pengguna</a></li>
-                                    <li>|</li>
-                                    <li><a class="nav-item nav-link" href="{{ url('login') }}">Login</a></li>
+                                    @auth
+
+                                        <li><a class="nav-item nav-link" href="/home">Kembali Ke Dashboard</a></li>
+                                    @else
+                                        <li><a class="nav-item nav-link" href="{{ url('/') }}#register">Register
+                                                Pengguna</a></li>
+                                        <li>|</li>
+                                        <li><a class="nav-item nav-link" href="{{ url('login') }}">Login</a></li>
+                                    @endauth
                                 </ul>
                             </div>
                         </div>
@@ -334,9 +339,9 @@
     $(document).ready(function() {
         document.getElementById('whatsapp-button').addEventListener('click', function() {
             var phoneNumber = $(this).attr(
-            "data-hp"); // Ganti dengan nomor telepon yang ingin Anda tuju
+                "data-hp"); // Ganti dengan nomor telepon yang ingin Anda tuju
             var message =
-            'Halo, saya ingin menghubungi Anda.'; // Ganti dengan pesan yang ingin Anda kirim
+                'Halo, saya ingin menghubungi Anda.'; // Ganti dengan pesan yang ingin Anda kirim
             // Membuat URL Scheme WhatsApp dengan nomor telepon dan pesan
             var url = 'https://api.whatsapp.com/send?phone=' + encodeURIComponent(phoneNumber) +
                 '&text=' + encodeURIComponent(message);

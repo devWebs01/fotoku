@@ -65,10 +65,15 @@
                                     <li>|</li>
                                     <li><a class="nav-item nav-link" href="{{ url('fotografer') }}">Fotografer</a></li>
                                     <li>|</li>
-                                    <li><a class="nav-item nav-link" href="{{ url('/') }}#register">Register
-                                            Pengguna</a></li>
-                                    <li>|</li>
-                                    <li><a class="nav-item nav-link" href="{{ url('login') }}">Login</a></li>
+                                    @auth
+
+                                        <li><a class="nav-item nav-link" href="/home">Kembali Ke Dashboard</a></li>
+                                    @else
+                                        <li><a class="nav-item nav-link" href="{{ url('/') }}#register">Register
+                                                Pengguna</a></li>
+                                        <li>|</li>
+                                        <li><a class="nav-item nav-link" href="{{ url('login') }}">Login</a></li>
+                                    @endauth
                                 </ul>
                             </div>
                         </div>
