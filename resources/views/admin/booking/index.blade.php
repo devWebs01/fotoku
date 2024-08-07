@@ -66,40 +66,38 @@
                                                 </td>
                                                 <td>{{ $row->status_booking }}</td>
                                                 <td>
-                                                    <div class="d-flex justify-content-center g-3">
-                                                    @if (Auth::user()->role->name == 'fotografer')
-
-                                                    <a class="btn btn-info m-1"
-                                                        href="{{ Route('admin.booking.show', $row->id) }}">
-                                                        Lihat</a>
-                                                    <form id="destroy-booking"
-                                                        action="{{ route('admin.booking.destroy', $row->id) }}"
-                                                        method="POST">
-                                                        <button type="submit"
-                                                            class="btn btn-danger m-1">Batalkan</button>
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
-                                                    @else
-                                                    <a class="btn btn-info m-1"
-                                                        href="{{ Route('admin.booking.show', $row->id) }}">
-                                                        Lihat</a>
-                                                    <a class="btn btn-primary m-1"
-                                                        href="{{ Route('admin.booking.edit', $row->id) }}">
-                                                        Bayar DP</a>
-                                                    <a class="btn btn-warning m-1"
-                                                        href="{{ Route('admin.booking.editDP', $row->id) }}">
-                                                        Pelunasan</a>
-                                                    <form id="destroy-booking"
-                                                        action="{{ route('admin.booking.destroy', $row->id) }}"
-                                                        method="POST">
-                                                        <button type="submit"
-                                                            class="btn btn-danger m-1">Batalkan</button>
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
-
-                                                    @endif
+                                                    <div class="justify-content-center g-3">
+                                                        @if (Auth::user()->role->name == 'fotografer')
+                                                            <a class="btn btn-info btn-sm m-1"
+                                                                href="{{ Route('admin.booking.show', $row->id) }}">
+                                                                Lihat</a>
+                                                            <form id="destroy-booking"
+                                                                action="{{ route('admin.booking.destroy', $row->id) }}"
+                                                                method="POST">
+                                                                <button type="submit"
+                                                                    class="btn btn-danger btn-sm m-1">Batalkan</button>
+                                                                @csrf
+                                                                @method('DELETE')
+                                                            </form>
+                                                        @else
+                                                            <a class="btn btn-info btn-sm m-1"
+                                                                href="{{ Route('admin.booking.show', $row->id) }}">
+                                                                Lihat</a>
+                                                            <a class="btn btn-primary btn-sm m-1 {{ $row->bukti_booking == null ?: 'd-none' }}"
+                                                                href="{{ Route('admin.booking.editDP', $row->id) }}">
+                                                                Bayar DP</a>
+                                                            <a class="btn btn-warning btn-sm m-1 {{ $row->bukti_bayar == null ?: 'd-none' }}"
+                                                                href="{{ Route('admin.booking.edit', $row->id) }}">
+                                                                Pelunasan</a>
+                                                            <form id="destroy-booking"
+                                                                action="{{ route('admin.booking.destroy', $row->id) }}"
+                                                                method="POST">
+                                                                <button type="submit"
+                                                                    class="btn btn-danger btn-sm m-1 {{ $row->bukti_booking == null || $row->bukti_bayar == null ?: 'd-none' }}">Batalkan</button>
+                                                                @csrf
+                                                                @method('DELETE')
+                                                            </form>
+                                                        @endif
 
                                                     </div>
                                                 </td>
