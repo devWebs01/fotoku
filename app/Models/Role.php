@@ -35,9 +35,16 @@ class Role extends Authenticatable
      *
      * @var array<string, string>
      */
-    public function users()
+    public function fotografer()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class, 'fotografer_id', 'id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'fotografer_id');
+    }
+
+
 
 }

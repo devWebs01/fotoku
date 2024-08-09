@@ -11,28 +11,13 @@ class Kecamatan extends Model
 
     protected $guarded = [];
 
-    //protected $appends = [
-    //    'countData'
-    //];
-
-    // public function relasi()
-    // {
-    //     return $this->belongsTo(Relasi::class);
-    // }
-
-    // public function anggota()
-    // {
-    //     return $this->hasMany(Anggota::class);
-    // }
-
-    //public function getCountDataAttribute()
-    //{
-    //    return $this->anggota()->count();
-    //}
-
-    // public function getCreatedAtAttribute($value)
-    // {
-    //     return $value ? Carbon::parse($value)->format("d-M-Y H:i:s") : null;
-    // }
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+    public function fotografer()
+    {
+        return $this->hasMany(User::class);
+    }
 
 }
