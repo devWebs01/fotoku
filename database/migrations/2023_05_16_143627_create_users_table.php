@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('kecamatan_id')->nullable(); // Mengubah tipe data menjadi unsignedBigInteger
             $table->unsignedBigInteger('role_id');
-            //
             $table->string('nama');
             $table->enum('spesialisasi', ['Photography Wedding', 'Photography Birthday', 'Photography Food', 'Photography Fashion', 'Photography Street', 'Photography Outdoor'])->nullable();
             $table->string('no_telp')->nullable();
@@ -27,6 +26,7 @@ return new class extends Migration
             $table->enum('status', ['Aktif', 'Non Aktif'])->default('Aktif');
             $table->date('tgl_lahir')->nullable();
             $table->text('foto_profile')->nullable();
+            $table->rememberToken();
             $table->timestamps();
 
             // foreign key

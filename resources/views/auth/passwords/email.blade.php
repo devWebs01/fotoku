@@ -26,21 +26,21 @@
                                                         <h2 class="h4">Password Reset</h2>
                                                         <small
                                                             class="fs-6 font-weight-bold text-secondary text-center m-0">Berikan
-                                                            alamat email yang terkait dengan akun Anda untuk memulihkan
+                                                            alamat email yang terkait dengan akun kamu untuk memulihkan
                                                             kata
-                                                            sandi Anda.
+                                                            sandi kamu.
                                                         </small>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        @if (session('status'))
-                                            <div class="alert alert-success" role="alert">
-                                                {{ session('status') }}
-                                            </div>
-                                        @endif
-
+                                        
                                         <div class="card-body">
+                                            @if (session('status'))
+                                                <div class="alert alert-primary" role="alert">
+                                                    {{ session('status') }}
+                                                </div>
+                                            @endif
 
                                             <form method="POST" action="{{ route('password.email') }}">
                                                 @csrf
