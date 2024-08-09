@@ -152,3 +152,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::post('booking/get', [BookingController::class, 'get'])->name('booking.get');
     Route::resource('booking', BookingController::class);
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
