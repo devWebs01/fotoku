@@ -31,7 +31,7 @@
                 <div class="row justify-content-center align-items-center">
                     <div class="col-lg-6 mb-5 mb-lg-0">
                         <div class="pe-lg-3">
-                            <h1 class="display-5 font-weight-bold mb-2 mb-md-3">Selamat Datang di E-Market Freelance
+                            <h1 class="display-5 font-weight-bold mb-2 mb-md-3">Selamat Datang di eMarketplace
                                 Fotografer!
 
                             </h1>
@@ -48,7 +48,9 @@
                             <div class="card shadow-lg text-left h-100">
                                 <div class="card-body p-4 p-xl-5">
                                     <div class="text-center">
-                                        <img src="{{ asset('icon.png') }}" alt="" class="w-25">
+                                        <a href="/">
+                                            <img src="{{ asset('icon.png') }}" alt="" class="w-25">
+                                        </a>
                                     </div>
 
                                     <div class="card-body">
@@ -80,6 +82,11 @@
                                             <div class="d-grid">
                                                 <button type="submit"
                                                     class="btn btn-primary btn-block">{{ __('Login') }}</button>
+
+                                                <div class="row mt-3">
+                                                    <a href="/#register" class="col-md font-weight-bold">Buat Akun!</a>
+                                                    <a href="{{ route('password.request') }}" class="col-md font-weight-bold text-right">Lupa Password</a>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>

@@ -22,7 +22,7 @@ class GaleriFactory extends Factory
     {
 
         // Get the image URL
-        $imageUrl = 'https://api.api-ninjas.com/v1/randomimage?category=nature';
+        $imageUrl = 'https://random-image-pepebigotes.vercel.app/api/random-image';
 
         // Fetch the image contents from the URL
         $imageContents = Http::get($imageUrl)->body();
@@ -33,11 +33,15 @@ class GaleriFactory extends Factory
         // Store the image in the 'public/gallery' directory
         Storage::disk('public')->put('gallery/'.$imageName, $imageContents);
 
+        $fotografer_id = User::whereHas('role', function ($query) {
+            $query->where('id', '2');
+        })->inRandomOrder()->first();
+
         return [
             'name' => 'gallery/'.$imageName,  // Save the path to the image in the database
             'judul' => $this->faker->sentence(),
             'deskripsi' => $this->faker->paragraph(),
-            'fotografer_id' => User::factory(),
+            'fotografer_id' => $fotografer_id,
         ];
     }
 }

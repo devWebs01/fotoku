@@ -72,7 +72,7 @@ class FrontController extends Controller
 
             $apikey = '77580890196eaf5a13b484449e4c45ec53fbe57f';
             $tujuan = trim($request->no_telp);
-            $pesan = 'Selamat Datang, ' . $request->name . ' dengan email : ' . $request->email . ' di Aplikasi E-Market Freelance Photografer , Silakan lengkapi data profile anda untuk kenyamanan penggunaan aplikasi. Terima Kasih';
+            $pesan = 'Selamat Datang, ' . $request->name . ' dengan email : ' . $request->email . ' di Aplikasi eMarketplace Fotografer, Silakan lengkapi data profile anda untuk kenyamanan penggunaan aplikasi. Terima Kasih';
 
             // $curl = curl_init();
 

@@ -16,7 +16,7 @@ class SettingSeeder extends Seeder
     {
         Setting::create([
             'key' => 'app_name',
-            'value' => 'E-Market Freelance Photografer ',
+            'value' => 'eMarketplace Fotografer',
             'name' => 'eFotografer',
             'type' => 'text',
             'category' => 'information',

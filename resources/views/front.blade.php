@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>E-Market Freelance Photografer </title>
+    <title>eMarketplace Fotografer</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -209,7 +209,7 @@
         <div class="container">
             <h1 class="about_text">Tentang Kami</h1>
             <p class="lorem_text">Selamat datang di<br>
-                E-Market Freelance Photografer , <br>
+                eMarketplace Fotografer, <br>
                 platform yang menghubungkan <br>
                 fotografer profesional dengan <br>
                 pelanggan yang mencari karya <br>

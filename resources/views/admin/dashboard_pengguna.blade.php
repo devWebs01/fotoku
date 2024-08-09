@@ -26,7 +26,7 @@
                                 <div class="row">
                                     <div class="col-8">
                                         <h1>Selamat Datang</h1>
-                                        <p style="padding:10px;">Selamat datang di E-Market Freelance Photografer ,platform
+                                        <p style="padding:10px;">Selamat datang di eMarketplace Fotografer,platform
                                             yang menghubungkan fotografer profesional dengan pelanggan yang mencari karya
                                             fotografi berkualitas tinggi. Kami menyediakan akses mudah ke fotografer
                                             berbakat dalam berbagai genre, seperti pernikahan, potret keluarga, mode, dan

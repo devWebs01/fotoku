@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>E-Market Freelance Photografer </title>
+    <title>eMarketplace Fotografer</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -41,7 +41,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 col-lg-3">
-                    <div class="logo"><a href="{{ url('/') }}">E-Market Freelance Photografer </a></div>
+                    <div class="logo"><a href="{{ url('/') }}">eMarketplace Fotografer</a></div>
                     {{-- <div class="logo"><a href="index.html"><img src="{{ asset('frontend/images/logo.png') }}"></a></div> --}}
                 </div>
                 <div class="col-sm-5">

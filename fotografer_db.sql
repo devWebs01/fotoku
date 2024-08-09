@@ -582,7 +582,7 @@ INSERT INTO
 VALUES (
         1,
         'app_name',
-        'E-Market Freelance Photografer ',
+        'eMarketplace Fotografer',
         'eFotografer',
         'text',
         NULL,
@@ -593,7 +593,7 @@ VALUES (
     (
         2,
         'app_short_name',
-        'E-Market Freelance Photografer ',
+        'eMarketplace Fotografer',
         'Application Name',
         'text',
         NULL,
