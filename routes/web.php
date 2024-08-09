@@ -14,9 +14,8 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Mail\MyTestEmail;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,22 +40,24 @@ Auth::routes();
 
 Route::get('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/testroute', function () {
-    $filePath = public_path('favicon.ico');
-    $name = 'Funny Coder';
-    try {
-        // Attempt to send the email
-        Mail::to('testingbae66@gmail.com')->send(new MyTestEmail($name, $filePath));
+// Route::get('/testroute', function () {
+//     $filePath = public_path('favicon.ico');
+//     $name = 'Funny Coder';
+//     try {
+//         // Attempt to send the email
+//         Mail::to('testingbae66@gmail.com')->send(new MyTestEmail($name, $filePath));
 
-        // If successful, log a success message or return a response
-        Log::info('Email sent successfully to testingbae66@gmail.com');
-        return response()->json(['status' => 'success', 'message' => 'Email sent successfully!'], 200);
-    } catch (\Exception $e) {
-        // If there's an error, log the error and return a failure response
-        Log::error('Failed to send email: ' . $e->getMessage());
-        return response()->json(['status' => 'error', 'message' => 'Failed to send email. Please try again later.'], 500);
-    }
-});
+//         // If successful, log a success message or return a response
+//         Log::info('Email sent successfully to testingbae66@gmail.com');
+
+//         return response()->json(['status' => 'success', 'message' => 'Email sent successfully!'], 200);
+//     } catch (\Exception $e) {
+//         // If there's an error, log the error and return a failure response
+//         Log::error('Failed to send email: '.$e->getMessage());
+
+//         return response()->json(['status' => 'error', 'message' => 'Failed to send email. Please try again later.'], 500);
+//     }
+// });
 
 Route::middleware(['auth'])->get('/admin/dashboard', [DashboardController::class, 'index'])->name('home');
 
