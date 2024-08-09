@@ -80,16 +80,6 @@
                         </div>
                     </nav>
                 </div>
-                {{-- <div class="col-sm-5 col-lg-4">
-					<div class="search_main">
-						<div class="left_main">
-							<div class="login_text"><a ></a></div>
-						</div>
-						<div class="right_main">
-							<div class="login_text"><a >Login</a></div>
-						</div>
-				    </div>
-				</div> --}}
             </div>
         </div>
         <!-- header section end -->

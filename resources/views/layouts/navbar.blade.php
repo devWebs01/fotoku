@@ -1,8 +1,8 @@
-<nav class="main-header navbar navbar-expand navbar-dark">
+<nav class="main-header navbar navbar-expand bg-dark">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+            <a class="nav-link text-white" data-widget="pushmenu" href="#" role="button">
                 <i class="fas fa-bars"></i>
             </a>
         </li>
@@ -12,17 +12,17 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-            <a class="nav-link" id="btntheme" role="button">
+            <a class="nav-link text-white" id="btntheme" role="button">
                 <i id="icontheme" class="fas fa-sun"></i>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('index') }}" role="button">
+            <a class="nav-link text-white" href="{{ route('index') }}" role="button">
                 <i class="fas fa-globe"></i>
             </a>
         </li>
         <li class="nav-item dropdown user-menu">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+            <a href="#" class="nav-link text-white dropdown-toggle" data-toggle="dropdown">
                 @if (Auth::user()->foto_profile)
                     <img src="{{ Storage::url(Auth::user()->foto_profile) }}" class="user-image img-circle"
                         style="background-color: white;" alt="User Image">

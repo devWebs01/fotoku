@@ -8,7 +8,6 @@ use App\Http\Controllers\Admin\FrontController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\JadwalController;
 use App\Http\Controllers\Admin\KecamatanController;
-use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
@@ -40,14 +39,11 @@ Auth::routes();
 
 Route::get('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/testroute', function () {
-
-    $filePath = public_path('favicon.ico');
-
-    $name = 'Funny Coder';
-
-    Mail::to('testreceiver@gmail.com')->send(new MyTestEmail($name, $filePath));
-});
+// Route::get('/testroute', function () {
+//     $filePath = public_path('favicon.ico');
+//     $name = 'Funny Coder';
+//     Mail::to('testreceiver@gmail.com')->send(new MyTestEmail($name, $filePath));
+// });
 
 Route::middleware(['auth'])->get('/admin/dashboard', [DashboardController::class, 'index'])->name('home');
 
@@ -65,23 +61,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
         Route::put('user', 'update')->middleware(['permission:update user'])->name('user.update');
         Route::delete('user', 'destroy')->middleware(['permission:delete user'])->name('user.destroy');
     });
-
-    // Route::controller(RoleController::class)->group(function () {
-    //     Route::get('role', 'index')->middleware(['permission:read role'])->name('role.index');
-    //     Route::post('role', 'store')->middleware(['permission:create role'])->name('role.store');
-    //     Route::post('role/show', 'show')->middleware(['permission:read role'])->name('role.show');
-    //     Route::put('role', 'update')->middleware(['permission:update role'])->name('role.update');
-    //     Route::delete('role', 'destroy')->middleware(['permission:delete role'])->name('role.destroy');
-    // });
-
-    // Route::controller(PermissionController::class)->group(function () {
-    //     Route::get('permission', 'index')->middleware(['permission:read permission'])->name('permission.index');
-    //     Route::post('permission', 'store')->middleware(['permission:create permission'])->name('permission.store');
-    //     Route::post('permission/show', 'show')->middleware(['permission:read permission'])->name('permission.show');
-    //     Route::put('permission', 'update')->middleware(['permission:update permission'])->name('permission.update');
-    //     Route::delete('permission', 'destroy')->middleware(['permission:delete permission'])->name('permission.destroy');
-    //     Route::get('permission/reload', 'reloadPermission')->middleware(['permission:create permission'])->name('permission.reload');
-    // });
 
     Route::controller(SettingController::class)->group(function () {
         Route::get('setting', 'index')->middleware(['permission:read setting'])->name('setting.index');
@@ -160,5 +139,3 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::post('booking/get', [BookingController::class, 'get'])->name('booking.get');
     Route::resource('booking', BookingController::class);
 });
-
-

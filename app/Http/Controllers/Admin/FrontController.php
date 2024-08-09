@@ -72,7 +72,7 @@ class FrontController extends Controller
 
             $apikey = '77580890196eaf5a13b484449e4c45ec53fbe57f';
             $tujuan = trim($request->no_telp);
-            $pesan = 'Selamat Datang, ' . $request->name . ' dengan email : ' . $request->email . ' di Aplikasi eMarketplace Fotografer, Silakan lengkapi data profile anda untuk kenyamanan penggunaan aplikasi. Terima Kasih';
+            $pesan = 'Selamat Datang, '.$request->name.' dengan email : '.$request->email.' di Aplikasi eMarketplace Fotografer, Silakan lengkapi data profile anda untuk kenyamanan penggunaan aplikasi. Terima Kasih';
 
             // $curl = curl_init();
 
@@ -95,12 +95,12 @@ class FrontController extends Controller
 
             // curl_close($curl);
 
-            Alert::success('Pemberitahuan', 'Data <b>' . $user->nama . '</b> berhasil dibuat')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>'.$user->nama.'</b> berhasil dibuat')->toToast()->toHtml();
 
             return redirect(route('login'));
         } catch (\Throwable $th) {
             DB::rollback();
-            Alert::error('Pemberitahuan', 'Data gagal dibuat : ' . $th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal dibuat : '.$th->getMessage())->toToast()->toHtml();
         }
     }
 }
