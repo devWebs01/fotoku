@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('booking', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->unsignedInteger('pelanggan_id');
             $table->unsignedInteger('produk_id');
             $table->unsignedInteger('jadwal_id');

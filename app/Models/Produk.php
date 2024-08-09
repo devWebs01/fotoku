@@ -30,9 +30,9 @@ class Produk extends Model
         return $this->booking()->count();
     }
 
-    // public function getCreatedAtAttribute($value)
-    // {
-    //     return $value ? Carbon::parse($value)->format("d-M-Y H:i:s") : null;
-    // }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'fotografer_id');
+    }
 
 }

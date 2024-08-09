@@ -30,19 +30,9 @@ class Booking extends Model
         return $this->belongsTo(Jadwal::class);
     }
 
-    // public function anggota()
-    // {
-    //     return $this->hasMany(Anggota::class);
-    // }
-
-    //public function getCountDataAttribute()
-    //{
-    //    return $this->anggota()->count();
-    //}
-
-    // public function getCreatedAtAttribute($value)
-    // {
-    //     return $value ? Carbon::parse($value)->format("d-M-Y H:i:s") : null;
-    // }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'pelanggan_id');
+    }
 
 }

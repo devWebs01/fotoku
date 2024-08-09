@@ -35,18 +35,9 @@ class Role extends Authenticatable
      *
      * @var array<string, string>
      */
-    // protected $casts = [
-    //     'email_verified_at' => 'datetime',
-    // ];
-
-    // public function tatanan ()
-    // {
-    // 	return $this->belongsTo(Tatanan::class);
-    // }
-
-    // public function getRole ()
-    // {
-    //     return auth()->user()->getRoleNames()[0];
-    // }
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 
 }
