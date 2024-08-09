@@ -15,8 +15,7 @@ class JadwalFactory extends Factory
      *
      * @return array<string, mixed>
      */
-
-     protected $model = Jadwal::class;
+    protected $model = Jadwal::class;
 
     public function definition()
     {

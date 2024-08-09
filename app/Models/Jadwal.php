@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Jadwal extends Model
 {
     use HasFactory;
+
     public $table = 'jadwal';
 
     protected $guarded = [];
@@ -21,5 +21,4 @@ class Jadwal extends Model
     {
         return $this->hasMany(Booking::class);
     }
-
 }

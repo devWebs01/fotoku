@@ -4,11 +4,11 @@ namespace Database\Factories;
 
 use App\Models\Kecamatan;
 use App\Models\User;
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
@@ -20,7 +20,6 @@ class CustFactory extends Factory
      *
      * @return array<string, mixed>
      */
-
     protected $model = User::class;
 
     public function definition()
@@ -35,11 +34,10 @@ class CustFactory extends Factory
         $imageContents = Http::get($imageUrl)->body();
 
         // Generate a unique file name for the image
-        $imageName = 'profile_' . Str::random(10) . '.jpg';
+        $imageName = 'profile_'.Str::random(10).'.jpg';
 
         // Store the image in the 'public/profile' directory
-        Storage::disk('public')->put('profile/' . $imageName, $imageContents);
-
+        Storage::disk('public')->put('profile/'.$imageName, $imageContents);
 
         return [
             'kecamatan_id' => Kecamatan::inRandomOrder()->first()->id,
@@ -51,7 +49,7 @@ class CustFactory extends Factory
             'password' => bcrypt('password'), // or Hash::make('password')
             'status' => 'Aktif',
             'tgl_lahir' => $this->faker->date(),
-            'foto_profile' => 'profile/' . $imageName,
+            'foto_profile' => 'profile/'.$imageName,
         ];
     }
 }

@@ -44,7 +44,4 @@ class Role extends Authenticatable
     {
         return $this->belongsTo(User::class, 'fotografer_id');
     }
-
-
-
 }

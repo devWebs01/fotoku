@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Produk extends Model
 {
     use HasFactory;
+
     public $table = 'produk';
 
     protected $guarded = [];
@@ -36,5 +36,4 @@ class Produk extends Model
     {
         return $this->belongsTo(User::class, 'fotografer_id');
     }
-
 }

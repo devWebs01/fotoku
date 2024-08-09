@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('gambar_2');
             $table->timestamps();
 
-            $table->unsignedBigInteger('fotografer_id'); 
+            $table->unsignedBigInteger('fotografer_id');
 
             $table->foreign('fotografer_id', 'fk_produk_fotografer_0')
                 ->references('id')

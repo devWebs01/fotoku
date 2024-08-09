@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\UserController;
+use App\Mail\MyTestEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -156,3 +157,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/testroute', function () {
+
+    $filePath = public_path('favicon.ico');
+
+    $name = 'Funny Coder';
+
+    Mail::to('testreceiver@gmail.com')->send(new MyTestEmail($name, $filePath));
+});
