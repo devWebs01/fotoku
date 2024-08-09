@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>eMarketPlace Fotografer</title>
+    <title>E-Market Freelance Photografer </title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -66,7 +66,8 @@
                                     <li>|</li>
                                     @auth
 
-                                        <li><a class="nav-item nav-link" href="/home">Kembali Ke Dashboard</a></li>
+                                        <li><a class="nav-item nav-link" href="/admin/dashboard">Kembali Ke Dashboard</a>
+                                        </li>
                                     @else
                                         <li><a class="nav-item nav-link" href="{{ url('/') }}#register">Register
                                                 Pengguna</a></li>
@@ -208,7 +209,7 @@
         <div class="container">
             <h1 class="about_text">Tentang Kami</h1>
             <p class="lorem_text">Selamat datang di<br>
-                eMarketplace Fotografer, <br>
+                E-Market Freelance Photografer , <br>
                 platform yang menghubungkan <br>
                 fotografer profesional dengan <br>
                 pelanggan yang mencari karya <br>
@@ -303,7 +304,7 @@
                                         prewedding yang indah dan berkesan.</p>
                                     <div class="images_3"><img src="{{ asset('frontend/images/img-3.png') }}"></div>
                                     <div class="taital_main">
-                                        <h2 class="camera_text">Prewedding Studio Indoor</h2>
+                                        <h2 class="camera_text font-weight-bold">Prewedding Studio Indoor</h2>
 
                                         </h2>
                                     </div>
@@ -338,7 +339,7 @@
                                     </p>
                                     <div class="images_3"><img src="{{ asset('frontend/images/img-23.png') }}"></div>
                                     <div class="taital_main">
-                                        <h2 class="camera_text">Aqiqah dan Birthday Party</h2>
+                                        <h2 class="camera_text font-weight-bold">Aqiqah dan Birthday Party</h2>
 
                                         </h2>
                                     </div>
@@ -372,7 +373,7 @@
                                         <img src="{{ asset('frontend/images/img-25.png') }}">
                                     </div>
                                     <div class="taital_main">
-                                        <h2 class="camera_text">Engagement</h2>
+                                        <h2 class="camera_text font-weight-bold">Engagement</h2>
 
                                         </h2>
                                     </div>
@@ -394,11 +395,11 @@
     <!-- contact section start -->
     <div class="contact_section layout_padding" id="register">
         <div class="container">
-            <form method="POST" id="form-daftar" action="{{ route('daftar') }}" accept-charset="UTF-8"
-                enctype="multipart/form-data">
-                {{ csrf_field() }}
-                <h1 class="get_text">Register Pengguna</h1>
-                <div class="mail_section">
+            <div class="mail_section rounded">
+                <form method="POST" id="form-daftar" action="{{ route('daftar') }}" accept-charset="UTF-8"
+                    enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <h1 class="get_text text-white">Register Pengguna</h1>
                     <div class="row">
                         @if ($errors)
                             <span class="text-danger">
@@ -445,15 +446,19 @@
                         </div>
                     </div>
                     <textarea id="alamat" name="alamat" class="massage_box" placeholder="Alamat..."></textarea>
-                    <div class="send_bt">
-                        <div class="send_text">
-                            <a href="#" onclick="submitForm()">
-                                DAFTAR
-                            </a>
-                        </div>
+                    <div class="send_text mb-5">
+                        <a href="#" onclick="submitForm()" class="font-weight-bold">
+                            DAFTAR
+                        </a>
                     </div>
-                </div>
-            </form>
+
+                    <div class="text-center">
+                        <a href="/login" class="font-weight-bold text-light">
+                            Sudah punya akun, login disini!
+                        </a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     <div class="container-fluid padding_0">

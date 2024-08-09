@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>eMarketPlace Fotografer</title>
+    <title>E-Market Freelance Photografer </title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -41,7 +41,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 col-lg-3">
-                    <div class="logo"><a href="{{ url('/') }}">eMarketplace Fotografer</a></div>
+                    <div class="logo"><a href="{{ url('/') }}">E-Market Freelance Photografer </a></div>
                     {{-- <div class="logo"><a href="index.html"><img src="{{ asset('frontend/images/logo.png') }}"></a></div> --}}
                 </div>
                 <div class="col-sm-5">
@@ -68,7 +68,7 @@
                     <div class="search_main">
                         @auth
                             <div class="right_main">
-                                <div class="login_text"><a href="/home">Beranda</a></div>
+                                <div class="login_text"><a href="/admin/dashboard">Beranda</a></div>
                             </div>
                         @else
                             <div class="left_main">
@@ -313,7 +313,7 @@
     <!-- contact section start -->
     <div class="contact_section layout_padding" id="register">
         <div class="container">
-            <h1 class="get_text">Register Pengguna</h1>
+            <h1 class="text-white">Register Pengguna</h1>
             <div class="mail_section">
                 <div class="row">
                     <div class="col-md-6">

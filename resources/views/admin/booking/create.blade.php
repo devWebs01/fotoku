@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>eMarketPlace Fotografer</title>
+    <title>E-Market Freelance Photografer </title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -76,7 +76,7 @@
                     <div class="search_main">
                         @auth
                             <div class="left_main">
-                                <div class="login_text"><a href="/home">Kembali ke Dashboard</a></div>
+                                <div class="login_text"><a href="/admin/dashboard">Kembali ke Dashboard</a></div>
                             </div>
                         @else
                             <div class="left_main">
@@ -137,8 +137,8 @@
                     <center>
                         <div class="box-profile">
                             <img class="profile-user-img img-fluid img-circle img-fotografer"
-                                style="width: 300px;height: 300px; object-fit: cover;" src="{{ asset('user-default.jpg') }}"
-                                alt="User profile picture">
+                                style="width: 300px;height: 300px; object-fit: cover;"
+                                src="{{ asset('user-default.jpg') }}" alt="User profile picture">
                             <p class="text-muted text-center nama-fotografer" style="margin-top:20px;"></p>
                         </div>
                     </center>
@@ -284,7 +284,7 @@
                     if (profile != null) {
                         let profileUrl = "{{ asset('storage') }}/" + profile;
                         $('.img-fotografer').attr('src',
-                        profileUrl); // ini akan menampilkan gambar dari penyimpanan
+                            profileUrl); // ini akan menampilkan gambar dari penyimpanan
                     } else {
                         $('.img-fotografer').attr('src', "{{ asset('user-default.jpg') }}");
                     }

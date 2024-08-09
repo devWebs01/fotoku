@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>eMarketPlace Fotografer</title>
+    <title>E-Market Freelance Photografer </title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -66,7 +66,8 @@
                                     <li>|</li>
                                     @auth
 
-                                        <li><a class="nav-item nav-link" href="/home">Kembali Ke Dashboard</a></li>
+                                        <li><a class="nav-item nav-link" href="/admin/dashboard">Kembali Ke Dashboard</a>
+                                        </li>
                                     @else
                                         <li><a class="nav-item nav-link" href="{{ url('/') }}#register">Register
                                                 Pengguna</a></li>

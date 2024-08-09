@@ -36,13 +36,20 @@ Route::get('/fotografer_detail/{id}', [FrontController::class, 'fotograferDetail
 
 Route::post('/daftar', [FrontController::class, 'daftar'])->name('daftar');
 
-Auth::routes([
-    'register' => false,
-    'reset' => false,
-    'confirm' => false,
-]);
+Auth::routes();
 
-Route::middleware(['auth'])->get('/home', [DashboardController::class, 'index'])->name('home');
+Route::get('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/testroute', function () {
+
+    $filePath = public_path('favicon.ico');
+
+    $name = 'Funny Coder';
+
+    Mail::to('testreceiver@gmail.com')->send(new MyTestEmail($name, $filePath));
+});
+
+Route::middleware(['auth'])->get('/admin/dashboard', [DashboardController::class, 'index'])->name('home');
 
 Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
 
@@ -154,15 +161,4 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::resource('booking', BookingController::class);
 });
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/testroute', function () {
-
-    $filePath = public_path('favicon.ico');
-
-    $name = 'Funny Coder';
-
-    Mail::to('testreceiver@gmail.com')->send(new MyTestEmail($name, $filePath));
-});

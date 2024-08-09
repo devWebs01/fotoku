@@ -24,75 +24,73 @@
             alert()->error('Pemberitahuan', implode('<br>', $errors->all()))->toToast()->toHtml();
         }
     @endphp
-    <div class="login-box">
+    <div class="login-box w-100">
         <!-- /.login-logo -->
-        <div class="center" style="margin-bottom: 20px;">
-            <center>
-                <img src="{{ asset('icon.png') }}" alt="">
-            </center>
-        </div>
-        <div class="card card-outline card-primary">
-            <div class="card-header text-center">
-                <a href="{{ route('login') }}" class="h3 font-weight-bold">
-                    eMarketplace Fotografer
-                </a>
-            </div>
-            <div class="card-body">
-                <form method="POST" id="#recaptcha-form" action="{{ route('login') }}">
-                    @csrf
+        <section class="py-5">
+            <div class="container">
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <div class="pe-lg-3">
+                            <h1 class="display-5 font-weight-bold mb-2 mb-md-3">Selamat Datang di E-Market Freelance
+                                Fotografer!
 
-                    <div class="input-group mb-3">
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                            name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
-                            placeholder="Email">
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    <div class="input-group mb-3">
-                        <input id="password" type="password"
-                            class="form-control @error('password') is-invalid @enderror" name="password" required
-                            autocomplete="current-password" placeholder="Password">
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                    {{-- <div class="form-group mb-3">
-                            <div class="col-md-12">
-                                {!! htmlFormSnippet([
-                                    "theme" => "light",
-                                    "size" => "normal",
-                                    "tabindex" => "3",
-                                    "callback" => "callbackFunction",
-                                    "expired-callback" => "expiredCallbackFunction",
-                                    "error-callback" => "errorCallbackFunction",
-                                ]) !!}
-                            </div>
-                        </div> --}}
-                    <div class="row">
-                        {{-- <div class="col-8">
-                                <div class="icheck-primary">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div> --}}
-                        <!-- /.col -->
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">{{ __('Login') }}</button>
+                            </h1>
+                            <p class="lead mb-4">Kami adalah platform yang menghubungkan fotografer freelance berbakat
+                                dengan klien yang mencari keindahan dalam setiap jepretan. Dengan banyak fotografer dari
+                                berbagai latar belakang dan spesialisasi, kamu hanya perlu beberapa klik untuk menemukan
+                                yang tepat untuk kebutuhan kamu.
+                            </p>
                         </div>
-                        <!-- /.col -->
+
                     </div>
-                </form>
+                    <div class="col-lg-6">
+                        <div class="ps-lg-5">
+                            <div class="card shadow-lg text-left h-100">
+                                <div class="card-body p-4 p-xl-5">
+                                    <div class="text-center">
+                                        <img src="{{ asset('icon.png') }}" alt="" class="w-25">
+                                    </div>
+
+                                    <div class="card-body">
+                                        <form method="POST" id="#recaptcha-form" action="{{ route('login') }}">
+                                            @csrf
+
+                                            <div class="input-group mb-3">
+                                                <input id="email" type="email"
+                                                    class="form-control @error('email') is-invalid @enderror"
+                                                    name="email" value="{{ old('email') }}" required
+                                                    autocomplete="email" autofocus placeholder="Email">
+                                                @error('email')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <input id="password" type="password"
+                                                    class="form-control @error('password') is-invalid @enderror"
+                                                    name="password" required autocomplete="current-password"
+                                                    placeholder="Password">
+                                                @error('password')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <div class="d-grid">
+                                                <button type="submit"
+                                                    class="btn btn-primary btn-block">{{ __('Login') }}</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- /.card-body -->
-        </div>
+        </section>
+
         <!-- /.card -->
     </div>
     @include('sweetalert::alert')
