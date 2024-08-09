@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Role;
 use App\Models\Kecamatan;
 use App\Models\User;
 use Illuminate\Support\Str;
@@ -12,15 +11,18 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class UserFactory extends Factory
+class CustFactory extends Factory
 {
     /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
      */
+
+    protected $model = User::class;
+
     public function definition()
     {
         // Generate a random number between 1 and 70 for the image
@@ -41,37 +43,15 @@ class UserFactory extends Factory
 
         return [
             'kecamatan_id' => Kecamatan::inRandomOrder()->first()->id,
-            'role_id' => 2,
+            'role_id' => 3,
             'nama' => $this->faker->name(),
-            'spesialisasi' => $this->faker->randomElement([
-                'Photography Wedding',
-                'Photography Birthday',
-                'Photography Food',
-                'Photography Fashion',
-                'Photography Street',
-                'Photography Outdoor'
-            ]),
             'no_telp' => $this->faker->phoneNumber(),
             'alamat' => $this->faker->address(),
             'email' => $this->faker->unique()->safeEmail(),
             'password' => bcrypt('password'), // or Hash::make('password')
-            'status' => $this->faker->randomElement(['Aktif', 'Non Aktif']),
+            'status' => 'Aktif',
             'tgl_lahir' => $this->faker->date(),
             'foto_profile' => 'profile/' . $imageName,
         ];
-    }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     *
-     * @return static
-     */
-    public function unverified()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'email_verified_at' => null,
-            ];
-        });
     }
 }

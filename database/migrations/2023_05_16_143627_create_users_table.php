@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('kecamatan_id')->nullable();
-            $table->unsignedInteger('role_id');
+            $table->unsignedBigInteger('kecamatan_id')->nullable(); // Mengubah tipe data menjadi unsignedBigInteger
+            $table->unsignedBigInteger('role_id');
             //
             $table->string('nama');
             $table->enum('spesialisasi', ['Photography Wedding', 'Photography Birthday', 'Photography Food', 'Photography Fashion', 'Photography Street', 'Photography Outdoor'])->nullable();

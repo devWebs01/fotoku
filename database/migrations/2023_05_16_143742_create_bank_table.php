@@ -15,14 +15,15 @@ return new class extends Migration
     {
         Schema::create('bank', function (Blueprint $table) {
             $table->id();
-            //
             $table->string('no_rek');
             $table->string('atas_nama');
-            $table->unsignedInteger('fotografer_id');
-
             $table->timestamps();
+            $table->unsignedBigInteger('fotografer_id');  // Perubahan tipe data di sini
 
-            $table->foreign('fotografer_id', 'fk_bank_fotografer_0')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('fotografer_id', 'fk_bank_fotografer_0')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

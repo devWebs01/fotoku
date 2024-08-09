@@ -18,11 +18,14 @@ return new class extends Migration
             $table->string('name');
             $table->string('judul');
             $table->text('deskripsi');
-            $table->unsignedInteger('fotografer_id');
+            $table->unsignedBigInteger('fotografer_id');  // Pastikan tipe data ini
 
             $table->timestamps();
 
-            $table->foreign('fotografer_id', 'fk_galeri_fotografer_0')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('fotografer_id', 'fk_galeri_fotografer_0')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

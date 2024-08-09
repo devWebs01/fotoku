@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Database\Factories\CustFactory;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -14,6 +15,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        CustFactory::new()->count(10)->create();
+
         $admin = User::create([
             'nama' => 'admin',
             'email' => 'admin@admin.com',

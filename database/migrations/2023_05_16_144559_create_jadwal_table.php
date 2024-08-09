@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('jadwal', function (Blueprint $table) {
             $table->id();
-            //
             $table->date('tgl_acara');
             $table->string('jam');
             $table->enum('status', ['Booking', 'Cancel', 'Selesai'])->default('Booking');
