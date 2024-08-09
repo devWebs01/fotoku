@@ -5,12 +5,13 @@
             <div class="container">
                 <div class="row justify-content-center align-items-center">
                     <div class="col-lg-6 mb-5 mb-lg-0">
-                        <div class="pe-lg-3">
+                        <div class="pe-lg-3 px-2">
                             <h1 class="display-5 font-weight-bold mb-2 mb-md-3">Selamat Datang di eMarketplace
                                 Fotografer!
 
                             </h1>
-                            <p class="lead mb-4">Kami adalah platform yang menghubungkan fotografer freelance berbakat
+                            <p class=" mb-4">Kami adalah platform yang menghubungkan fotografer
+                                freelance berbakat
                                 dengan klien yang mencari keindahan dalam setiap jepretan. Dengan banyak fotografer dari
                                 berbagai latar belakang dan spesialisasi, kamu hanya perlu beberapa klik untuk menemukan
                                 yang tepat untuk kebutuhan kamu.
@@ -59,9 +60,9 @@
                                                     class="btn btn-primary btn-block">{{ __('Login') }}</button>
 
                                                 <div class="row mt-3">
-                                                    <a href="/#register" class="col-md font-weight-bold">Buat Akun!</a>
+                                                    <a href="/#register" class="col-6 font-weight-bold">Buat Akun!</a>
                                                     <a href="{{ route('password.request') }}"
-                                                        class="col-md font-weight-bold text-right">Lupa Password</a>
+                                                        class="col-6 font-weight-bold text-right">Lupa Password</a>
                                                 </div>
                                             </div>
                                         </form>

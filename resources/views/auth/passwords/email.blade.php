@@ -34,7 +34,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="card-body">
                                             @if (session('status'))
                                                 <div class="alert alert-primary" role="alert">
@@ -65,10 +65,10 @@
                                                     </button>
 
                                                     <div class="row mt-3">
-                                                        <a href="/#register" class="col-md font-weight-bold">Buat
+                                                        <a href="/#register" class="col-6 font-weight-bold">Buat
                                                             Akun!</a>
                                                         <a href="{{ route('login') }}"
-                                                            class="col-md font-weight-bold text-right">Login!</a>
+                                                            class="col-6 font-weight-bold text-right">Login!</a>
                                                     </div>
                                                 </div>
                                             </form>
