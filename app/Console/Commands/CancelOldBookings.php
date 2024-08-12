@@ -30,17 +30,29 @@ class CancelOldBookings extends Command
      */
     public function handle()
     {
-        $cutoffTime = Carbon::now()->subHours(24);
+        $currentDateTime = Carbon::now();
 
-        $bookings = Jadwal::where('created_at', '<=', $cutoffTime)
-            ->where('status', 'Booking')
+        // Mengambil semua booking yang terkait dengan jadwal yang sudah kadaluarsa
+        $bookings = Booking::whereHas('jadwal', function ($query) use ($currentDateTime) {
+            $query->where('tgl_acara', '<', $currentDateTime->toDateString())
+                ->orWhere(function ($query) use ($currentDateTime) {
+                    $query->where('tgl_acara', '=', $currentDateTime->toDateString())
+                        ->where('jam', '<', $currentDateTime->toTimeString());
+                })
+                ->where('status', 'Booking'); // Filter berdasarkan status dari Jadwal
+        })
             ->get();
 
         foreach ($bookings as $booking) {
-            $booking->update([
-                'status' => 'Cancel',
-            ]);
+            // Check if the booking is older than 24 hours or if the schedule date has passed
+            if ($booking->created_at->lt(now()->subHours(24)) || $booking->jadwal->tgl_acara < now()->format('Y-m-d')) {
+                // Cancel the booking
+                $booking->jadwal->update(['status' => 'Cancel']);
+            }
         }
+
+
+
 
         $this->info('Successfully canceled old bookings with status Booking.');
     }

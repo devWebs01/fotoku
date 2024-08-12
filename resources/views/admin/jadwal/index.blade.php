@@ -32,52 +32,57 @@
                                 </h3>
                             </div>
 
-                            <div class="card-body table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Tanggal Acara</th>
-                                            <th>Jam</th>
-                                            <th>Deskripsi Acara</th>
-                                            <th>Status</th>
-                                            <th>Keterangan</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($data as $index => $jadwal)
+                            <div class="card-body ">
+                                <div class="table-responsive">
+
+                                    <table class="table table-bordered">
+                                        <thead>
                                             <tr>
-                                                <td>{{ $index + 1 }}</td>
-                                                <td>{{ $jadwal->tanggal_acara }}</td>
-                                                <td>{{ $jadwal->jam }}</td>
-                                                <td>{{ $jadwal->deskripsi_acara }}</td>
-                                                <td>{{ $jadwal->status }}</td>
-                                                <td>{!! $jadwal->keterangan !!}</td>
-                                                <td>
-                                                    @if (Auth::user()->role->name == 'fotografer')
-                                                        <a href="{{ route('admin.jadwal.show', $jadwal->id) }}"
-                                                            class="btn btn-info btn-sm">Lihat</a>
-                                                        <a href="{{ route('admin.jadwal.edit', $jadwal->id) }}"
-                                                            class="btn btn-warning btn-sm">Edit</a>
-                                                        <a href="{{ route('admin.jadwal.editStatus', $jadwal->id) }}"
-                                                            class="btn btn-primary btn-sm">Selesaikan</a>
-                                                        <form action="{{ route('admin.jadwal.destroy', $jadwal->id) }}"
-                                                            method="POST" style="display: inline-block;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="btn btn-danger btn-sm">Batalkan</button>
-                                                        </form>
-                                                    @else
-                                                        <a href="{{ route('admin.jadwal.show', $jadwal->id) }}"
-                                                            class="btn btn-info btn-sm">Lihat</a>
-                                                    @endif
-                                                </td>
+                                                <th>No</th>
+                                                <th>Tanggal Acara</th>
+                                                <th>Jam</th>
+                                                <th>Deskripsi Acara</th>
+                                                <th>Status</th>
+                                                <th>Aksi</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($jadwals as $index => $jadwal)
+                                                <tr>
+                                                    <td>{{ $index + 1 }}</td>
+                                                    <td>{{ $jadwal->tgl_acara }}</td>
+                                                    <td>{{ $jadwal->jam }}</td>
+                                                    <td>{{ $jadwal->deskripsi_acara }}</td>
+                                                    <td>
+                                                        @foreach ($jadwal->bookings as $booking)
+                                                            {{ $booking->pelanggan->nama ?? 'Nama tidak ditemukan' }}
+                                                        @endforeach
+                                                    </td>
+                                                    <td>
+                                                        @if (Auth::user()->role->name == 'fotografer')
+                                                            <a href="{{ route('admin.jadwal.show', $jadwal->id) }}"
+                                                                class="btn btn-info btn-sm">Lihat</a>
+                                                            <a href="{{ route('admin.jadwal.edit', $jadwal->id) }}"
+                                                                class="btn btn-warning btn-sm">Edit</a>
+                                                            <a href="{{ route('admin.jadwal.editStatus', $jadwal->id) }}"
+                                                                class="btn btn-primary btn-sm">Selesaikan</a>
+                                                            <form action="{{ route('admin.jadwal.destroy', $jadwal->id) }}"
+                                                                method="POST" style="display: inline-block;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="btn btn-danger btn-sm">Batalkan</button>
+                                                            </form>
+                                                        @else
+                                                            <a href="{{ route('admin.jadwal.show', $jadwal->id) }}"
+                                                                class="btn btn-info btn-sm">Lihat</a>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
 
                         </div>

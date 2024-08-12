@@ -16,12 +16,14 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class BookingController extends Controller
 {
-    // public function index(Request $request)
+
+
+    // public function index()
     // {
     //     $title = 'Booking';
 
     //     if ($request->param) {
-    //         $link = url('admin/booking?').'param='.$request->param;
+    //         $link = url('admin/booking?') . 'param=' . $request->param;
     //     } else {
     //         $link = url('admin/booking');
     //     }
@@ -66,54 +68,30 @@ class BookingController extends Controller
     //     return view('admin.booking.index', compact('title', 'data', 'link'));
     // }
 
-    public function index(Request $request)
+
+    public function index()
     {
         $title = 'Booking';
 
-        if ($request->param) {
-            $link = url('admin/booking?') . 'param=' . $request->param;
-        } else {
-            $link = url('admin/booking');
-        }
-
-        switch ($request->param) {
-            case ! null:
-                $jadwal = Jadwal::where('tgl_acara', Carbon::createFromFormat('d/m/Y', $request->param)->format('Y-m-d'))->first();
-                if ($jadwal == null) {
-                    $query = Booking::where('jadwal_id', 0)->get();
-                } else {
-                    if (Auth::user()->role->name == 'pelanggan') {
-                        $query = Booking::where([
-                            'pelanggan_id' => Auth::user()->id,
-                            'jadwal_id' => $jadwal->id,
-                        ])->get();
-                    } elseif (Auth::user()->role->name == 'fotografer') {
-                        $query = Booking::where('jadwal_id', $jadwal->id)->whereHas('produk', function ($q) {
-                            $q->where('fotografer_id', Auth::user()->id);
-                        })->get();
-                    } else {
-                        $query = Booking::where('jadwal_id', $jadwal->id)->get();
-                    }
-                }
-                break;
-            default:
+        // Ambil semua booking yang terkait dengan user yang sedang login
+        $bookings = Booking::with(['jadwal', 'pelanggan', 'fotografer', 'produk'])
+            ->where(function ($query) {
                 if (Auth::user()->role->name == 'pelanggan') {
-                    $query = Booking::where([
-                        'pelanggan_id' => Auth::user()->id,
-                    ])->get();
+                    $query->where('pelanggan_id', Auth::user()->id);
                 } elseif (Auth::user()->role->name == 'fotografer') {
-                    $query = Booking::whereHas('produk', function ($q) {
-                        $q->where('fotografer_id', Auth::user()->id);
-                    })->get();
-                } else {
-                    $query = Booking::get();
+                    $query->whereHas('produk', function ($query) {
+                        $query->where('fotografer_id', Auth::user()->id);
+                    });
                 }
-                break;
-        }
+            })
+            ->get();
+        // Tambahkan waktu mundur dan format created_at
+        $bookings->each(function ($booking) {
+            $booking->formatted_created_at = Carbon::parse($booking->created_at)->format('d M Y H:i');
+            $booking->time_elapsed = Carbon::parse($booking->created_at)->diffForHumans();
+        });
 
-        $data = $query;
-
-        return view('admin.booking.index', compact('title', 'data', 'link'));
+        return view('admin.booking.index', compact('title', 'bookings'));
     }
 
     public function create(Request $request)

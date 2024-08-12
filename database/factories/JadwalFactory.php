@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use App\Models\Jadwal;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,11 +20,30 @@ class JadwalFactory extends Factory
 
     public function definition()
     {
+        $now = Carbon::now();
+
+        // Status jadwal (Booking, Cancel, Selesai)
+        $status = $this->faker->randomElement(['Booking', 'Cancel', 'Selesai']);
+
+        // Tentukan `created_at` yang realistis (tidak mungkin di masa depan)
+        $createdAt = $this->faker->dateTimeBetween('-2 days', $now)->format('Y-m-d H:i:s');
+
+        // `updated_at` harus lebih besar atau sama dengan `created_at`
+        $updatedAt = $this->faker->dateTimeBetween($createdAt, $now)->format('Y-m-d H:i:s');
+
+        // Tentukan `tgl_acara` bisa di masa lalu atau masa depan
+        $tglAcara = $this->faker->boolean(50)
+            ? $this->faker->dateTimeBetween('-2 days', '-1 minute')->format('Y-m-d H:i:s') // Past date
+            : $this->faker->dateTimeBetween('now', '+2 days')->format('Y-m-d H:i:s'); // Future date
+
         return [
-            'tgl_acara' => $this->faker->date(),
+            'tgl_acara' => $tglAcara,
+            'status' => $status,
             'jam' => $this->faker->time(),
-            'status' => $this->faker->randomElement(['Booking', 'Cancel', 'Selesai']),
-            'link_foto' => $this->faker->url(),
+            'link_foto' => in_array($status, ['Booking', 'Cancel']) ? null : $this->faker->url(),
+            'created_at' => $createdAt,
+            'updated_at' => $updatedAt,
+
         ];
     }
 }

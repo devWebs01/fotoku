@@ -36,12 +36,8 @@ class DatabaseSeeder extends Seeder
         Bank::factory()->count(5)->create();
         $this->command->info('Bank have been seeded.');
 
-        // Menambahkan data untuk Galeri
-        Galeri::factory()->count(30)->create();
-        $this->command->info('Gallery have been seeded.');
-
         // Menambahkan data untuk Produk
-        Produk::factory()->count(20)->create();
+        Produk::factory()->count(50)->create();
         $this->command->info('Product have been seeded.');
 
         // Menambahkan data untuk Jadwal
@@ -51,5 +47,9 @@ class DatabaseSeeder extends Seeder
         // Menambahkan data untuk Booking
         Booking::factory()->count(10)->create();
         $this->command->info('Booking have been seeded.');
+
+        // Menambahkan data untuk Galeri
+        Galeri::factory()->count(30)->create();
+        $this->command->info('Gallery have been seeded.');
     }
 }

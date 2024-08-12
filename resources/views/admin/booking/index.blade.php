@@ -39,72 +39,58 @@
                             </div>
 
                             <div class="card-body table-responsive">
-                                <table class="table table-bordered table-striped">
+                                <table class="table table-bordered">
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama Pelanggan</th>
-                                            <th>Produk/Paket</th>
-                                            <th>Jadwal</th>
-                                            <th>Total Booking</th>
-                                            <th>Total Bayar</th>
+                                            <th>Tanggal Acara</th>
+                                            <th>Jam</th>
+                                            <th>Deskripsi Acara</th>
                                             <th>Status</th>
+                                            <th>Fotografer</th>
+                                            <th>Waktu Dibuat</th>
+                                            <th>Hitung Mundur</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($data as $key => $row)
+                                        @foreach ($bookings as $index => $booking)
                                             <tr>
-                                                <td>{{ $key + 1 }}</td>
-                                                <td>{{ $row->pelanggan->nama ?? '' }}</td>
-                                                <td>{{ $row->produk->nama_produk ?? '' }}</td>
-                                                <td>{{ $row->jadwal ? \Carbon\Carbon::parse($row->jadwal->tgl_acara)->format('d M Y') : '' }}
-                                                </td>
-                                                <td>{{ $row->total_booking ? number_format($row->total_booking, 0, ',', '.') : '' }}
-                                                </td>
-                                                <td>{{ $row->total_bayar ? number_format($row->total_bayar, 0, ',', '.') : '' }}
-                                                </td>
-                                                <td>{{ $row->status_booking }}</td>
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $booking->jadwal->tgl_acara }}</td>
+                                                <td>{{ $booking->jadwal->jam }}</td>
+                                                <td>{{ $booking->jadwal->deskripsi_acara }}</td>
+                                                <td id="status-{{ $booking->id }}">{{ $booking->status_booking }}</td>
+                                                <td>{{ optional($booking->fotografer)->nama }}</td>
+                                                <td>{{ $booking->created_at->format('d M Y H:i') }}</td>
+                                                <td class="countdown"
+                                                    data-created-at="{{ $booking->created_at->toIso8601String() }}"></td>
                                                 <td>
-                                                    <div class="justify-content-center g-3">
-                                                        @if (Auth::user()->role->name == 'fotografer')
-                                                            <a class="btn btn-info btn-sm m-1"
-                                                                href="{{ Route('admin.booking.show', $row->id) }}">
-                                                                Lihat</a>
-                                                            <form id="destroy-booking"
-                                                                action="{{ route('admin.booking.destroy', $row->id) }}"
-                                                                method="POST">
-                                                                <button type="submit"
-                                                                    class="btn btn-danger btn-sm m-1">Batalkan</button>
-                                                                @csrf
-                                                                @method('DELETE')
-                                                            </form>
-                                                        @else
-                                                            <a class="btn btn-info btn-sm m-1"
-                                                                href="{{ Route('admin.booking.show', $row->id) }}">
-                                                                Lihat</a>
-                                                            <a class="btn btn-primary btn-sm m-1 {{ $row->bukti_booking == null ?: 'd-none' }}"
-                                                                href="{{ Route('admin.booking.editDP', $row->id) }}">
-                                                                Bayar DP</a>
-                                                            <a class="btn btn-warning btn-sm m-1 {{ $row->bukti_bayar == null ?: 'd-none' }}"
-                                                                href="{{ Route('admin.booking.edit', $row->id) }}">
-                                                                Pelunasan</a>
-                                                            <form id="destroy-booking"
-                                                                action="{{ route('admin.booking.destroy', $row->id) }}"
-                                                                method="POST">
-                                                                <button type="submit"
-                                                                    class="btn btn-danger btn-sm m-1 {{ $row->bukti_booking == null || $row->bukti_bayar == null ?: 'd-none' }}">Batalkan</button>
-                                                                @csrf
-                                                                @method('DELETE')
-                                                            </form>
-                                                        @endif
-
-                                                    </div>
+                                                    @if (Auth::user()->role->name == 'fotografer')
+                                                        <a href="{{ route('admin.jadwal.show', $booking->jadwal_id) }}"
+                                                            class="btn btn-info btn-sm">Lihat</a>
+                                                        <a href="{{ route('admin.jadwal.edit', $booking->jadwal_id) }}"
+                                                            class="btn btn-warning btn-sm">Edit</a>
+                                                        <a href="{{ route('admin.jadwal.editStatus', $booking->jadwal_id) }}"
+                                                            class="btn btn-primary btn-sm">Selesaikan</a>
+                                                        <form
+                                                            action="{{ route('admin.jadwal.destroy', $booking->jadwal_id) }}"
+                                                            method="POST" style="display: inline-block;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="btn btn-danger btn-sm">Batalkan</button>
+                                                        </form>
+                                                    @else
+                                                        <a href="{{ route('admin.jadwal.show', $booking->jadwal_id) }}"
+                                                            class="btn btn-info btn-sm">Lihat</a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
+
                             </div>
 
                         </div>
@@ -113,4 +99,31 @@
             </div>
         </section>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function updateCountdown() {
+                const elements = document.querySelectorAll('.countdown');
+                elements.forEach(el => {
+                    const createdAt = new Date(el.dataset.createdAt);
+                    const now = new Date();
+                    const diff = now - createdAt;
+                    const minutes = Math.floor(diff / 60000);
+                    const hours = Math.floor(minutes / 60);
+                    const days = Math.floor(hours / 24);
+                    const formatted = days > 0 ?
+                        `${days} days ago` :
+                        hours > 0 ?
+                        `${hours} hours ago` :
+                        minutes > 0 ?
+                        `${minutes} minutes ago` :
+                        'just now';
+                    el.textContent = formatted;
+                });
+            }
+
+            // Update countdown every minute
+            setInterval(updateCountdown, 60000);
+            updateCountdown(); // Initial call
+        });
+    </script>
 @endsection

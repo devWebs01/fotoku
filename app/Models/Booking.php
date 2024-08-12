@@ -13,9 +13,14 @@ class Booking extends Model
 
     protected $guarded = [];
 
+    public function jadwal()
+    {
+        return $this->belongsTo(Jadwal::class);
+    }
+
     public function pelanggan()
     {
-        return $this->belongsTo(User::class, 'pelanggan_id', 'id');
+        return $this->belongsTo(User::class, 'pelanggan_id'); // Assuming 'pelanggan_id' refers to the user who made the booking
     }
 
     public function produk()
@@ -23,9 +28,9 @@ class Booking extends Model
         return $this->belongsTo(Produk::class, 'produk_id');
     }
 
-    public function jadwal()
+    public function fotografer()
     {
-        return $this->belongsTo(Jadwal::class);
+        return $this->hasOneThrough(Fotografer::class, Produk::class, 'id', 'id', 'produk_id', 'fotografer_id');
     }
 
     public function user()
