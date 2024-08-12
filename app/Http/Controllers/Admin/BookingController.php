@@ -71,7 +71,7 @@ class BookingController extends Controller
         $title = 'Booking';
 
         if ($request->param) {
-            $link = url('admin/booking?').'param='.$request->param;
+            $link = url('admin/booking?') . 'param=' . $request->param;
         } else {
             $link = url('admin/booking');
         }
@@ -127,6 +127,7 @@ class BookingController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $this->validate($request, [
             'fotografer_id' => ['required'],
             'produk_id' => ['required'],
@@ -134,30 +135,31 @@ class BookingController extends Controller
             'jam' => ['required'],
             'deskripsi_acara' => ['required'],
         ]);
-        DB::beginTransaction();
-        try {
-            $jadwal = Jadwal::create([
-                'tgl_acara' => Carbon::createFromFormat('d/m/Y', $request->tgl_acara)->format('Y-m-d'),
-                'jam' => $request->jam,
-                'status' => 'Booking',
-                'deskripsi_acara' => $request->deskripsi_acara,
-            ]);
+        $jadwal = Jadwal::create([
+            'tgl_acara' => Carbon::createFromFormat('d/m/Y', $request->tgl_acara)->format('Y-m-d'),
+            'jam' => $request->jam,
+            'status' => 'Booking',
+            'deskripsi_acara' => $request->deskripsi_acara,
+        ]);
 
-            $booking = Booking::create([
-                'produk_id' => $request->produk_id,
-                'jadwal_id' => $jadwal->id,
-                'status_booking' => 'Booking',
-                'pelanggan_id' => Auth::user()->id,
-            ]);
+        $booking = Booking::create([
+            'produk_id' => $request->produk_id,
+            'jadwal_id' => $jadwal->id,
+            'status_booking' => 'Booking',
+            'pelanggan_id' => Auth::user()->id,
+        ]);
 
-            DB::commit();
-            Alert::success('Pemberitahuan', 'Data <b>'.$booking->id.'</b> berhasil dibuat')->toToast()->toHtml();
-        } catch (\Throwable $th) {
-            DB::rollback();
-            Alert::error('Pemberitahuan', 'Data gagal dibuat : '.$th->getMessage())->toToast()->toHtml();
 
-            return back();
-        }
+        // try {
+
+        //     DB::commit();
+        //     Alert::success('Pemberitahuan', 'Data <b>' . $booking->id . '</b> berhasil dibuat')->toToast()->toHtml();
+        // } catch (\Throwable $th) {
+        //     DB::rollback();
+        //     Alert::error('Pemberitahuan', 'Data gagal dibuat : ' . $th->getMessage())->toToast()->toHtml();
+
+        //     return back();
+        // }
 
         return redirect()->route('admin.booking.show', $booking->id);
     }
@@ -181,7 +183,7 @@ class BookingController extends Controller
                 'data' => $booking,
             ], 200);
         } catch (\Throwable $th) {
-            Alert::error('Pemberitahuan', 'Data gagal dibuat : '.$th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal dibuat : ' . $th->getMessage())->toToast()->toHtml();
 
             return response()->json([
                 'message' => 'Data tidak ditemukan',
@@ -219,7 +221,7 @@ class BookingController extends Controller
             $booking = Booking::find($request->booking_id);
 
             $file = $request->file('bukti_booking');
-            $fileName = time().'_'.$file->getClientOriginalName();
+            $fileName = time() . '_' . $file->getClientOriginalName();
             $filePath = $file->storeAs('bukti_booking', $fileName, 'public');
 
             $booking->update([
@@ -229,10 +231,10 @@ class BookingController extends Controller
             ]);
 
             DB::commit();
-            Alert::success('Pemberitahuan', 'Data <b>'.$booking->id.'</b> berhasil diupdate')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>' . $booking->id . '</b> berhasil diupdate')->toToast()->toHtml();
         } catch (\Throwable $th) {
             DB::rollback();
-            Alert::error('Pemberitahuan', 'Data gagal diupdate : '.$th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal diupdate : ' . $th->getMessage())->toToast()->toHtml();
         }
 
         return redirect()->route('admin.booking.show', $booking);
@@ -261,7 +263,7 @@ class BookingController extends Controller
         try {
 
             $file = $request->file('bukti_bayar');
-            $fileName = time().'_'.$file->getClientOriginalName();
+            $fileName = time() . '_' . $file->getClientOriginalName();
             $filePath = $file->storeAs('bukti_bayar', $fileName, 'public');
 
             $booking->update([
@@ -271,10 +273,10 @@ class BookingController extends Controller
             ]);
 
             DB::commit();
-            Alert::success('Pemberitahuan', 'Data <b>'.$booking->id.'</b> berhasil diupdate')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>' . $booking->id . '</b> berhasil diupdate')->toToast()->toHtml();
         } catch (\Throwable $th) {
             DB::rollback();
-            Alert::error('Pemberitahuan', 'Data gagal diupdate : '.$th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal diupdate : ' . $th->getMessage())->toToast()->toHtml();
         }
 
         return redirect()->route('admin.booking.show', $booking);
@@ -295,9 +297,9 @@ class BookingController extends Controller
             Jadwal::where('id', $booking->jadwal_id)->update([
                 'status' => $newStatus,
             ]);
-            Alert::success('Pemberitahuan', 'Data <b>'.$booking->id.'</b> berhasil dibatalkan')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>' . $booking->id . '</b> berhasil dibatalkan')->toToast()->toHtml();
         } catch (\Throwable $th) {
-            Alert::error('Pemberitahuan', 'Data gagal dibatalkan : '.$th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal dibatalkan : ' . $th->getMessage())->toToast()->toHtml();
         }
 
         return back();

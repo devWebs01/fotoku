@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('jam');
             $table->enum('status', ['Booking', 'Cancel', 'Selesai'])->default('Booking');
             $table->text('link_foto')->nullable();
+            $table->text('deskripsi_acara')->nullable();
             $table->timestamps();
         });
     }
