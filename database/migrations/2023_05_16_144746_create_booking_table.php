@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('booking', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('pelanggan_id');
-            $table->unsignedInteger('produk_id');
-            $table->unsignedInteger('jadwal_id');
-            //
+            $table->unsignedBigInteger('pelanggan_id');
+            $table->unsignedBigInteger('produk_id');
+            $table->unsignedBigInteger('jadwal_id');
+
             $table->float('total_bayar', 11, 1)->nullable();
             $table->float('total_booking', 11, 1)->nullable();
             $table->text('bukti_booking')->nullable();
@@ -26,8 +26,10 @@ return new class extends Migration
             $table->enum('status_booking', ['Booking', 'Cancel', 'DP', 'Lunas', 'Selesai'])->default('DP');
             $table->timestamps();
 
-            // foreign key
-            // $table->foreign('pelanggan_id', 'fk_booking_pelanggan_0')->references('id')->on('pelanggan')->onDelete('cascade');
+            // Define foreign key constraints with unique names
+            $table->foreign('pelanggan_id', 'fk_booking_pelanggan_0')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('produk_id', 'fk_booking_produk_1')->references('id')->on('produk')->onDelete('cascade');
+            $table->foreign('jadwal_id', 'fk_booking_jadwal_2')->references('id')->on('jadwal')->onDelete('cascade');
         });
     }
 

@@ -44,7 +44,7 @@ class ProdukFactory extends Factory
         return [
             'fotografer_id' => $fotografer_id,
             'nama_produk' => $this->faker->word(),
-            'harga' => $this->faker->randomFloat(0, 500000, 1000000000),
+            'harga' => $this->faker->randomFloat(0, 500000, 1000000),
             'info' => $this->faker->paragraph(),
             'gambar_1' => 'product/'.$imageName1,
             'gambar_2' => 'product/'.$imageName2,

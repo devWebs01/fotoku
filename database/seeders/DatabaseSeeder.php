@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             SettingSeeder::class,
             KecamatanSeeder::class,
             UserSeeder::class,
+            JsonSeeder::class,
         ]);
 
         // Menambahkan data untuk User

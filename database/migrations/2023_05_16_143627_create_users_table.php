@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('kecamatan_id')->nullable(); // Mengubah tipe data menjadi unsignedBigInteger
+            $table->unsignedBigInteger('kecamatan_id')->nullable();
             $table->unsignedBigInteger('role_id');
             $table->string('nama');
             $table->enum('spesialisasi', ['Photography Wedding', 'Photography Birthday', 'Photography Food', 'Photography Fashion', 'Photography Street', 'Photography Outdoor'])->nullable();
@@ -29,9 +29,16 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-            // foreign key
-            $table->foreign('kecamatan_id', 'fk_users_kecamatan_0')->references('id')->on('kecamatan')->onDelete('cascade');
-            $table->foreign('role_id', 'fk_users_role_1')->references('id')->on('roles')->onDelete('cascade');
+            // Define foreign key constraints
+            $table->foreign('kecamatan_id', 'fk_users_kecamatan_0')
+                ->references('id')
+                ->on('kecamatan')
+                ->onDelete('set null');
+
+            $table->foreign('role_id', 'fk_users_role_1')
+                ->references('id')
+                ->on('roles')
+                ->onDelete('cascade');
         });
     }
 

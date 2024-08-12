@@ -20,11 +20,12 @@ return new class extends Migration
             $table->text('info');
             $table->string('gambar_1');
             $table->string('gambar_2');
-            $table->timestamps();
-
             $table->unsignedBigInteger('fotografer_id');
 
-            $table->foreign('fotografer_id', 'fk_produk_fotografer_0')
+            $table->timestamps();
+
+            // Definisikan foreign key
+            $table->foreign('fotografer_id', 'fk_produk_fotografer_1')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');

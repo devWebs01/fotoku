@@ -18,10 +18,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('judul');
             $table->text('deskripsi');
-            $table->unsignedBigInteger('fotografer_id');  // Pastikan tipe data ini
+            $table->unsignedBigInteger('fotografer_id'); // Pastikan tipe data ini
 
             $table->timestamps();
 
+            // Definisikan foreign key
             $table->foreign('fotografer_id', 'fk_galeri_fotografer_0')
                 ->references('id')
                 ->on('users')

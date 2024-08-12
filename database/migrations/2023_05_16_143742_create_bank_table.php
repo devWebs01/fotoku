@@ -17,9 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('no_rek');
             $table->string('atas_nama');
-            $table->timestamps();
-            $table->unsignedBigInteger('fotografer_id');  // Perubahan tipe data di sini
+            $table->unsignedBigInteger('fotografer_id');  // Tipe data yang benar
 
+            $table->timestamps();
+
+            // Definisikan foreign key
             $table->foreign('fotografer_id', 'fk_bank_fotografer_0')
                 ->references('id')
                 ->on('users')

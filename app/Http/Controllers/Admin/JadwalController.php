@@ -15,153 +15,68 @@ use Yajra\DataTables\Facades\DataTables;
 
 class JadwalController extends Controller
 {
-    // public function index(Request $request)
-    // {
-    //     $x['title'] = 'Jadwal';
-    //     $x['data'] = Jadwal::get();
-
-    //     if ($request->ajax()) {
-    //         if (Auth::user()->role->name == 'pelanggan') {
-    //             $booking = Booking::where('pelanggan_id', Auth::user()->id)->pluck('jadwal_id');
-    //             $query = Jadwal::wherein('id', $booking)->get();
-    //         } elseif (Auth::user()->role->name == 'fotografer') {
-    //             $booking = Booking::whereHas('produk', function ($q) {
-    //                 $q->where('fotografer_id', Auth::user()->id);
-    //             })->pluck('jadwal_id');
-    //             $query = Jadwal::wherein('id', $booking)->get();
-    //         } else {
-    //             $query = Jadwal::get();
-    //         }
-
-    //         $table = Datatables::of($query);
-
-    //         $table->addColumn('placeholder', '&nbsp;');
-    //         $table->addColumn('actions', '&nbsp;');
-
-    //         $table->editColumn('actions', function ($row) {
-    //             $viewGate = 'show jadwal';
-    //             $editGate = 'update jadwal';
-    //             $jadwalGate = 'update jadwal';
-    //             $batalGate = 'delete booking';
-    //             $crudRoutePart = 'jadwal';
-    //             $nama = ' Pada tanggal, '.Carbon::parse($row->tgl_acara)->format('d M Y');
-
-    //             if (Auth::user()->role->name == 'fotografer') {
-    //                 return view('partials.datatablesActions', compact(
-    //                     'viewGate',
-    //                     'editGate',
-    //                     'jadwalGate',
-    //                     'batalGate',
-    //                     'crudRoutePart',
-    //                     'row',
-    //                     'nama'
-    //                 ));
-    //             } else {
-    //                 return view('partials.datatablesActions', compact(
-    //                     'viewGate',
-    //                     'crudRoutePart',
-    //                     'row',
-    //                     'nama'
-    //                 ));
-    //             }
-
-    //         });
-
-    //         $table->editColumn('id', function ($row) {
-    //             return $row->id ? $row->id : '';
-    //         });
-
-    //         $table->editColumn('tgl_acara', function ($row) {
-    //             return $row->tgl_acara ? Carbon::parse($row->tgl_acara)->format('d M Y') : '';
-    //         });
-    //         $table->editColumn('jam', function ($row) {
-    //             return $row->jam ? $row->jam : '';
-    //         });
-    //         $table->editColumn('deskripsi_acara', function ($row) {
-    //             return $row->deskripsi_acara ? $row->deskripsi_acara : '';
-    //         });
-    //         $table->editColumn('status', function ($row) {
-    //             return $row->status ? $row->status : '';
-    //         });
-    //         $table->editColumn('keterangan', function ($row) {
-    //             $booking = Booking::where('jadwal_id', $row->id)->first();
-    //             if (Auth::user()->role->name == 'pelanggan') {
-    //                 $ket = 'Fotografer : '.$booking->produk->fotografer->nama.'<br/>
-    //                         Produk/ Paket : '.$booking->produk->nama_produk.'<br/>
-    //                         Status Booking : '.$booking->status_booking.'
-    //                         ';
-    //             } elseif (Auth::user()->role->name == 'fotografer') {
-    //                 $ket = 'Pelanggan :  '.$booking->pelanggan->nama.'<br/>
-    //                         Produk/ Paket : '.$booking->produk->nama_produk.'<br/>
-    //                         Status Booking : '.$booking->status_booking.'
-    //                 ';
-    //             } else {
-    //                 $ket = 'Fotografer : '.$booking->produk->fotografer->nama.'<br/>
-    //                         Pelanggan : '.$booking->pelanggan->nama.'<br/>
-    //                         Produk/ Paket : '.$booking->produk->nama_produk.'<br/>
-    //                         Status Booking : '.$booking->status_booking.'
-    //                 ';
-    //             }
-
-    //             return $row->id ? $ket : '';
-    //         });
-
-    //         $table->addIndexColumn();
-    //         $table->rawColumns(['actions', 'placeholder', 'keterangan']);
-
-    //         return $table->make(true);
-    //     }
-
-    //     return view('admin.jadwal.index', $x);
-    // }
 
     public function index(Request $request)
     {
         $title = 'Jadwal';
 
         if (Auth::check() && Auth::user()->role->name == 'pelanggan') {
+
             $bookingIds = Booking::where('pelanggan_id', Auth::user()->id)->pluck('jadwal_id');
             $jadwals = Jadwal::whereIn('id', $bookingIds)->get();
         } elseif (Auth::check() && Auth::user()->role->name == 'fotografer') {
+
             $bookingIds = Booking::whereHas('produk', function ($query) {
                 $query->where('fotografer_id', Auth::user()->id);
             })->pluck('jadwal_id');
+
             $jadwals = Jadwal::whereIn('id', $bookingIds)->get();
         } else {
+
             $jadwals = Jadwal::all();
         }
 
         $data = $jadwals->map(function ($jadwal) {
             $booking = Booking::where('jadwal_id', $jadwal->id)->first();
 
-            $jadwal->tanggal_acara = Carbon::parse($jadwal->tgl_acara)->format('d M Y');
-            $jadwal->jam = $jadwal->jam;
-            $jadwal->deskripsi_acara = $jadwal->deskripsi_acara;
-            $jadwal->status = $jadwal->status;
+            if ($booking) {
+                $jadwal->tanggal_acara = Carbon::parse($jadwal->tgl_acara)->format('d M Y');
+                $jadwal->jam = $jadwal->jam;
+                $jadwal->deskripsi_acara = $jadwal->deskripsi_acara;
+                $jadwal->status = $jadwal->status;
 
-            if (Auth::check() && Auth::user()->role->name == 'pelanggan') {
-                $fotograferNama = optional(optional($booking->produk)->fotografer)->nama;
-                $produkNama = optional($booking->produk)->nama_produk;
-                $statusBooking = optional($booking)->status_booking;
+                // Tambahkan keterangan sesuai peran
+                if (Auth::check() && Auth::user()->role->name == 'pelanggan') {
+                    $fotograferNama = optional(optional($booking->produk)->fotografer)->nama;
+                    $produkNama = optional($booking->produk)->nama_produk;
+                    $statusBooking = optional($booking)->status_booking;
 
-                $jadwal->keterangan = "Fotografer: $fotograferNama<br/>Produk/Paket: $produkNama<br/>Status Booking: $statusBooking";
-            } elseif (Auth::check() && Auth::user()->role->name == 'fotografer') {
-                $pelangganNama = optional($booking->pelanggan)->nama;
-                $produkNama = optional($booking->produk)->nama_produk;
-                $statusBooking = optional($booking)->status_booking;
+                    $jadwal->keterangan = "Fotografer: $fotograferNama<br/>Produk/Paket: $produkNama<br/>Status Booking: $statusBooking";
+                } elseif (Auth::check() && Auth::user()->role->name == 'fotografer') {
+                    $pelangganNama = optional($booking->pelanggan)->nama;
+                    $produkNama = optional($booking->produk)->nama_produk;
+                    $statusBooking = optional($booking)->status_booking;
 
-                $jadwal->keterangan = "Pelanggan: $pelangganNama<br/>Produk/Paket: $produkNama<br/>Status Booking: $statusBooking";
+                    $jadwal->keterangan = "Pelanggan: $pelangganNama<br/>Produk/Paket: $produkNama<br/>Status Booking: $statusBooking";
+                } else {
+                    $fotograferNama = optional(optional($booking->produk)->fotografer)->nama;
+                    $pelangganNama = optional($booking->pelanggan)->nama;
+                    $produkNama = optional($booking->produk)->nama_produk;
+                    $statusBooking = optional($booking)->status_booking;
+
+                    $jadwal->keterangan = "Fotografer: $fotograferNama<br/>Pelanggan: $pelangganNama<br/>Produk/Paket: $produkNama<br/>Status Booking: $statusBooking";
+                }
             } else {
-                $fotograferNama = optional(optional($booking->produk)->fotografer)->nama;
-                $pelangganNama = optional($booking->pelanggan)->nama;
-                $produkNama = optional($booking->produk)->nama_produk;
-                $statusBooking = optional($booking)->status_booking;
-
-                $jadwal->keterangan = "Fotografer: $fotograferNama<br/>Pelanggan: $pelangganNama<br/>Produk/Paket: $produkNama<br/>Status Booking: $statusBooking";
+                $jadwal->tanggal_acara = 'Tanggal tidak ditemukan';
+                $jadwal->jam = 'Jam tidak ditemukan';
+                $jadwal->deskripsi_acara = 'Deskripsi tidak ditemukan';
+                $jadwal->status = 'Status tidak ditemukan';
+                $jadwal->keterangan = 'Keterangan tidak ditemukan';
             }
 
             return $jadwal;
         });
+
 
         return view('admin.jadwal.index', compact('title', 'data'));
     }
@@ -194,10 +109,10 @@ class JadwalController extends Controller
             ]);
 
             DB::commit();
-            Alert::success('Pemberitahuan', 'Data <b>'.$jadwal->id.'</b> berhasil dibuat')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>' . $jadwal->id . '</b> berhasil dibuat')->toToast()->toHtml();
         } catch (\Throwable $th) {
             DB::rollback();
-            Alert::error('Pemberitahuan', 'Data <b>'.$jadwal->id.'</b> gagal dibuat : '.$th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data <b>' . $jadwal->id . '</b> gagal dibuat : ' . $th->getMessage())->toToast()->toHtml();
         }
 
         return back();
@@ -221,7 +136,7 @@ class JadwalController extends Controller
                 'data' => $jadwal,
             ], 200);
         } catch (\Throwable $th) {
-            Alert::error('Pemberitahuan', 'Data gagal dibuat : '.$th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal dibuat : ' . $th->getMessage())->toToast()->toHtml();
 
             return response()->json([
                 'message' => 'Data tidak ditemukan',
@@ -261,10 +176,10 @@ class JadwalController extends Controller
             ]);
 
             DB::commit();
-            Alert::success('Pemberitahuan', 'Data <b>'.$jadwal->id.'</b> berhasil diupdate')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>' . $jadwal->id . '</b> berhasil diupdate')->toToast()->toHtml();
         } catch (\Throwable $th) {
             DB::rollback();
-            Alert::error('Pemberitahuan', 'Data gagal diupdate : '.$th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal diupdate : ' . $th->getMessage())->toToast()->toHtml();
         }
 
         return redirect()->route('admin.jadwal.index');
@@ -293,10 +208,10 @@ class JadwalController extends Controller
             ]);
 
             DB::commit();
-            Alert::success('Pemberitahuan', 'Data <b>'.$jadwal->id.'</b> berhasil diupdate')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>' . $jadwal->id . '</b> berhasil diupdate')->toToast()->toHtml();
         } catch (\Throwable $th) {
             DB::rollback();
-            Alert::error('Pemberitahuan', 'Data gagal diupdate : '.$th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data gagal diupdate : ' . $th->getMessage())->toToast()->toHtml();
         }
 
         return redirect()->route('admin.jadwal.index');
@@ -310,9 +225,9 @@ class JadwalController extends Controller
             $jadwal->update([
                 'status' => 'Cancel',
             ]);
-            Alert::success('Pemberitahuan', 'Data <b>'.$jadwal->id.'</b> berhasil dibatalkan')->toToast()->toHtml();
+            Alert::success('Pemberitahuan', 'Data <b>' . $jadwal->id . '</b> berhasil dibatalkan')->toToast()->toHtml();
         } catch (\Throwable $th) {
-            Alert::error('Pemberitahuan', 'Data <b>'.$jadwal->id.'</b> gagal dibatalkan : '.$th->getMessage())->toToast()->toHtml();
+            Alert::error('Pemberitahuan', 'Data <b>' . $jadwal->id . '</b> gagal dibatalkan : ' . $th->getMessage())->toToast()->toHtml();
         }
 
         return back();
