@@ -56,34 +56,51 @@
                                     <tbody>
                                         @foreach ($bookings as $index => $booking)
                                             <tr>
-                                                <td>{{ $index + 1 }}</td>
-                                                <td>{{ $booking->jadwal->tgl_acara }}</td>
-                                                <td>{{ $booking->jadwal->jam }}</td>
-                                                <td>{{ $booking->jadwal->deskripsi_acara }}</td>
-                                                <td id="status-{{ $booking->id }}">{{ $booking->status_booking }}</td>
-                                                <td>{{ optional($booking->fotografer)->nama }}</td>
-                                                <td>{{ $booking->created_at->format('d M Y H:i') }}</td>
+                                                <td>{{ $index + 1 ?? '-' }}</td>
+                                                <td>{{ $booking->jadwal->tgl_acara ?? '-' }}</td>
+                                                <td>{{ $booking->jadwal->jam ?? '-' }}</td>
+                                                <td>{{ $booking->jadwal->deskripsi_acara ?? '-' }}</td>
+                                                <td id="status-{{ $booking->id }}">{{ $booking->status_booking ?? '-' }}
+                                                </td>
+                                                <td>{{ $booking->fotografer->nama ?? '-' }}</td>
+                                                <td>{{ $booking->created_at->format('d M Y H:i') ?? '-' }}</td>
                                                 <td class="countdown"
-                                                    data-created-at="{{ $booking->created_at->toIso8601String() }}"></td>
+                                                    data-cancellation-deadline="{{ $booking->cancellation_deadline->toIso8601String() }}">
+                                                </td>
+
+
+
                                                 <td>
                                                     @if (Auth::user()->role->name == 'fotografer')
-                                                        <a href="{{ route('admin.jadwal.show', $booking->jadwal_id) }}"
-                                                            class="btn btn-info btn-sm">Lihat</a>
-                                                        <a href="{{ route('admin.jadwal.edit', $booking->jadwal_id) }}"
-                                                            class="btn btn-warning btn-sm">Edit</a>
-                                                        <a href="{{ route('admin.jadwal.editStatus', $booking->jadwal_id) }}"
-                                                            class="btn btn-primary btn-sm">Selesaikan</a>
-                                                        <form
-                                                            action="{{ route('admin.jadwal.destroy', $booking->jadwal_id) }}"
-                                                            method="POST" style="display: inline-block;">
+                                                        <a class="btn btn-info btn-sm m-1"
+                                                            href="{{ Route('admin.booking.show', $booking->id) }}">
+                                                            Lihat</a>
+                                                        <form id="destroy-booking"
+                                                            action="{{ route('admin.booking.destroy', $booking->id) }}"
+                                                            method="POST">
+                                                            <button type="submit"
+                                                                class="btn btn-danger btn-sm m-1">Batalkan</button>
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit"
-                                                                class="btn btn-danger btn-sm">Batalkan</button>
                                                         </form>
                                                     @else
-                                                        <a href="{{ route('admin.jadwal.show', $booking->jadwal_id) }}"
-                                                            class="btn btn-info btn-sm">Lihat</a>
+                                                        <a class="btn btn-info btn-sm m-1"
+                                                            href="{{ Route('admin.booking.show', $booking->id) }}">
+                                                            Lihat</a>
+                                                        <a class="btn btn-primary btn-sm m-1 {{ $booking->bukti_booking == null ?: 'd-none' }}"
+                                                            href="{{ Route('admin.booking.editDP', $booking->id) }}">
+                                                            Bayar DP</a>
+                                                        <a class="btn btn-warning btn-sm m-1 {{ $booking->bukti_bayar == null ?: 'd-none' }}"
+                                                            href="{{ Route('admin.booking.edit', $booking->id) }}">
+                                                            Pelunasan</a>
+                                                        <form id="destroy-booking"
+                                                            action="{{ route('admin.booking.destroy', $booking->id) }}"
+                                                            method="POST">
+                                                            <button type="submit"
+                                                                class="btn btn-danger btn-sm m-1 {{ $booking->bukti_booking == null || $booking->bukti_bayar == null ?: 'd-none' }}">Batalkan</button>
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -104,25 +121,42 @@
             function updateCountdown() {
                 const elements = document.querySelectorAll('.countdown');
                 elements.forEach(el => {
-                    const createdAt = new Date(el.dataset.createdAt);
+                    const cancellationDeadline = new Date(el.dataset.cancellationDeadline);
                     const now = new Date();
-                    const diff = now - createdAt;
-                    const minutes = Math.floor(diff / 60000);
-                    const hours = Math.floor(minutes / 60);
-                    const days = Math.floor(hours / 24);
-                    const formatted = days > 0 ?
-                        `${days} days ago` :
-                        hours > 0 ?
-                        `${hours} hours ago` :
-                        minutes > 0 ?
-                        `${minutes} minutes ago` :
-                        'just now';
-                    el.textContent = formatted;
+                    const diff = cancellationDeadline - now;
+
+                    if (diff > 0) { // Check if there is remaining time
+                        const seconds = Math.floor(diff / 1000);
+                        const minutes = Math.floor(seconds / 60);
+                        const hours = Math.floor(minutes / 60);
+                        const days = Math.floor(hours / 24);
+
+                        const secondsDisplay = seconds % 60;
+                        const minutesDisplay = minutes % 60;
+                        const hoursDisplay = hours % 24;
+
+                        const formatted = days > 0 ?
+                            `${days} hari, ${hoursDisplay} jam, ${minutesDisplay} menit, ${secondsDisplay} detik lagi` :
+                            hours > 0 ?
+                            `${hours} jam, ${minutesDisplay} menit, ${secondsDisplay} detik lagi` :
+                            minutes > 0 ?
+                            `${minutes} menit, ${secondsDisplay} detik lagi` :
+                            `${secondsDisplay} detik lagi`;
+
+                        el.textContent = formatted;
+                    } else {
+                        el.textContent = 'Waktu habis';
+                        // Disable buttons and update status
+                        const row = el.closest('tr');
+                        row.querySelectorAll('.btn').forEach(btn => btn.classList.add('disabled'));
+                        row.querySelectorAll('form').forEach(form => form.classList.add('d-none'));
+                        row.querySelector(`#status-${row.dataset.bookingId}`).textContent = 'Dibatalkan';
+                    }
                 });
             }
 
-            // Update countdown every minute
-            setInterval(updateCountdown, 60000);
+            // Update countdown every second for real-time accuracy
+            setInterval(updateCountdown, 1000);
             updateCountdown(); // Initial call
         });
     </script>

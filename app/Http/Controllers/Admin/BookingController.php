@@ -74,22 +74,15 @@ class BookingController extends Controller
         $title = 'Booking';
 
         // Ambil semua booking yang terkait dengan user yang sedang login
-        $bookings = Booking::with(['jadwal', 'pelanggan', 'fotografer', 'produk'])
-            ->where(function ($query) {
-                if (Auth::user()->role->name == 'pelanggan') {
-                    $query->where('pelanggan_id', Auth::user()->id);
-                } elseif (Auth::user()->role->name == 'fotografer') {
-                    $query->whereHas('produk', function ($query) {
-                        $query->where('fotografer_id', Auth::user()->id);
-                    });
-                }
-            })
-            ->get();
-        // Tambahkan waktu mundur dan format created_at
-        $bookings->each(function ($booking) {
-            $booking->formatted_created_at = Carbon::parse($booking->created_at)->format('d M Y H:i');
-            $booking->time_elapsed = Carbon::parse($booking->created_at)->diffForHumans();
-        });
+        // Controller
+        $bookings = Booking::with('jadwal', 'fotografer', 'produk', 'pelanggan')
+            ->where('status_booking', 'Booking')
+            ->get()
+            ->map(function ($booking) {
+                // Calculate and format cancellation deadline
+                $booking->cancellation_deadline = $booking->created_at->addHours(24); // Example: 24 hours deadline
+                return $booking;
+            });
 
         return view('admin.booking.index', compact('title', 'bookings'));
     }
