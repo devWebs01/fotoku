@@ -220,7 +220,7 @@ class FotograferController extends Controller
             Alert::error('Pemberitahuan', 'Data <b>'.$fotografer->id.'</b> gagal diupdate : '.$th->getMessage())->toToast()->toHtml();
         }
 
-        return redirect()->route('home');
+        return redirect('/admin/dashboard');
     }
 
     public function destroy(Fotografer $fotografer)

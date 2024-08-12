@@ -211,7 +211,7 @@ class UserController extends Controller
             Alert::error('Pemberitahuan', 'Data gagal diupdate : '.$th->getMessage())->toToast()->toHtml();
         }
 
-        return redirect()->route('home');
+        return redirect('/admin/dashboard');
     }
 
     public function destroy(User $pelanggan)
