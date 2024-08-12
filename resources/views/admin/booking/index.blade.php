@@ -60,7 +60,7 @@
                                                 <td>{{ $booking->jadwal->tgl_acara ?? '-' }}</td>
                                                 <td>{{ $booking->jadwal->jam ?? '-' }}</td>
                                                 <td>{{ $booking->jadwal->deskripsi_acara ?? '-' }}</td>
-                                                <td id="status-{{ $booking->id }}">{{ $booking->status_booking ?? '-' }}
+                                                <td>{{ $booking->jadwal->status ?? '-' }}
                                                 </td>
                                                 <td>{{ $booking->fotografer->nama ?? '-' }}</td>
                                                 <td>{{ $booking->created_at->format('d M Y H:i') ?? '-' }}</td>

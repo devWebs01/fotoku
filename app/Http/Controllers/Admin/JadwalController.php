@@ -95,7 +95,7 @@ class JadwalController extends Controller
             })->pluck('jadwal_id');
             $jadwals = Jadwal::whereIn('id', $bookingIds)->get();
         } else {
-            $jadwals = Jadwal::where('status', '!=', 'Booking')->get();
+            $jadwals = Jadwal::get();
         }
 
         return view('admin.jadwal.index', compact('title', 'jadwals'));

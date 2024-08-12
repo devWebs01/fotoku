@@ -62,17 +62,6 @@
                                                         @if (Auth::user()->role->name == 'fotografer')
                                                             <a href="{{ route('admin.jadwal.show', $jadwal->id) }}"
                                                                 class="btn btn-info btn-sm">Lihat</a>
-                                                            <a href="{{ route('admin.jadwal.edit', $jadwal->id) }}"
-                                                                class="btn btn-warning btn-sm">Edit</a>
-                                                            <a href="{{ route('admin.jadwal.editStatus', $jadwal->id) }}"
-                                                                class="btn btn-primary btn-sm">Selesaikan</a>
-                                                            <form action="{{ route('admin.jadwal.destroy', $jadwal->id) }}"
-                                                                method="POST" style="display: inline-block;">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="btn btn-danger btn-sm">Batalkan</button>
-                                                            </form>
                                                         @else
                                                             <a href="{{ route('admin.jadwal.show', $jadwal->id) }}"
                                                                 class="btn btn-info btn-sm">Lihat</a>
