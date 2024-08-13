@@ -16,9 +16,9 @@
                 </div>
             </div>
         </div>
-       
+
     </div>
-    
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -32,7 +32,7 @@
 
                         <div class="card-body">
                             <div class="form-group">
-                                <x-table-show :thtd="['tgl_acara' => $data->tgl_acara,'jam' => $data->jam,'status' => $data->status,'link_foto' => $data->link_foto,'Tanggal Input' => $data->created_at, 'Tanggal Update' => $data->updated_at ]" />
+                                <x-table-show :thtd="['tgl_acara' => $data->tgl_acara,'jam' => $data->jam,'status' => $data->bookings->first()->status_booking,'link_foto' => $data->link_foto,'Tanggal Input' => $data->created_at, 'Tanggal Update' => $data->updated_at ]" />
                             </div>
                         </div>
                     </div>

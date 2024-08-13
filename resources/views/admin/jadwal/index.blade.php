@@ -36,40 +36,38 @@
                                 <div class="table-responsive">
 
                                     <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Tanggal Acara</th>
-                                                <th>Jam</th>
-                                                <th>Deskripsi Acara</th>
-                                                <th>Status</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($jadwals as $index => $jadwal)
+                                        <table class="table table-bordered">
+                                            <thead>
                                                 <tr>
-                                                    <td>{{ $index + 1 }}</td>
-                                                    <td>{{ $jadwal->tgl_acara }}</td>
-                                                    <td>{{ $jadwal->jam }}</td>
-                                                    <td>{{ $jadwal->deskripsi_acara }}</td>
-                                                    <td>
-                                                        @foreach ($jadwal->bookings as $booking)
-                                                            {{ $booking->pelanggan->nama ?? 'Nama tidak ditemukan' }}
-                                                        @endforeach
-                                                    </td>
-                                                    <td>
-                                                        @if (Auth::user()->role->name == 'fotografer')
-                                                            <a href="{{ route('admin.jadwal.show', $jadwal->id) }}"
-                                                                class="btn btn-info btn-sm">Lihat</a>
-                                                        @else
-                                                            <a href="{{ route('admin.jadwal.show', $jadwal->id) }}"
-                                                                class="btn btn-info btn-sm">Lihat</a>
-                                                        @endif
-                                                    </td>
+                                                    <th>No</th>
+                                                    <th>Tanggal Acara</th>
+                                                    <th>Jam</th>
+                                                    <th>Deskripsi Acara</th>
+                                                    <th>Status</th>
+                                                    <th>Aksi</th>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($jadwals as $index => $jadwal)
+                                                    <tr>
+                                                        <td>{{ $index + 1 }}</td>
+                                                        <td>{{ $jadwal->tgl_acara }}</td>
+                                                        <td>{{ $jadwal->jam }}</td>
+                                                        <td>{{ $jadwal->deskripsi_acara }}</td>
+                                                        <td>{{ $jadwal->bookings->first()->status_booking }}</td>
+                                                        <td>
+                                                            @if (Auth::user()->role->name == 'fotografer')
+                                                                <a href="{{ route('admin.jadwal.show', $jadwal->id) }}"
+                                                                    class="btn btn-info btn-sm">Lihat</a>
+                                                            @else
+                                                                <a href="{{ route('admin.jadwal.show', $jadwal->id) }}"
+                                                                    class="btn btn-info btn-sm">Lihat</a>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </table>
                                 </div>
                             </div>

@@ -76,7 +76,7 @@ class BookingController extends Controller
         // Ambil semua booking yang terkait dengan user yang sedang login
         // Controller
         $bookings = Booking::with('jadwal', 'fotografer', 'produk', 'pelanggan')
-            ->where('status_booking', 'Booking')
+            ->latest()
             ->get()
             ->map(function ($booking) {
                 // Calculate and format cancellation deadline
@@ -105,7 +105,10 @@ class BookingController extends Controller
             'tgl_acara' => ['required'],
             'jam' => ['required'],
             'deskripsi_acara' => ['required'],
+        ], [
+            'tgl_acara.after_or_equal' => 'Tanggal acara harus lebih dari atau sama dengan hari ini.',
         ]);
+
         $jadwal = Jadwal::create([
             'tgl_acara' => Carbon::createFromFormat('d/m/Y', $request->tgl_acara)->format('Y-m-d'),
             'jam' => $request->jam,

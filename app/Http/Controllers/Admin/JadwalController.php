@@ -86,20 +86,32 @@ class JadwalController extends Controller
     {
         $title = 'Jadwal';
 
-        if (Auth::check() && Auth::user()->role->name == 'pelanggan') {
-            $bookingIds = Booking::where('pelanggan_id', Auth::user()->id)->pluck('jadwal_id');
-            $jadwals = Jadwal::whereIn('id', $bookingIds)->get();
-        } elseif (Auth::check() && Auth::user()->role->name == 'fotografer') {
-            $bookingIds = Booking::whereHas('produk', function ($query) {
-                $query->where('fotografer_id', Auth::user()->id);
-            })->pluck('jadwal_id');
-            $jadwals = Jadwal::whereIn('id', $bookingIds)->get();
+        // Cek apakah pengguna terautentikasi
+        if (Auth::check()) {
+            // Jika pengguna adalah pelanggan, ambil jadwal berdasarkan booking mereka
+            if (Auth::user()->role->name == 'pelanggan') {
+                $bookingIds = Booking::where('pelanggan_id', Auth::user()->id)->pluck('jadwal_id');
+                $jadwals = Jadwal::whereIn('id', $bookingIds)->get();
+            }
+            // Jika pengguna adalah fotografer, ambil jadwal berdasarkan produk mereka
+            elseif (Auth::user()->role->name == 'fotografer') {
+                $bookingIds = Booking::whereHas('produk', function ($query) {
+                    $query->where('fotografer_id', Auth::user()->id);
+                })->pluck('jadwal_id');
+                $jadwals = Jadwal::whereIn('id', $bookingIds)->get();
+            }
+            // Jika pengguna adalah admin, ambil semua jadwal
+            else {
+                $jadwals = Jadwal::all();
+            }
         } else {
-            $jadwals = Jadwal::get();
+            // Jika pengguna tidak terautentikasi, tampilkan semua jadwal
+            $jadwals = Jadwal::all();
         }
 
         return view('admin.jadwal.index', compact('title', 'jadwals'));
     }
+
 
 
     public function create()
