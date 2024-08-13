@@ -57,7 +57,9 @@
                         <div class="collapse navbar-collapse float-right" id="navbarNavAltMarkup">
                             <div class="navbar-nav">
                                 <ul>
-                                    <li><a class="nav-item nav-link" href="{{ url('/#ujian') }}">Ujian</a></li>
+                                    <li><a class="nav-item nav-link" href="{{ url('/ujian') }}">Ujian</a></li>
+                                    <li>|</li>
+                                    <li><a class="nav-item nav-link" href="{{ url('/') }}">Home</a></li>
                                     <li>|</li>
                                     <li><a class="nav-item nav-link" href="{{ url('/') }}#about">Tentang Kami</a>
                                     </li>
@@ -204,10 +206,8 @@
         </div>
     </div>
     <!-- banner section end -->
-
     <!-- about section start -->
     <div class="about_section layout_padding" id="about">
-        <h1 id="ujian" class="display-1 text-center font-weight-bold">SAYA LAGI UJIAN</h1>
         <div class="container">
             <h1 class="about_text">Tentang Kami</h1>
             <p class="lorem_text">Selamat datang di<br>

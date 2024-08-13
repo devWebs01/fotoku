@@ -30,6 +30,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FrontController::class, 'index'])->name('index');
 
+Route::view('/ujian', 'ujian');
+
 Route::get('/fotografer', [FrontController::class, 'fotografer'])->name('fotografer_depan');
 
 Route::get('/fotografer_detail/{id}', [FrontController::class, 'fotograferDetail'])->name('fotografer_detail');
