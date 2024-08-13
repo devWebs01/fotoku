@@ -142,60 +142,39 @@
                     @if (!$produk->isEmpty())
                         <h3>Paket Produk</h3>
 
-                        <ul class="row">
+                        <div class="row">
                             @foreach ($produk as $item)
-                                <div class="col-6 col-md-4 card border bg-success rounded">
-                                    <div class="card-header border-0 d-block d-md-none">
+                                <div class="col-6 col-md-4 card border rounded bg-success">
+                                    <div class="card-header border-0">
                                         <div class="row justify-content-between">
-                                            <div class="col-auto mb-2">
+                                            <div class="col-auto m-1">
                                                 <a href="{{ Storage::url($item->gambar_1) }}" data-toggle="lightbox"
                                                     data-title="{{ $item->nama_produk }}">
                                                     <img src="{{ Storage::url($item->gambar_1) }}"
-                                                        style="object-fit: cover; width: 120px; height: 120px; "
+                                                        style="object-fit: cover; width: 250px; height: 250px;"
                                                         class="mr-3 img" alt="...">
                                                 </a>
-
                                             </div>
-                                            <div class="col-auto mb-2">
+                                            <div class="col-auto m-1">
                                                 <a href="{{ Storage::url($item->gambar_2) }}" data-toggle="lightbox"
                                                     data-title="{{ $item->nama_produk }}">
                                                     <img src="{{ Storage::url($item->gambar_2) }}"
-                                                        style="object-fit: cover; width: 120px; height: 120px;"
+                                                        style="object-fit: cover; width: 250px; height: 250px;"
                                                         class="mr-3 img" alt="...">
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        <li class="media my-2">
-                                            <div class="row">
-                                                <div class="col-auto m-1">
-                                                    <a href="{{ Storage::url($item->gambar_1) }}"
-                                                        data-toggle="lightbox" data-title="{{ $item->nama_produk }}">
-                                                        <img src="{{ Storage::url($item->gambar_1) }}"
-                                                            style="object-fit: cover; width: 150px; height: 150px; "
-                                                            class="mr-3 img d-none d-md-block" alt="...">
-                                                    </a>
-
-                                                </div>
-                                                <div class="col-auto m-1">
-                                                    <a href="{{ Storage::url($item->gambar_2) }}"
-                                                        data-toggle="lightbox" data-title="{{ $item->nama_produk }}">
-                                                        <img src="{{ Storage::url($item->gambar_2) }}"
-                                                            style="object-fit: cover; width: 150px; height: 150px;"
-                                                            class="mr-3 img d-none d-md-block" alt="...">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="media-body">
-                                                <h5 class="font-weight-bold mb-2">{{ $item->nama_produk }}</h5>
-                                                <h5 class="font-weight-bold">Rp.
-                                                    {{ number_format($item->harga, 0, ',', '.') }}
-                                                </h5>
-                                                <p class="m-0">{{ $item->info }}</p>
-                                            </div>
-                                        </li>
+                                        <h5 class="mt-0 mb-1 font-weight-bold">
+                                            {{ $item->nama_produk }}
+                                        </h5>
+                                        <h5 class="mt-0 mb-1 font-weight-bold">Rp.
+                                            {{ number_format($item->harga, 0, ',', '.') }}
+                                        </h5>
+                                        <p class="m-0">{{ $item->info }}</p>
                                     </div>
+                                    </li>
                                     <div class="card-footer">
                                         <a href="{{ route('admin.booking.create', ['produk' => $item->id]) }}"
                                             class="small-box-footer text-white">Booking Sekarang <i
@@ -203,7 +182,7 @@
                                     </div>
                                 </div>
                             @endforeach
-                        </ul>
+                        </div>
                     @else
                         <p>Tidak ada produk yang tersedia.</p>
                     @endif
@@ -254,7 +233,7 @@
                                 <a href="{{ Storage::url($item->name) }}" data-toggle="lightbox"
                                     data-title="{{ $item->judul }}" data-footer="{{ $item->deskripsi }}">
                                     <img src="{{ Storage::url($item->name) }}" class="img-fluid mb-2"
-                                        alt="white sample" style="width: 400px; height: 400px; object-fit: cover">
+                                        alt="white sample" style="width: 300px; height: 300px; object-fit: cover">
                                 </a>
                             </div>
                         @endforeach
