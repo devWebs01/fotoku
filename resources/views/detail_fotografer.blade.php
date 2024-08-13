@@ -189,13 +189,12 @@
                     <div class="filter-container p-0 row"
                         style="padding: 3px; position: relative; width: 100%; display: flex; flex-wrap: wrap; height: 337px;">
                         @foreach ($galeri as $item)
-                            <div class="filtr-item col-auto text-center" data-category="1"
-                                data-sort="{{ $item->judul }}"
+                            <div class="filtr-item col-sm-3" data-category="1" data-sort="{{ $item->judul }}"
                                 style="opacity: 1; transform: scale(1) translate3d(0px, 0px, 0px); backface-visibility: hidden; perspective: 1000px; transform-style: preserve-3d; position: absolute; width: 270.5px; transition: all 0.5s ease-out 0ms, width 1ms ease 0s;">
                                 <a href="{{ Storage::url($item->name) }}" data-toggle="lightbox"
                                     data-title="{{ $item->judul }}" data-footer="{{ $item->deskripsi }}">
                                     <img src="{{ Storage::url($item->name) }}" class="img-fluid mb-2"
-                                        alt="white sample" style="width: 200px; height: 200px; object-fit: cover">
+                                        alt="white sample">
                                 </a>
                             </div>
                         @endforeach
