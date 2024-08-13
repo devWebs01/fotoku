@@ -99,43 +99,37 @@ class BookingController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        $this->validate($request, [
-            'fotografer_id' => ['required'],
-            'produk_id' => ['required'],
-            'tgl_acara' => ['required'],
-            'jam' => ['required'],
-            'deskripsi_acara' => ['required'],
-        ], [
-            'tgl_acara.after_or_equal' => 'Tanggal acara harus lebih dari atau sama dengan hari ini.',
-        ]);
 
-        $jadwal = Jadwal::create([
-            'tgl_acara' => Carbon::createFromFormat('d/m/Y', $request->tgl_acara)->format('Y-m-d'),
-            'jam' => $request->jam,
-            'status' => 'Booking',
-            'deskripsi_acara' => $request->deskripsi_acara,
-        ]);
+        if (Auth()->user()->no_telp === null) {
+            return back()->with('error', 'Silakan lengkapi data Anda sebelum melakukan booking.');
+        } else {
 
-        $booking = Booking::create([
-            'produk_id' => $request->produk_id,
-            'jadwal_id' => $jadwal->id,
-            'status_booking' => 'Booking',
-            'pelanggan_id' => Auth::user()->id,
-        ]);
+            $this->validate($request, [
+                'fotografer_id' => ['required'],
+                'produk_id' => ['required'],
+                'tgl_acara' => ['required', 'date_format:d/m/Y', 'after_or_equal:' . now()->format('d/m/Y')],
+                'jam' => ['required', 'after_or_equal:' . now()->format('H:i')],
+                'deskripsi_acara' => ['required'],
+            ], [
+                'tgl_acara.after_or_equal' => 'Tanggal acara harus lebih dari atau sama dengan waktu sekarang.',
+            ]);
 
+            $jadwal = Jadwal::create([
+                'tgl_acara' => Carbon::createFromFormat('d/m/Y', $request->tgl_acara)->format('Y-m-d'),
+                'jam' => $request->jam,
+                'status' => 'Booking',
+                'deskripsi_acara' => $request->deskripsi_acara,
+            ]);
 
-        // try {
+            $booking = Booking::create([
+                'produk_id' => $request->produk_id,
+                'jadwal_id' => $jadwal->id,
+                'status_booking' => 'Booking',
+                'pelanggan_id' => Auth::user()->id,
+            ]);
 
-        //     DB::commit();
-        //     Alert::success('Pemberitahuan', 'Data <b>' . $booking->id . '</b> berhasil dibuat')->toToast()->toHtml();
-        // } catch (\Throwable $th) {
-        //     DB::rollback();
-        //     Alert::error('Pemberitahuan', 'Data gagal dibuat : ' . $th->getMessage())->toToast()->toHtml();
-
-        //     return back();
-        // }
-
-        return redirect()->route('admin.booking.show', $booking->id);
+            return redirect()->route('admin.booking.show', $booking->id);
+        }
     }
 
     public function show(Booking $booking)
