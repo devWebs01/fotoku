@@ -84,7 +84,7 @@
         </div>
         <!-- header section end -->
         <section class="content">
-            <div class="row" style="margin-top: 50px;">
+            <div class="row" style="margin-top: 100px;">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body table-responsive">
@@ -142,43 +142,95 @@
                     @if (!$produk->isEmpty())
                         <h3>Paket Produk</h3>
 
-                        <div class="row" style="display: flex;">
+                        <ul class="row">
                             @foreach ($produk as $item)
-                                <div class="col">
-                                    <div class="small-box bg-success" style="padding: 10px;">
-                                        <div class="inner" style="display: flex; gap: 20px;">
-                                            <div class="content text-left">
-                                                <h3>Rp. {{ number_format($item->harga, 0, ',', '.') }}</h3>
-
-                                                <p class="p-0 m-0">Info:
-                                                    <br>
-                                                    {{ $item->info }}
-                                                </p>
-                                            </div>
-                                            <div class="foto text-right justify-content-end">
+                                <div class="col-6 col-md-4 card border bg-success rounded">
+                                    <div class="card-header border-0 d-block d-md-none">
+                                        <div class="row justify-content-between">
+                                            <div class="col-auto mb-2">
                                                 <a href="{{ Storage::url($item->gambar_1) }}" data-toggle="lightbox"
                                                     data-title="{{ $item->nama_produk }}">
-                                                    <img src="{{ Storage::url($item->gambar_1) }}" class="img mb-2"
-                                                        style="object-fit: cover; width: 200px;" alt="white sample">
+                                                    <img src="{{ Storage::url($item->gambar_1) }}"
+                                                        style="object-fit: cover; width: 120px; height: 120px; "
+                                                        class="mr-3 img" alt="...">
                                                 </a>
+
+                                            </div>
+                                            <div class="col-auto mb-2">
                                                 <a href="{{ Storage::url($item->gambar_2) }}" data-toggle="lightbox"
                                                     data-title="{{ $item->nama_produk }}">
-                                                    <img src="{{ Storage::url($item->gambar_2) }}" class="img mb-2"
-                                                        style="object-fit: cover; width: 200px;" alt="white sample">
+                                                    <img src="{{ Storage::url($item->gambar_2) }}"
+                                                        style="object-fit: cover; width: 120px; height: 120px;"
+                                                        class="mr-3 img" alt="...">
                                                 </a>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <li class="media my-2">
+                                            <a href="{{ Storage::url($item->gambar_1) }}" data-toggle="lightbox"
+                                                data-title="{{ $item->nama_produk }}">
+                                                <img src="{{ Storage::url($item->gambar_1) }}"
+                                                    style="object-fit: cover; width: 150px; height: 150px; "
+                                                    class="mr-3 img d-none d-md-block" alt="...">
+                                            </a>
+                                            <a href="{{ Storage::url($item->gambar_2) }}" data-toggle="lightbox"
+                                                data-title="{{ $item->nama_produk }}">
+                                                <img src="{{ Storage::url($item->gambar_2) }}"
+                                                    style="object-fit: cover; width: 150px; height: 150px;"
+                                                    class="mr-3 img d-none d-md-block" alt="...">
+                                            </a>
+                                            <div class="media-body">
+                                                <h5 class="font-weight-bold mb-2">{{ $item->nama_produk }}</h5>
+                                                <h5 class="font-weight-bold">Rp.
+                                                    {{ number_format($item->harga, 0, ',', '.') }}
+                                                </h5>
+                                                <p class="m-0">{{ $item->info }}</p>
+                                            </div>
+                                        </li>
+                                    </div>
+                                    <div class="card-footer">
                                         <a href="{{ route('admin.booking.create', ['produk' => $item->id]) }}"
-                                            class="small-box-footer">Booking Sekarang <i
+                                            class="small-box-footer text-white">Booking Sekarang <i
                                                 class="fas fa-arrow-circle-right"></i></a>
                                     </div>
                                 </div>
                             @endforeach
-                        </div>
+                        </ul>
                     @else
                         <p>Tidak ada produk yang tersedia.</p>
                     @endif
+                    {{-- <div class="row" style="display: flex;">
+                        @foreach ($produk as $item)
+                            <div class="col-4">
+                                <div class="small-box bg-success" style="padding: 10px;">
+                                    <div class="inner" style="display: flex; gap: 20px;">
+                                        <div class="content">
+                                            <h3>Rp. {{ number_format($item->harga, 0, ',', '.') }}</h3>
 
+                                            <p>Info:</p>
+                                            <p>{{ $item->info }}</p>
+                                        </div>
+                                        <div class="foto" style="margin-left: 50px;">
+                                            <a href="{{ Storage::url($item->gambar_1) }}" data-toggle="lightbox"
+                                                data-title="{{ $item->nama_produk }}">
+                                                <img src="{{ Storage::url($item->gambar_1) }}" class="img-fluid mb-2"
+                                                    style="object-fit: cover;" alt="white sample" width="200px;">
+                                            </a>
+                                            <a href="{{ Storage::url($item->gambar_2) }}" data-toggle="lightbox"
+                                                data-title="{{ $item->nama_produk }}">
+                                                <img src="{{ Storage::url($item->gambar_2) }}" class="img-fluid mb-2"
+                                                    style="object-fit: cover;" alt="white sample" width="200px;">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <a href="{{ route('admin.booking.create', ['produk' => $item->id]) }}"
+                                        class="small-box-footer">Booking Sekarang <i
+                                            class="fas fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div> --}}
                 </div>
             </div>
             <div class="card" style="background-color: #a100ac41;">
@@ -189,12 +241,13 @@
                     <div class="filter-container p-0 row"
                         style="padding: 3px; position: relative; width: 100%; display: flex; flex-wrap: wrap; height: 337px;">
                         @foreach ($galeri as $item)
-                            <div class="filtr-item col-sm-3" data-category="1" data-sort="{{ $item->judul }}"
+                            <div class="filtr-item col-auto text-center" data-category="1"
+                                data-sort="{{ $item->judul }}"
                                 style="opacity: 1; transform: scale(1) translate3d(0px, 0px, 0px); backface-visibility: hidden; perspective: 1000px; transform-style: preserve-3d; position: absolute; width: 270.5px; transition: all 0.5s ease-out 0ms, width 1ms ease 0s;">
                                 <a href="{{ Storage::url($item->name) }}" data-toggle="lightbox"
                                     data-title="{{ $item->judul }}" data-footer="{{ $item->deskripsi }}">
                                     <img src="{{ Storage::url($item->name) }}" class="img-fluid mb-2"
-                                        alt="white sample">
+                                        alt="white sample" style="width: 400px; height: 400px; object-fit: cover">
                                 </a>
                             </div>
                         @endforeach
