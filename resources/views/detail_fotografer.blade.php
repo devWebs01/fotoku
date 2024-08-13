@@ -83,8 +83,8 @@
             </div>
         </div>
         <!-- header section end -->
-        <section class="content" style="padding: 50px;">
-            <div class="row" style="margin-top: 100px;">
+        <section class="content">
+            <div class="row" style="margin-top: 50px;">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body table-responsive">
@@ -142,73 +142,43 @@
                     @if (!$produk->isEmpty())
                         <h3>Paket Produk</h3>
 
-                        <ul class="list-unstyled">
+                        <div class="row" style="display: flex;">
                             @foreach ($produk as $item)
-                                <div class="card border rounded">
-                                    <div class="card-body">
-                                        <li class="media my-2">
-                                            <a href="{{ Storage::url($item->gambar_1) }}" data-toggle="lightbox"
-                                                data-title="{{ $item->nama_produk }}">
-                                                <img src="{{ Storage::url($item->gambar_1) }}"
-                                                    style="object-fit: cover; width: 150px; height: 150px; "
-                                                    class="mr-3 img d-none d-md-block" alt="...">
-                                            </a>
-                                            <a href="{{ Storage::url($item->gambar_2) }}" data-toggle="lightbox"
-                                                data-title="{{ $item->nama_produk }}">
-                                                <img src="{{ Storage::url($item->gambar_2) }}"
-                                                    style="object-fit: cover; width: 150px; height: 150px;"
-                                                    class="mr-3 img d-none d-md-block" alt="...">
-                                            </a>
-                                            <div class="media-body">
-                                                <h5 class="mt-0 mb-1 font-weight-bold">Rp.
-                                                    {{ number_format($item->harga, 0, ',', '.') }}
-                                                </h5>
-                                                <p>{{ $item->info }}</p>
+                                <div class="col">
+                                    <div class="small-box bg-success" style="padding: 10px;">
+                                        <div class="inner" style="display: flex; gap: 20px;">
+                                            <div class="content text-left">
+                                                <h3>Rp. {{ number_format($item->harga, 0, ',', '.') }}</h3>
+
+                                                <p class="p-0 m-0">Info:
+                                                    <br>
+                                                    {{ $item->info }}
+                                                </p>
                                             </div>
-                                        </li>
-                                    </div>
-                                    <div class="card-footer">
+                                            <div class="foto text-right justify-content-end">
+                                                <a href="{{ Storage::url($item->gambar_1) }}" data-toggle="lightbox"
+                                                    data-title="{{ $item->nama_produk }}">
+                                                    <img src="{{ Storage::url($item->gambar_1) }}" class="img mb-2"
+                                                        style="object-fit: cover; width: 200px;" alt="white sample">
+                                                </a>
+                                                <a href="{{ Storage::url($item->gambar_2) }}" data-toggle="lightbox"
+                                                    data-title="{{ $item->nama_produk }}">
+                                                    <img src="{{ Storage::url($item->gambar_2) }}" class="img mb-2"
+                                                        style="object-fit: cover; width: 200px;" alt="white sample">
+                                                </a>
+                                            </div>
+                                        </div>
                                         <a href="{{ route('admin.booking.create', ['produk' => $item->id]) }}"
                                             class="small-box-footer">Booking Sekarang <i
                                                 class="fas fa-arrow-circle-right"></i></a>
                                     </div>
                                 </div>
                             @endforeach
-                        </ul>
+                        </div>
                     @else
                         <p>Tidak ada produk yang tersedia.</p>
                     @endif
-                    {{-- <div class="row" style="display: flex;">
-                        @foreach ($produk as $item)
-                            <div class="col-4">
-                                <div class="small-box bg-success" style="padding: 10px;">
-                                    <div class="inner" style="display: flex; gap: 20px;">
-                                        <div class="content">
-                                            <h3>Rp. {{ number_format($item->harga, 0, ',', '.') }}</h3>
 
-                                            <p>Info:</p>
-                                            <p>{{ $item->info }}</p>
-                                        </div>
-                                        <div class="foto" style="margin-left: 50px;">
-                                            <a href="{{ Storage::url($item->gambar_1) }}" data-toggle="lightbox"
-                                                data-title="{{ $item->nama_produk }}">
-                                                <img src="{{ Storage::url($item->gambar_1) }}" class="img-fluid mb-2"
-                                                    style="object-fit: cover;" alt="white sample" width="200px;">
-                                            </a>
-                                            <a href="{{ Storage::url($item->gambar_2) }}" data-toggle="lightbox"
-                                                data-title="{{ $item->nama_produk }}">
-                                                <img src="{{ Storage::url($item->gambar_2) }}" class="img-fluid mb-2"
-                                                    style="object-fit: cover;" alt="white sample" width="200px;">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <a href="{{ route('admin.booking.create', ['produk' => $item->id]) }}"
-                                        class="small-box-footer">Booking Sekarang <i
-                                            class="fas fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div> --}}
                 </div>
             </div>
             <div class="card" style="background-color: #a100ac41;">
@@ -275,85 +245,86 @@
                 </div>
             </div>
         </div>
-        <!-- footer section end -->
-        <!-- copyright section start -->
+    </div>
+    <!-- footer section end -->
+    <!-- copyright section start -->
 
-        <!-- copyright section end -->
+    <!-- copyright section end -->
 
 
-        <!-- Javascript files-->
-        <script src="{{ asset('frontend/js/jquery.min.js') }}"></script>
-        <script src="{{ asset('frontend/js/popper.min.js') }}"></script>
-        <script src="{{ asset('frontend/js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ asset('frontend/js/jquery-3.0.0.min.js') }}"></script>
-        <script src="{{ asset('frontend/js/plugin.js') }}"></script>
-        <!-- sidebar -->
-        <script src="{{ asset('frontend/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
-        <script src="{{ asset('frontend/js/custom.js') }}"></script>
-        <!-- javascript -->
-        <script src="{{ asset('frontend/js/owl.carousel.js') }}"></script>
-        <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <!-- Javascript files-->
+    <script src="{{ asset('frontend/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/popper.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery-3.0.0.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/plugin.js') }}"></script>
+    <!-- sidebar -->
+    <script src="{{ asset('frontend/js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/custom.js') }}"></script>
+    <!-- javascript -->
+    <script src="{{ asset('frontend/js/owl.carousel.js') }}"></script>
+    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
 
-        <script src="{{ asset('template/admin/dist/js/adminlte.js') }}"></script>
-        <script src="https://adminlte.io/themes/v3/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
-        <script src="https://adminlte.io/themes/v3/plugins/filterizr/jquery.filterizr.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                $(".fancybox").fancybox({
-                    openEffect: "none",
-                    closeEffect: "none"
-                });
+    <script src="{{ asset('template/admin/dist/js/adminlte.js') }}"></script>
+    <script src="https://adminlte.io/themes/v3/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+    <script src="https://adminlte.io/themes/v3/plugins/filterizr/jquery.filterizr.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".fancybox").fancybox({
+                openEffect: "none",
+                closeEffect: "none"
+            });
 
-                $(".zoom").hover(function() {
+            $(".zoom").hover(function() {
 
-                    $(this).addClass('transition');
-                }, function() {
+                $(this).addClass('transition');
+            }, function() {
 
-                    $(this).removeClass('transition');
+                $(this).removeClass('transition');
+            });
+        });
+
+
+        $('#myCarousel').carousel({
+            interval: false
+        });
+
+        //scroll slides on swipe for touch enabled devices
+
+        $("#myCarousel").on("touchstart", function(event) {
+
+            var yClick = event.originalEvent.touches[0].pageY;
+            $(this).one("touchmove", function(event) {
+
+                var yMove = event.originalEvent.touches[0].pageY;
+                if (Math.floor(yClick - yMove) > 1) {
+                    $(".carousel").carousel('next');
+                } else if (Math.floor(yClick - yMove) < -1) {
+                    $(".carousel").carousel('prev');
+                }
+            });
+            $(".carousel").on("touchend", function() {
+                $(this).off("touchmove");
+            });
+        });
+
+        $(function() {
+            $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox({
+                    alwaysShowClose: true
                 });
             });
 
-
-            $('#myCarousel').carousel({
-                interval: false
+            $('.filter-container').filterizr({
+                gutterPixels: 3
             });
-
-            //scroll slides on swipe for touch enabled devices
-
-            $("#myCarousel").on("touchstart", function(event) {
-
-                var yClick = event.originalEvent.touches[0].pageY;
-                $(this).one("touchmove", function(event) {
-
-                    var yMove = event.originalEvent.touches[0].pageY;
-                    if (Math.floor(yClick - yMove) > 1) {
-                        $(".carousel").carousel('next');
-                    } else if (Math.floor(yClick - yMove) < -1) {
-                        $(".carousel").carousel('prev');
-                    }
-                });
-                $(".carousel").on("touchend", function() {
-                    $(this).off("touchmove");
-                });
+            $('.btn[data-filter]').on('click', function() {
+                $('.btn[data-filter]').removeClass('active');
+                $(this).addClass('active');
             });
-
-            $(function() {
-                $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-                    event.preventDefault();
-                    $(this).ekkoLightbox({
-                        alwaysShowClose: true
-                    });
-                });
-
-                $('.filter-container').filterizr({
-                    gutterPixels: 3
-                });
-                $('.btn[data-filter]').on('click', function() {
-                    $('.btn[data-filter]').removeClass('active');
-                    $(this).addClass('active');
-                });
-            })
-        </script>
+        })
+    </script>
 
 
 

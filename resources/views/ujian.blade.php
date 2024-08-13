@@ -87,8 +87,10 @@
     </div>
     <!-- header section end -->
     <!-- banner section stert -->
-    <div class="text-center">
-        <h1 id="ujian" class="display-1 text-center font-weight-bold">SAYA LAGI UJIAN</h1>
+    <div class="contact_section bg-white">
+        <div class="container-fluid text-center">
+            <h1 id="ujian" class="display-1 text-center font-weight-bold">SAYA LAGI UJIAN</h1>
+        </div>
     </div>
 
     <!-- Javascript files-->
@@ -103,61 +105,6 @@
     <!-- javascript -->
     <script src="{{ asset('frontend/js/owl.carousel.js') }}"></script>
     <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
-    <script>
-        function submitForm() {
-            $('#form-daftar').submit();
-        }
-
-        document.getElementById('whatsapp-button').addEventListener('click', function() {
-            var phoneNumber = $(this).attr("data-hp"); // Ganti dengan nomor telepon yang ingin Anda tuju
-            var message = 'Halo, saya ingin menghubungi Anda.'; // Ganti dengan pesan yang ingin Anda kirim
-            // Membuat URL Scheme WhatsApp dengan nomor telepon dan pesan
-            var url = 'https://api.whatsapp.com/send?phone=' + encodeURIComponent(phoneNumber) + '&text=' +
-                encodeURIComponent(message);
-            // Buka URL Scheme WhatsApp di tab atau jendela baru
-            window.open(url, '_blank');
-        })
-        $(document).ready(function() {
-            $(".fancybox").fancybox({
-                openEffect: "none",
-                closeEffect: "none"
-            });
-
-            $(".zoom").hover(function() {
-
-                $(this).addClass('transition');
-            }, function() {
-
-                $(this).removeClass('transition');
-            });
-        });
-
-
-        $('#myCarousel').carousel({
-            interval: false
-        });
-
-        //scroll slides on swipe for touch enabled devices
-
-        $("#myCarousel").on("touchstart", function(event) {
-
-            var yClick = event.originalEvent.touches[0].pageY;
-            $(this).one("touchmove", function(event) {
-
-                var yMove = event.originalEvent.touches[0].pageY;
-                if (Math.floor(yClick - yMove) > 1) {
-                    $(".carousel").carousel('next');
-                } else if (Math.floor(yClick - yMove) < -1) {
-                    $(".carousel").carousel('prev');
-                }
-            });
-            $(".carousel").on("touchend", function() {
-                $(this).off("touchmove");
-            });
-        });
-    </script>
-
-
 
 </body>
 
