@@ -168,18 +168,25 @@
                                     </div>
                                     <div class="card-body">
                                         <li class="media my-2">
-                                            <a href="{{ Storage::url($item->gambar_1) }}" data-toggle="lightbox"
-                                                data-title="{{ $item->nama_produk }}">
-                                                <img src="{{ Storage::url($item->gambar_1) }}"
-                                                    style="object-fit: cover; width: 150px; height: 150px; "
-                                                    class="mr-3 img d-none d-md-block" alt="...">
-                                            </a>
-                                            <a href="{{ Storage::url($item->gambar_2) }}" data-toggle="lightbox"
-                                                data-title="{{ $item->nama_produk }}">
-                                                <img src="{{ Storage::url($item->gambar_2) }}"
-                                                    style="object-fit: cover; width: 150px; height: 150px;"
-                                                    class="mr-3 img d-none d-md-block" alt="...">
-                                            </a>
+                                            <div class="row">
+                                                <div class="col-auto m-1">
+                                                    <a href="{{ Storage::url($item->gambar_1) }}"
+                                                        data-toggle="lightbox" data-title="{{ $item->nama_produk }}">
+                                                        <img src="{{ Storage::url($item->gambar_1) }}"
+                                                            style="object-fit: cover; width: 150px; height: 150px; "
+                                                            class="mr-3 img d-none d-md-block" alt="...">
+                                                    </a>
+
+                                                </div>
+                                                <div class="col-auto m-1">
+                                                    <a href="{{ Storage::url($item->gambar_2) }}"
+                                                        data-toggle="lightbox" data-title="{{ $item->nama_produk }}">
+                                                        <img src="{{ Storage::url($item->gambar_2) }}"
+                                                            style="object-fit: cover; width: 150px; height: 150px;"
+                                                            class="mr-3 img d-none d-md-block" alt="...">
+                                                    </a>
+                                                </div>
+                                            </div>
                                             <div class="media-body">
                                                 <h5 class="font-weight-bold mb-2">{{ $item->nama_produk }}</h5>
                                                 <h5 class="font-weight-bold">Rp.
